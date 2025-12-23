@@ -1,0 +1,152 @@
+[
+    {
+        "id": "ID-2049",
+        "title": "Neural Search Engine",
+        "status": "DEPLOYED",
+        "summary": "High-dimensional vector search optimized for semantic queries on edge devices.",
+        "problem": "Traditional keyword search fails to capture semantic meaning, while existing vector search solutions are too heavy for edge device deployment. We needed a lightweight, low-latency semantic retrieval system for mobile clients with limited compute budgets.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Embedding Generation",
+                "description": "Distilled BERT model quantized to int8, running on ONNX Runtime for 4x faster inference."
+            },
+            {
+                "step": "02",
+                "title": "Vector Indexing",
+                "description": "Custom HNSW implementation optimized for memory locality, reducing cache misses by 30%."
+            },
+            {
+                "step": "03",
+                "title": "Reranking",
+                "description": "Lightweight cross-encoder pass on top-k results to improve precision without latency penalty."
+            }
+        ],
+        "tags": [
+            "NLP",
+            "Search"
+        ],
+        "tech": [
+            "Python",
+            "PyTorch",
+            "Rust",
+            "Docker",
+            "AWS Lambda",
+            "Redis"
+        ],
+        "metrics": {
+            "latency": {
+                "value": "18ms",
+                "label": "LATENCY (P99)",
+                "baseline": "vs 120ms baseline"
+            },
+            "modelSize": {
+                "value": "45MB",
+                "label": "MODEL SIZE",
+                "note": "Fit for mobile DL"
+            },
+            "throughput": {
+                "value": "2.5k",
+                "label": "THROUGHPUT",
+                "note": "Req/sec per node"
+            }
+        },
+        "links": {
+            "code": "#",
+            "demo": "#"
+        },
+        "screenshots": "projects/neural-search",
+        "lastUpdated": "2023-11-14",
+        "zone": "US-EAST-1",
+        "pid": "83920"
+    },
+    {
+        "id": "ID-8812",
+        "title": "Alpha-Trade Bot",
+        "status": "EXPERIMENT",
+        "summary": "Reinforcement learning agent for high-frequency cryptocurrency arbitrage.",
+        "problem": "Cryptocurrency markets exhibit micro-inefficiencies that can be exploited with fast-acting automated systems. Built to test RL strategies in live trading conditions.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Market Data Ingestion",
+                "description": "WebSocket connections to 5 major exchanges with sub-10ms latency."
+            },
+            {
+                "step": "02",
+                "title": "Signal Detection",
+                "description": "PPO-based agent trained on historical spread data."
+            },
+            {
+                "step": "03",
+                "title": "Execution Engine",
+                "description": "Rate-limited order placement with slippage management."
+            }
+        ],
+        "tags": [
+            "FinTech",
+            "RL"
+        ],
+        "tech": [
+            "Python",
+            "TensorFlow",
+            "Redis",
+            "WebSocket"
+        ],
+        "metrics": {
+            "avgReturn": {
+                "value": "2.3%",
+                "label": "AVG DAILY RETURN",
+                "note": "Backtested"
+            },
+            "sharpe": {
+                "value": "1.8",
+                "label": "SHARPE RATIO",
+                "note": "Annualized"
+            }
+        },
+        "links": {
+            "code": "#"
+        },
+        "lastUpdated": "2023-09-20"
+    },
+    {
+        "id": "ID-1004",
+        "title": "Distributed Cache",
+        "status": "ARCHIVED",
+        "summary": "Custom in-memory key-value store with eventual consistency protocol.",
+        "problem": "Needed a lightweight caching layer that could handle partition tolerance in edge deployments.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Hash Ring",
+                "description": "Consistent hashing for node distribution."
+            },
+            {
+                "step": "02",
+                "title": "Gossip Protocol",
+                "description": "Peer-to-peer state synchronization."
+            }
+        ],
+        "tags": [
+            "Systems",
+            "Go"
+        ],
+        "tech": [
+            "Go",
+            "gRPC",
+            "Docker"
+        ],
+        "metrics": {
+            "ops": {
+                "value": "100k",
+                "label": "OPS/SEC",
+                "note": "Per node"
+            }
+        },
+        "links": {
+            "code": "#"
+        },
+        "lastUpdated": "2022-12-01"
+    }
+]

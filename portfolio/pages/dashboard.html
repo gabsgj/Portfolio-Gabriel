@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Dashboard | Gabriel James</title>
+    <meta name="description"
+        content="System overview dashboard - Real-time monitoring of professional capabilities and projects." />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <!-- Custom Styles -->
+    <link href="../assets/styles.css" rel="stylesheet" />
+    <link rel="icon" href="../assets/favicon.png" type="image/x-icon">
+</head>
+
+<body
+    class="bg-background-dark text-white font-display overflow-x-hidden selection:bg-primary/30 min-h-screen flex flex-col">
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-10 bg-grid-pattern bg-[length:30px_30px]"></div>
+    <div
+        class="fixed inset-0 z-0 pointer-events-none bg-gradient-to-t from-background-dark via-transparent to-background-dark/90">
+    </div>
+
+
+    <!-- Navigation -->
+    <header
+        class="fixed top-0 w-full z-40 border-b border-border-dark bg-background-dark/80 backdrop-blur-lg h-14 flex items-center justify-between px-6">
+        <div class="flex items-center gap-4 text-primary">
+            <a href="index.html" class="flex items-center gap-2 hover:opacity-80 fast-transition">
+                <span class="material-symbols-outlined text-lg">terminal</span>
+                <span class="text-xs font-mono font-bold tracking-widest text-white">ROOT@SYSTEM:~/DASHBOARD</span>
+            </a>
+        </div>
+        <div class="hidden md:flex items-center gap-1 bg-surface-dark border border-border-dark rounded-full px-1 p-1">
+            <a class="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-mono font-medium border border-primary/20 fast-transition"
+                href="dashboard.html">DASHBOARD</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="projects.html">PROJECTS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="skills.html">SKILLS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="experience.html">EXPERIENCE</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="certificates.html">CERTIFICATES</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="lab.html">LAB</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="resume.html">RESUME</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="contact.html">CONTACT</a>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span>SYSTEM_NORMAL</span>
+            </div>
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="material-symbols-outlined text-sm">wifi</span>
+                <span>UPLINK_ESTABLISHED</span>
+            </div>
+            <div
+                class="text-[10px] font-mono text-primary font-bold border border-primary/20 px-2 py-0.5 rounded bg-primary/5">
+                SECURE
+            </div>
+        </div>
+        <!-- Mobile Hamburger -->
+        <button class="hamburger-btn md:hidden" id="mobile-menu-btn" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <nav class="mobile-nav-overlay" id="mobile-nav">
+        <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close navigation">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <a href="dashboard.html" class="active">DASHBOARD</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="skills.html">SKILLS</a>
+        <a href="experience.html">EXPERIENCE</a>
+        <a href="certificates.html">CERTIFICATES</a>
+        <a href="lab.html">LAB</a>
+        <a href="resume.html">RESUME</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const mobileNavClose = document.getElementById('mobile-nav-close');
+
+        function toggleMobileNav() {
+            mobileMenuBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.classList.toggle('mobile-nav-open');
+        }
+
+        mobileMenuBtn?.addEventListener('click', toggleMobileNav);
+        mobileNavClose?.addEventListener('click', toggleMobileNav);
+
+        // Close on link click
+        mobileNav?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('mobile-nav-open');
+            });
+        });
+    </script>
+
+    <!-- Main Content -->
+    <main class="relative z-10 pt-24 pb-12 px-4 md:px-8 max-w-[1400px] mx-auto w-full">
+        <!-- Header -->
+        <header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <span
+                        class="text-xs font-mono text-primary border border-primary/30 px-1.5 py-0.5 rounded bg-primary/5">Admin
+                        Access</span>
+                    <span class="text-xs font-mono text-gray-600" id="header-system-id">ID: 884-29-X</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-medium tracking-tight">
+                    <span class="text-white">Building</span> <span
+                        class="bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500 bg-clip-text text-transparent">Digital
+                        Minds.</span>
+                </h1>
+                <p class="text-gray-400 mt-2 font-light max-w-lg" id="header-bio">
+                    Real-time monitoring of professional capabilities, active projects, and learning vectors.
+                </p>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="resume.html"
+                    class="group flex items-center gap-2 px-4 py-2 bg-white text-black text-xs font-mono font-bold uppercase hover:bg-primary hover:text-white transition-all duration-300">
+                    <span class="material-symbols-outlined text-base">download</span>
+                    Download CV
+                </a>
+            </div>
+        </header>
+
+        <!-- Dashboard Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-4 auto-rows-[minmax(140px,auto)]">
+            <!-- Status Card -->
+            <div id="status-card"
+                class="col-span-1 md:col-span-6 lg:col-span-8 row-span-2 group relative bg-surface-card border border-border-dark hover:border-primary/50 fast-transition p-6 flex flex-col justify-between overflow-hidden">
+                <!-- Content rendered by JS -->
+            </div>
+
+            <!-- Profile Card -->
+            <div id="profile-card"
+                class="col-span-1 md:col-span-3 lg:col-span-4 row-span-2 relative bg-surface-card border border-border-dark p-1 overflow-hidden group fast-transition">
+                <!-- Content rendered by JS -->
+            </div>
+
+            <!-- Focus Areas Card -->
+            <div id="focus-areas"
+                class="col-span-1 md:col-span-3 lg:col-span-4 row-span-2 bg-surface-card border border-border-dark p-6 flex flex-col hover:border-border-dark/80 fast-transition">
+                <!-- Content rendered by JS -->
+            </div>
+
+            <!-- Currently Exploring -->
+            <div id="exploring-topics"
+                class="col-span-1 md:col-span-3 lg:col-span-4 row-span-1 bg-surface-card border border-border-dark p-6 relative overflow-hidden fast-transition">
+                <!-- Content rendered by JS -->
+            </div>
+
+            <!-- Terminal Widget -->
+            <div id="terminal-widget"
+                class="col-span-1 md:col-span-3 lg:col-span-4 row-span-1 bg-black border border-border-dark relative overflow-hidden fast-transition">
+                <!-- Content rendered by JS -->
+            </div>
+
+            <!-- System Log -->
+            <div id="system-log"
+                class="col-span-1 md:col-span-6 lg:col-span-8 row-span-1 bg-black border border-border-dark p-4 font-mono text-xs overflow-hidden flex flex-col relative fast-transition">
+                <!-- Content rendered by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Decoration -->
+    <div class="fixed bottom-4 right-8 hidden lg:block z-30 pointer-events-none">
+        <div class="flex flex-col items-end gap-1">
+            <div class="flex gap-1">
+                <div class="w-1 h-1 bg-gray-600"></div>
+                <div class="w-1 h-1 bg-gray-600"></div>
+                <div class="w-1 h-1 bg-gray-600"></div>
+            </div>
+            <div class="text-[10px] font-mono text-gray-600 uppercase tracking-widest">
+                Interface v2.4
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Renderer -->
+    <script type="module" src="../js/render-dashboard.js"></script>
+
+    <!-- Admin Mode -->
+    <script type="module" src="../js/admin-mode.js"></script>
+
+    <!-- Background Effects Script -->
+    <script type="module" src="../js/stars.js"></script>
+
+</body>
+
+</html>

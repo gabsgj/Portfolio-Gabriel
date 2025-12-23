@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connect | Gabriel James</title>
+    <meta name="description" content="Contact page - Establish connection for collaboration and opportunities." />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <!-- Custom Styles -->
+    <link href="../assets/styles.css" rel="stylesheet" />
+    <link rel="icon" href="../assets/favicon.png" type="image/x-icon">
+</head>
+
+<body class="bg-background-dark text-white font-display selection:bg-primary/30 min-h-screen flex flex-col relative">
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-10 bg-grid-pattern bg-[length:30px_30px]"></div>
+    <div
+        class="fixed inset-0 z-0 pointer-events-none bg-gradient-to-t from-background-dark via-transparent to-background-dark/90">
+    </div>
+    <div class="scanline"></div>
+    <div class="crt-overlay"></div>
+
+    <!-- Header -->
+    <header
+        class="relative z-30 w-full flex items-center justify-between border-b border-border-dark bg-background-dark/80 backdrop-blur-md px-6 py-3 h-14 shrink-0 top-0 sticky">
+        <div class="flex items-center gap-4 text-primary">
+            <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <span class="material-symbols-outlined text-lg">terminal</span>
+                <span class="text-xs font-mono font-bold tracking-widest text-white">ROOT@SYSTEM:~/CONTACT</span>
+            </a>
+        </div>
+        <div class="hidden md:flex items-center gap-1 bg-surface-dark border border-border-dark rounded-full px-1 p-1">
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="dashboard.html">DASHBOARD</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="projects.html">PROJECTS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="skills.html">SKILLS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="experience.html">EXPERIENCE</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="certificates.html">CERTIFICATES</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="lab.html">LAB</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="resume.html">RESUME</a>
+            <a class="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-mono font-medium border border-primary/20 fast-transition"
+                href="contact.html">CONTACT</a>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span>SYSTEM_NORMAL</span>
+            </div>
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="material-symbols-outlined text-sm">wifi</span>
+                <span>UPLINK_ESTABLISHED</span>
+            </div>
+            <div
+                class="text-[10px] font-mono text-primary font-bold border border-primary/20 px-2 py-0.5 rounded bg-primary/5">
+                SECURE
+            </div>
+        </div>
+        <!-- Mobile Hamburger -->
+        <button class="hamburger-btn md:hidden" id="mobile-menu-btn" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <nav class="mobile-nav-overlay" id="mobile-nav">
+        <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close navigation">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <a href="dashboard.html">DASHBOARD</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="skills.html">SKILLS</a>
+        <a href="experience.html">EXPERIENCE</a>
+        <a href="certificates.html">CERTIFICATES</a>
+        <a href="lab.html">LAB</a>
+        <a href="resume.html">RESUME</a>
+        <a href="contact.html" class="active">CONTACT</a>
+    </nav>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const mobileNavClose = document.getElementById('mobile-nav-close');
+
+        function toggleMobileNav() {
+            mobileMenuBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.classList.toggle('mobile-nav-open');
+        }
+
+        mobileMenuBtn?.addEventListener('click', toggleMobileNav);
+        mobileNavClose?.addEventListener('click', toggleMobileNav);
+
+        // Close on link click
+        mobileNav?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('mobile-nav-open');
+            });
+        });
+    </script>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-center p-6 relative z-10 w-full max-w-7xl mx-auto">
+        <div class="w-full max-w-5xl grid lg:grid-cols-12 gap-12 items-start opacity-0 animate-fade-in-up pb-20">
+            <!-- Left Column -->
+            <div class="lg:col-span-5 flex flex-col gap-10">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="h-[1px] w-6 bg-gray-700"></div>
+                        <span class="text-[10px] font-mono text-primary uppercase tracking-[0.2em]">Communication
+                            Uplink</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6 relative inline-block">
+                        Establish<br />Connection
+                        <span class="absolute -inset-8 bg-primary/5 blur-2xl -z-10 rounded-full"></span>
+                    </h1>
+                    <p
+                        class="text-gray-400 font-light leading-relaxed font-mono text-sm border-l-2 border-primary/30 pl-4 py-1">
+                        Systems are ready for collaboration input. Signal strength is optimal for inquiries regarding
+                        frontend architecture and AI integration.
+                    </p>
+                </div>
+
+                <!-- Contact Links -->
+                <div id="contact-links" class="flex flex-col gap-3">
+                    <span class="text-[10px] font-mono text-gray-600 uppercase mb-2">Direct Access Protocols</span>
+                    <!-- Links rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Right Column - Form -->
+            <div class="lg:col-span-7 relative pt-4 lg:pt-0">
+                <div
+                    class="absolute -top-4 -left-4 w-16 h-16 border-t border-l border-primary/20 rounded-tl-lg hidden lg:block">
+                </div>
+                <div
+                    class="absolute -bottom-4 -right-4 w-16 h-16 border-b border-r border-primary/20 rounded-br-lg hidden lg:block">
+                </div>
+
+                <div class="glass-panel p-1 rounded-sm">
+                    <div class="bg-background-dark/90 border border-border-dark p-6 md:p-10 relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-8 border-b border-border-dark pb-4">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-sm font-mono text-white font-bold">TRANSMISSION_FORM</span>
+                                <span class="text-[10px] text-gray-500 font-mono">SECURE UDP/443 CONNECTION</span>
+                            </div>
+                            <div
+                                class="flex items-center gap-2 border border-primary/30 bg-primary/10 px-2 py-1 rounded">
+                                <div class="w-1.5 h-1.5 bg-primary animate-pulse rounded-full"></div>
+                                <span class="text-[10px] font-mono text-primary font-bold">READY</span>
+                            </div>
+                        </div>
+
+                        <form class="flex flex-col gap-6 relative z-10" id="contact-form"
+                            action="https://formspree.io/f/xvzplqqe" method="POST">
+                            <!-- Honeypot field for spam protection - invisible to humans -->
+                            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="space-y-2 group">
+                                    <label
+                                        class="text-[10px] font-mono text-gray-500 uppercase flex justify-between group-focus-within:text-primary transition-colors">
+                                        <span>Identity Code</span>
+                                        <span
+                                            class="opacity-0 group-focus-within:opacity-100 transition-opacity">REQUIRED</span>
+                                    </label>
+                                    <input
+                                        class="w-full bg-surface-dark border border-border-dark text-white font-mono text-sm px-4 py-3 outline-none focus:border-primary focus:bg-surface-dark/50 transition-all duration-300 placeholder:text-gray-700"
+                                        placeholder="NAME / ORG" type="text" name="name" required />
+                                </div>
+                                <div class="space-y-2 group">
+                                    <label
+                                        class="text-[10px] font-mono text-gray-500 uppercase flex justify-between group-focus-within:text-primary transition-colors">
+                                        <span>Return Frequency</span>
+                                        <span
+                                            class="opacity-0 group-focus-within:opacity-100 transition-opacity">REQUIRED</span>
+                                    </label>
+                                    <input
+                                        class="w-full bg-surface-dark border border-border-dark text-white font-mono text-sm px-4 py-3 outline-none focus:border-primary focus:bg-surface-dark/50 transition-all duration-300 placeholder:text-gray-700"
+                                        placeholder="EMAIL ADDRESS" type="email" name="email" required />
+                                </div>
+                            </div>
+                            <div class="space-y-2 group">
+                                <label
+                                    class="text-[10px] font-mono text-gray-500 uppercase flex justify-between group-focus-within:text-primary transition-colors">
+                                    <span>Data Stream</span>
+                                    <span
+                                        class="opacity-0 group-focus-within:opacity-100 transition-opacity">TEXT_INPUT</span>
+                                </label>
+                                <textarea
+                                    class="w-full bg-surface-dark border border-border-dark text-white font-mono text-sm px-4 py-3 outline-none focus:border-primary focus:bg-surface-dark/50 transition-all duration-300 placeholder:text-gray-700 resize-none"
+                                    placeholder="ENTER MESSAGE CONTENTS..." rows="5" name="message"></textarea>
+                            </div>
+                            <div class="pt-2">
+                                <button
+                                    class="group relative w-full overflow-hidden bg-white text-black font-mono font-bold text-xs py-4 uppercase tracking-[0.2em] transition-all hover:bg-primary hover:text-white"
+                                    type="submit">
+                                    <span class="relative z-10 flex items-center justify-center gap-3">
+                                        Execute Transmission
+                                        <span
+                                            class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">send</span>
+                                    </span>
+                                    <div
+                                        class="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0">
+                                    </div>
+                                </button>
+                                <div class="flex justify-between mt-3 text-[10px] font-mono text-gray-600">
+                                    <span>LATENCY: 12ms</span>
+                                    <span>PACKET_LOSS: 0%</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Awaiting Input -->
+        <div class="mt-12 font-mono text-xs text-gray-600 flex items-center gap-2 opacity-50">
+            <span class="text-primary">&gt;</span>
+            <span class="animate-pulse">_</span>
+            <span>Awaiting user transmission...</span>
+        </div>
+    </main>
+
+    <!-- Corner Decorations -->
+    <div class="absolute bottom-10 left-10 hidden md:block">
+        <div class="flex flex-col gap-1">
+            <div class="w-16 h-[1px] bg-gray-800"></div>
+            <div class="w-8 h-[1px] bg-gray-800"></div>
+            <div class="text-[10px] font-mono text-gray-600 mt-2" id="system-id">ID: 884-29-X</div>
+        </div>
+    </div>
+    <div class="absolute bottom-10 right-10 hidden md:block text-right">
+        <div class="flex flex-col gap-1 items-end">
+            <div class="w-16 h-[1px] bg-gray-800"></div>
+            <div class="w-8 h-[1px] bg-gray-800"></div>
+            <div class="text-[10px] font-mono text-gray-600 mt-2">SYS.OP.MODE: COMMS</div>
+        </div>
+    </div>
+
+    <!-- Contact Data Loader -->
+    <script type="module">
+        import { loadJSON } from '../js/core.js';
+
+        async function loadContactData() {
+            const profile = await loadJSON('../data/profile.json');
+            if (!profile) return;
+
+            const container = document.getElementById('contact-links');
+            if (!container) return;
+
+            const links = [
+                {
+                    icon: 'mail',
+                    label: 'Electronic Mail',
+                    value: profile.email,
+                    href: `mailto:${profile.email}`,
+                    iconColor: 'text-primary'
+                },
+                {
+                    icon: 'terminal',
+                    label: 'GitHub Repository',
+                    value: profile.socials.github.label,
+                    href: profile.socials.github.url,
+                    iconColor: 'text-white'
+                },
+                {
+                    icon: 'group',
+                    label: 'LinkedIn Network',
+                    value: profile.socials.linkedin.label,
+                    href: profile.socials.linkedin.url,
+                    iconColor: 'text-blue-400'
+                }
+            ];
+
+            // Keep the label text
+            const label = container.querySelector('span');
+            container.innerHTML = label ? label.outerHTML : '<span class="text-[10px] font-mono text-gray-600 uppercase mb-2">Direct Access Protocols</span>';
+
+            links.forEach(link => {
+                container.insertAdjacentHTML('beforeend', `
+                    <a class="group relative overflow-hidden bg-surface-dark border border-border-dark p-4 flex items-center justify-between hover:border-primary/50 hover:bg-surface-dark/80 transition-all duration-300" href="${link.href}" target="_blank">
+                        <div class="flex items-center gap-4 relative z-10">
+                            <div class="w-10 h-10 rounded bg-background-dark border border-border-dark flex items-center justify-center ${link.iconColor} group-hover:scale-110 transition-transform duration-300">
+                                <span class="material-symbols-outlined text-lg">${link.icon}</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-mono text-gray-500 uppercase tracking-wider group-hover:text-primary transition-colors">${link.label}</span>
+                                <span class="text-sm font-mono text-white">${link.value}</span>
+                            </div>
+                        </div>
+                        <span class="material-symbols-outlined text-gray-600 text-sm group-hover:text-white -rotate-45 group-hover:rotate-0 transition-all duration-300">arrow_outward</span>
+                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-bottom"></div>
+                    </a>
+                `);
+            });
+
+            // Update system ID
+            const sysIdEl = document.getElementById('system-id');
+            if (sysIdEl) sysIdEl.textContent = `ID: ${profile.systemId}`;
+        }
+
+        loadContactData();
+
+        // Formspree AJAX submission handler
+        const contactForm = document.getElementById('contact-form');
+        contactForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+
+            // Show loading state
+            submitBtn.innerHTML = `
+                <span class="relative z-10 flex items-center justify-center gap-3">
+                    <span class="animate-pulse">Transmitting...</span>
+                    <span class="material-symbols-outlined text-sm animate-spin">sync</span>
+                </span>
+            `;
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    // Success state
+                    submitBtn.innerHTML = `
+                        <span class="relative z-10 flex items-center justify-center gap-3 text-emerald-400">
+                            Transmission Successful
+                            <span class="material-symbols-outlined text-sm">check_circle</span>
+                        </span>
+                    `;
+                    submitBtn.classList.add('bg-emerald-500/20', 'border', 'border-emerald-500/50');
+                    submitBtn.classList.remove('bg-white', 'text-black');
+                    form.reset();
+
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('bg-emerald-500/20', 'border', 'border-emerald-500/50');
+                        submitBtn.classList.add('bg-white', 'text-black');
+                    }, 3000);
+                } else {
+                    throw new Error('Transmission failed');
+                }
+            } catch (error) {
+                // Error state
+                submitBtn.innerHTML = `
+                    <span class="relative z-10 flex items-center justify-center gap-3 text-red-400">
+                        Transmission Failed
+                        <span class="material-symbols-outlined text-sm">error</span>
+                    </span>
+                `;
+                submitBtn.classList.add('bg-red-500/20', 'border', 'border-red-500/50');
+                submitBtn.classList.remove('bg-white', 'text-black');
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('bg-red-500/20', 'border', 'border-red-500/50');
+                    submitBtn.classList.add('bg-white', 'text-black');
+                }, 3000);
+            }
+        });
+    </script>
+
+    <!-- Admin Mode -->
+    <script type="module" src="../js/admin-mode.js"></script>
+
+    <!-- Background Effects Script -->
+    <script type="module" src="../js/stars.js"></script>
+
+    <!-- Footer -->
+    <footer class="relative z-10 w-full py-4 text-center">
+        <p class="text-[10px] font-mono text-gray-600 tracking-wider">
+            © 2025 Gabriel James. All Rights Reserved.
+        </p>
+    </footer>
+
+</body>
+
+</html>

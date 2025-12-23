@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neural Core | Skills | Gabriel James</title>
+    <meta name="description"
+        content="Technical skills and capabilities - Languages, frameworks, ML/AI, infrastructure, and tools." />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <!-- Custom Styles -->
+    <link href="../assets/styles.css" rel="stylesheet" />
+    <link rel="icon" href="../assets/favicon.png" type="image/x-icon">
+</head>
+
+<body
+    class="bg-background-dark text-white font-display overflow-y-auto overflow-x-hidden selection:bg-primary/30 min-h-screen flex flex-col">
+    <!-- Flash Transition -->
+    <div class="fixed inset-0 bg-white z-[60] pointer-events-none animate-[fadeOut_0.2s_ease-out_forwards]"></div>
+    <style>
+        @keyframes fadeOut {
+            from {
+                opacity: 0.1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-10 bg-grid-pattern bg-[length:30px_30px]"></div>
+    <div
+        class="fixed inset-0 z-0 pointer-events-none bg-gradient-to-t from-background-dark via-transparent to-background-dark/90">
+    </div>
+    <div class="scanline"></div>
+    <div class="crt-overlay"></div>
+
+    <!-- Header -->
+    <header
+        class="relative z-30 w-full flex items-center justify-between border-b border-border-dark bg-background-dark/80 backdrop-blur-md px-6 py-3 h-14 shrink-0">
+        <div class="flex items-center gap-4 text-primary">
+            <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <span class="material-symbols-outlined text-lg">terminal</span>
+                <span class="text-xs font-mono font-bold tracking-widest text-white">ROOT@SYSTEM:~/SKILLS</span>
+            </a>
+        </div>
+        <div class="hidden md:flex items-center gap-1 bg-surface-dark border border-border-dark rounded-full px-1 p-1">
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="dashboard.html">DASHBOARD</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="projects.html">PROJECTS</a>
+            <a class="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-mono font-medium border border-primary/20 fast-transition"
+                href="skills.html">SKILLS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="experience.html">EXPERIENCE</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="certificates.html">CERTIFICATES</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="lab.html">LAB</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="resume.html">RESUME</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="contact.html">CONTACT</a>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span>SYSTEM_NORMAL</span>
+            </div>
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="material-symbols-outlined text-sm">wifi</span>
+                <span>UPLINK_ESTABLISHED</span>
+            </div>
+            <div
+                class="text-[10px] font-mono text-primary font-bold border border-primary/20 px-2 py-0.5 rounded bg-primary/5">
+                SECURE
+            </div>
+        </div>
+        <!-- Mobile Hamburger -->
+        <button class="hamburger-btn md:hidden" id="mobile-menu-btn" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <nav class="mobile-nav-overlay" id="mobile-nav">
+        <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close navigation">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <a href="dashboard.html">DASHBOARD</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="skills.html" class="active">SKILLS</a>
+        <a href="experience.html">EXPERIENCE</a>
+        <a href="certificates.html">CERTIFICATES</a>
+        <a href="lab.html">LAB</a>
+        <a href="resume.html">RESUME</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const mobileNavClose = document.getElementById('mobile-nav-close');
+
+        function toggleMobileNav() {
+            mobileMenuBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.classList.toggle('mobile-nav-open');
+        }
+
+        mobileMenuBtn?.addEventListener('click', toggleMobileNav);
+        mobileNavClose?.addEventListener('click', toggleMobileNav);
+
+        // Close on link click
+        mobileNav?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('mobile-nav-open');
+            });
+        });
+    </script>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 md:p-12 relative z-10 w-full max-w-7xl mx-auto flex flex-col">
+        <!-- Page Header -->
+        <div class="mb-10 w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-4 animate-fade-in-up"
+            style="animation-delay: 0.1s; opacity: 0;">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="h-[1px] w-8 bg-gray-700"></div>
+                    <span class="text-xs font-mono text-primary uppercase tracking-[0.2em]">System Capabilities</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-white relative">
+                    NEURAL CORE
+                    <span class="absolute -top-1 -right-2 w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                </h1>
+            </div>
+            <div class="font-mono text-xs text-gray-500 max-w-md text-right hidden md:block">
+                <p>Analyzing active runtime environments and installed packages.</p>
+                <p>Listing verified competencies for deployment.</p>
+            </div>
+        </div>
+
+        <!-- Skills Grid -->
+        <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pb-20">
+            <!-- Content rendered by JS -->
+        </div>
+
+        <!-- Corner Decorations -->
+        <div class="absolute bottom-6 left-6 hidden md:block z-10">
+            <div class="flex flex-col gap-1">
+                <div class="w-16 h-[1px] bg-gray-800"></div>
+                <div class="w-8 h-[1px] bg-gray-800"></div>
+                <div class="text-[10px] font-mono text-gray-600 mt-2">SEC_SECTOR: 7G</div>
+            </div>
+        </div>
+        <div class="absolute bottom-6 right-6 hidden md:block text-right z-10">
+            <div class="flex flex-col gap-1 items-end">
+                <div class="w-16 h-[1px] bg-gray-800"></div>
+                <div class="w-8 h-[1px] bg-gray-800"></div>
+                <div class="text-[10px] font-mono text-gray-600 mt-2">SYS.OP.MODE: DIAGNOSTIC</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Skills Renderer -->
+    <script type="module" src="../js/render-skills.js"></script>
+
+    <!-- Admin Mode -->
+    <script type="module" src="../js/admin-mode.js"></script>
+
+    <!-- Background Effects Script -->
+    <script type="module" src="../js/stars.js"></script>
+
+</body>
+
+</html>

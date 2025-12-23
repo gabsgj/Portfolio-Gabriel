@@ -1,0 +1,281 @@
+{
+    "name": "Gabriel James",
+    "title": "AI & Machine Learning Developer | Finance & Data-Driven Systems",
+    "tagline": "Designing Intelligent Systems with Code & Data",
+    "email": "gabriel22dec@gmail.com",
+    "phone": "+91-7902987125",
+    "location": "KL, India",
+    "bio": "I’m a Computer Science undergraduate and AI & Machine Learning Developer with a strong focus on building data-driven applications, machine learning models, and intelligent software systems. I work extensively with Python, machine learning algorithms, data analysis, and model deployment, applying core concepts such as regression, classification, neural networks, and optimization techniques to real-world problems.<br>My experience includes designing end-to-end machine learning pipelines, working with structured and unstructured data, and integrating ML models into scalable software applications. I have a particular interest in AI for finance, predictive analytics, decision-making systems, and quantitative problem solving, where data science and software engineering intersect.<br>I’m continuously improving my skills in machine learning engineering, backend development, and system design, with the goal of building reliable, high-impact AI solutions that perform well in production environments.",
+    "status": "OPEN FOR WORK",
+    "systemId": "884-29-X",
+    "version": "2.2.0",
+    "stats": {
+        "projects": 10,
+        "experience": "02",
+        "responseTime": "<32h",
+        "timezone": "UTC+5:30",
+        "hackathonsWon": 4,
+        "certificationsVerified": 32
+    },
+    "focusAreas": [
+        {
+            "name": "AI & Machine Learning Engineering",
+            "icon": "psychology",
+            "color": "primary",
+            "level": 90
+        },
+        {
+            "name": "Data Science & Predictive Analytics",
+            "icon": "analytics",
+            "color": "emerald-400",
+            "level": 88
+        },
+        {
+            "name": "Applied System Design & Architecture",
+            "icon": "account_tree",
+            "color": "blue-400",
+            "level": 72
+        },
+        {
+            "name": "Backend & Scalable Systems",
+            "icon": "dns",
+            "color": "purple-400",
+            "level": 78
+        },
+        {
+            "name": "AI for Finance & Decision Systems",
+            "icon": "insights",
+            "color": "cyan-400",
+            "level": 82
+        },
+        {
+            "name": "UI/UX & Interactive Design",
+            "icon": "design_services",
+            "color": "orange-400",
+            "level": 85
+        }
+    ],
+    "currentlyExploring": [
+        "Autonomous AI Agents & Tool-Using LLMs",
+        "System Design Patterns for ML Systems",
+        "WebGPU & High-Performance Computing",
+        "Rust for Systems & Performance-Critical Code",
+        "Three.js & Interactive 3D Web Interfaces",
+        "Model Deployment & MLOps Fundamentals"
+    ],
+    "socials": {
+        "github": {
+            "url": "https://github.com/gabsgj",
+            "label": "/gabsgj"
+        },
+        "linkedin": {
+            "url": "https://linkedin.com/in/gabrieljamesamara",
+            "label": "/in/gabrieljamesamara"
+        }
+    },
+    "certificates": [
+        {
+            "name": "Machine Learning Specialization",
+            "issuer": "DeepLearning.AI, Stanford University",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/specialization/8HAUMSZQD33A",
+            "icon": "neurology"
+        },
+        {
+            "name": "ChatGPT Advanced Data Analysis",
+            "issuer": "Vanderbilt University",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/YNH1EG8CDMOS",
+            "icon": "analytics"
+        },
+        {
+            "name": "Serverless Architectures on AWS",
+            "issuer": "Amazon Web Services",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/WB8W9VWNX4IY",
+            "icon": "cloud_sync"
+        },
+        {
+            "name": "AWS Cloud Technical Essentials",
+            "issuer": "Amazon Web Services",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/9A5EF2M9KTLL",
+            "icon": "cloud_queue"
+        },
+        {
+            "name": "Programming with Java",
+            "issuer": "Amazon",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/O8UNLHYQE83C",
+            "icon": "coffee"
+        },
+        {
+            "name": "Fundamentals of AI Agents Using RAG and LangChain",
+            "issuer": "IBM",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/O2YJM1IH1EP2",
+            "icon": "smart_toy"
+        },
+        {
+            "name": "Advanced Learning Algorithms",
+            "issuer": "DeepLearning.AI, Stanford University",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/7EPQV17OISR0",
+            "icon": "hub"
+        },
+        {
+            "name": "Unsupervised Learning, Recommenders, Reinforcement Learning",
+            "issuer": "DeepLearning.AI, Stanford University",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/8TR3S2A55EUE",
+            "icon": "diversity_3"
+        },
+        {
+            "name": "Generative AI Advance Fine-Tuning for LLMs",
+            "issuer": "IBM",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/TVIFNF0UO969",
+            "icon": "settings_suggest"
+        },
+        {
+            "name": "Generative AI Engineering and Fine-Tuning Transformers",
+            "issuer": "IBM",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/40J0PAV4GXOI",
+            "icon": "transform"
+        },
+        {
+            "name": "Generative AI Language Modeling with Transformers",
+            "issuer": "IBM",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/TKOQTPIOMTSS",
+            "icon": "text_fields"
+        },
+        {
+            "name": "Generative AI and LLMs: Architecture and Data Preparation",
+            "issuer": "IBM",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/Z52CP3DT758A",
+            "icon": "layers"
+        },
+        {
+            "name": "Generative AI in Software Development",
+            "issuer": "Amazon",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/YT49UNDPUZBS",
+            "icon": "integration_instructions"
+        },
+        {
+            "name": "Introduction to Trading, Machine Learning & GCP",
+            "issuer": "Google Cloud, New York Institute of Finance",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/L084DTFSWR0H",
+            "icon": "trending_up"
+        },
+        {
+            "name": "Developing AI Applications with Python and Flask",
+            "issuer": "IBM",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/EGK660BFSF3W",
+            "icon": "science"
+        },
+        {
+            "name": "Using Machine Learning in Trading and Finance",
+            "issuer": "New York Institute of Finance, Google Cloud",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/9NLZJ3MAI2B0",
+            "icon": "candlestick_chart"
+        },
+        {
+            "name": "Guided Tour of Machine Learning in Finance",
+            "issuer": "New York University",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/6V1O80Y8XV4O",
+            "icon": "monetization_on"
+        },
+        {
+            "name": "Building Generative AI-Powered Applications with Python",
+            "issuer": "IBM",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/8OYL87P0NZ7G",
+            "icon": "auto_awesome"
+        },
+        {
+            "name": "Create Your First Web App with Python and Flask",
+            "issuer": "Coursera",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/11NS26NU5A2P",
+            "icon": "http"
+        },
+        {
+            "name": "Gen AI Foundational Models for NLP & Language Understanding",
+            "issuer": "IBM",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/SY8KR5HU4BHV",
+            "icon": "psychology_alt"
+        },
+        {
+            "name": "Financial Markets",
+            "issuer": "Yale University",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/EZG6CDLBTMY8",
+            "icon": "account_balance"
+        },
+        {
+            "name": "Prompt Engineering for ChatGPT",
+            "issuer": "Vanderbilt University",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/GUZ99KLAG8YP",
+            "icon": "forum"
+        },
+        {
+            "name": "Data Analysis with Python",
+            "issuer": "IBM",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/TNY3SPJJVJOP",
+            "icon": "query_stats"
+        },
+        {
+            "name": "Version Control",
+            "issuer": "Meta",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/KHHS4F5RTYKE",
+            "icon": "merge_type"
+        },
+        {
+            "name": "AWS Cloud Practitioner Essentials",
+            "issuer": "Amazon Web Services",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/SVZE7FOAK8S9",
+            "icon": "cloud_done"
+        },
+        {
+            "name": "Supervised Machine Learning: Regression and Classification",
+            "issuer": "DeepLearning.AI, Stanford University",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/IXNQ9AY03JAO",
+            "icon": "model_training"
+        },
+        {
+            "name": "SQL for Data Science",
+            "issuer": "University of California, Davis",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/RX0U8CJJKRQP",
+            "icon": "storage"
+        },
+        {
+            "name": "Python for Data Science, AI & Development",
+            "issuer": "IBM",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/MN53TV5MIL72",
+            "icon": "data_object"
+        },
+        {
+            "name": "Introduction to Software Development",
+            "issuer": "Amazon",
+            "date": "2025",
+            "link": "https://www.coursera.org/account/accomplishments/records/2K17XPKDW98W",
+            "icon": "terminal"
+        }
+    ]
+}

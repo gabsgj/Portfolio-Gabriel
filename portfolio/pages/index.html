@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Boot | Gabriel James</title>
+    <meta name="description"
+        content="Portfolio of Gabriel James — AI & Machine Learning Developer | System Design | FinTech Systems" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <!-- Custom Styles -->
+    <link href="../assets/styles.css" rel="stylesheet" />
+</head>
+
+<body class="bg-background-dark text-white font-display overflow-hidden selection:bg-primary/30 h-screen flex flex-col">
+    <!-- Boot Screen -->
+    <div id="boot-screen">
+        <div class="w-64 flex flex-col gap-2">
+            <div class="flex justify-between text-[10px] font-mono text-primary tracking-widest uppercase">
+                <span>System Boot</span>
+                <span id="version">v2.4.0</span>
+            </div>
+            <div class="w-full h-[2px] bg-gray-900 overflow-hidden">
+                <div class="loader-bar h-full"></div>
+            </div>
+            <div class="font-mono text-[10px] text-gray-500 mt-1">
+                <span class="block">loading kernel...</span>
+                <span class="block" style="animation: fadeInUp 0.1s 0.5s both">mounting volumes...</span>
+                <span class="block" style="animation: fadeInUp 0.1s 1.0s both">verifying credentials...</span>
+                <span class="block text-emerald-500" style="animation: fadeInUp 0.1s 1.3s both">access granted</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-10 bg-grid-pattern bg-[length:30px_30px]"></div>
+    <div
+        class="fixed inset-0 z-0 pointer-events-none bg-gradient-to-t from-background-dark via-transparent to-background-dark/90">
+    </div>
+    <div class="scanline"></div>
+    <div class="crt-overlay"></div>
+
+    <!-- Header -->
+    <header
+        class="relative z-30 w-full flex items-center justify-between border-b border-border-dark bg-background-dark/80 backdrop-blur-md px-6 py-3 h-14">
+        <div class="flex items-center gap-4 text-primary opacity-0 animate-[fadeInUp_0.5s_1.8s_forwards]">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-lg">terminal</span>
+                <span class="text-xs font-mono font-bold tracking-widest text-white">ROOT@SYSTEM:~</span>
+            </div>
+        </div>
+        <div class="hidden md:flex items-center gap-8 opacity-0 animate-[fadeInUp_0.5s_1.9s_forwards]">
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span>SYSTEM_NORMAL</span>
+            </div>
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="material-symbols-outlined text-sm">wifi</span>
+                <span>UPLINK_ESTABLISHED</span>
+            </div>
+            <div
+                class="text-[10px] font-mono text-primary font-bold border border-primary/20 px-2 py-0.5 rounded bg-primary/5">
+                SECURE
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-center p-6 relative z-10 w-full max-w-7xl mx-auto">
+        <div class="relative w-full max-w-3xl flex flex-col items-center text-center opacity-0 animate-fade-in-up">
+            <!-- Decorative Lines -->
+            <!-- Decorative Lines Removed -->
+
+            <!-- Subtitle -->
+            <div class="mb-6 flex items-center gap-3">
+                <div class="h-[1px] w-8 bg-gray-700"></div>
+                <span class="text-xs font-mono text-primary uppercase tracking-[0.2em]">Portfolio Access Protocol</span>
+                <div class="h-[1px] w-8 bg-gray-700"></div>
+            </div>
+
+            <!-- Name -->
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-white mb-6 relative">
+                <span class="relative z-10" id="profile-name" data-editable="profile-name">GABRIEL JAMES</span>
+                <span class="absolute -inset-1 bg-primary/10 blur-xl -z-10 rounded-full opacity-50"></span>
+            </h1>
+
+            <!-- Tagline with Typewriter Effect -->
+            <div class="max-w-3xl mx-auto mb-12 h-16 flex items-center justify-center">
+                <div class="tagline">
+                    <span class="type-text" id="typewriter-text"></span>
+                </div>
+            </div>
+
+            <!-- Typewriter Script -->
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const phrases = [
+                        "Calm intelligence for capital.",
+                        "Applied AI for ambitious operators.",
+                        "Quiet systems. Loud results.",
+                        "LLM copilots built for real ops.",
+                        "Intelligence engineered for real decisions.",
+                        "AI that compounds quietly, performs loudly.",
+                        "Systems that stay calm when markets don’t.",
+                        "Execution-grade copilots for operators who move fast.",
+                        "Silent infrastructure. Significant outcomes.",
+                        "Precision AI for people who deploy capital.",
+                        "Tools that reduce noise, not add to it.",
+                        "Deep intelligence beneath a quiet surface.",
+                        "Minimal interfaces. Maximum insight.",
+                        "AI tuned for markets, not demos."
+                    ];
+
+                    const textElement = document.getElementById('typewriter-text');
+                    let phraseIndex = 0;
+                    let charIndex = 0;
+                    let isDeleting = false;
+                    let typeSpeed = 50; // Typing speed
+
+                    function type() {
+                        const currentPhrase = phrases[phraseIndex];
+
+                        if (isDeleting) {
+                            textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                            charIndex--;
+                            typeSpeed = 30; // Deleting speed
+                        } else {
+                            textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                            charIndex++;
+                            typeSpeed = 50; // Typing speed
+                        }
+
+                        if (!isDeleting && charIndex === currentPhrase.length) {
+                            // Phrase complete, wait before deleting
+                            isDeleting = true;
+                            typeSpeed = 2000;
+                        } else if (isDeleting && charIndex === 0) {
+                            // Deletion complete, move to next phrase
+                            isDeleting = false;
+                            phraseIndex = (phraseIndex + 1) % phrases.length;
+                            typeSpeed = 500;
+                        }
+
+                        setTimeout(type, typeSpeed);
+                    }
+
+                    // Start the typing loop
+                    setTimeout(type, 1000);
+                });
+            </script>
+
+            <!-- Stats Grid -->
+            <!-- <div
+                class="grid grid-cols-3 gap-px bg-border-dark/50 w-full max-w-md border border-border-dark mb-10 overflow-hidden rounded-sm">
+                <div
+                    class="bg-background-dark p-3 flex flex-col items-center gap-1 group hover:bg-surface-dark transition-colors duration-300">
+                    <span class="text-[10px] text-gray-600 font-mono uppercase">Projects</span>
+                    <span class="text-white font-mono text-lg" id="stat-projects">24</span>
+                </div>
+                <div
+                    class="bg-background-dark p-3 flex flex-col items-center gap-1 group hover:bg-surface-dark transition-colors duration-300">
+                    <span class="text-[10px] text-gray-600 font-mono uppercase">Exp (Yrs)</span>
+                    <span class="text-white font-mono text-lg" id="stat-experience">05</span>
+                </div>
+                <div
+                    class="bg-background-dark p-3 flex flex-col items-center gap-1 group hover:bg-surface-dark transition-colors duration-300">
+                    <span class="text-[10px] text-gray-600 font-mono uppercase">Status</span>
+                    <span class="text-emerald-500 font-mono text-lg">•</span>
+                </div>
+            </div> -->
+
+            <!-- CTA Button -->
+            <a href="dashboard.html"
+                class="group relative px-8 py-4 bg-white text-black font-mono font-bold text-sm tracking-widest uppercase transition-all duration-300 hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-dark">
+                <span class="relative z-10 flex items-center gap-3">
+                    Enter Dashboard
+                    <span
+                        class="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
+                </span>
+                <div
+                    class="absolute inset-0 border border-white group-hover:border-primary transition-colors duration-300 translate-x-1 translate-y-1 -z-10">
+                </div>
+            </a>
+
+            <!-- Awaiting Input -->
+            <div class="mt-12 font-mono text-xs text-gray-600 flex items-center gap-2">
+                <span class="text-primary">&gt;</span>
+                <span class="animate-pulse">_</span>
+                <span>Awaiting input...</span>
+            </div>
+        </div>
+
+        <!-- Corner Decorations -->
+        <div class="absolute bottom-10 left-10 hidden md:block">
+            <div class="flex flex-col gap-1">
+                <div class="w-16 h-[1px] bg-gray-800"></div>
+                <div class="w-8 h-[1px] bg-gray-800"></div>
+                <div class="text-[10px] font-mono text-gray-600 mt-2" id="system-id">ID: 884-29-X</div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 right-10 hidden md:block text-right">
+            <div class="flex flex-col gap-1 items-end">
+                <div class="w-16 h-[1px] bg-gray-800"></div>
+                <div class="w-8 h-[1px] bg-gray-800"></div>
+                <div class="text-[10px] font-mono text-gray-600 mt-2">SYS.OP.MODE: VISUAL</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Load Profile Data -->
+    <script type="module">
+        import { loadJSON } from '../js/core.js';
+
+        async function loadProfileData() {
+            const profile = await loadJSON('../data/profile.json');
+            if (!profile) return;
+
+            // Update name
+            const nameEl = document.getElementById('profile-name');
+            if (nameEl) nameEl.textContent = profile.name.toUpperCase();
+
+            // Update tagline
+            const taglineEl = document.getElementById('profile-tagline');
+            if (taglineEl) taglineEl.textContent = `${profile.title} ${profile.tagline.toLowerCase()}.`;
+
+            // Update stats
+            const projectsEl = document.getElementById('stat-projects');
+            if (projectsEl) projectsEl.textContent = String(profile.stats.projects).padStart(2, '0');
+
+            const expEl = document.getElementById('stat-experience');
+            if (expEl) expEl.textContent = profile.stats.experience;
+
+            // Update system ID
+            const sysIdEl = document.getElementById('system-id');
+            if (sysIdEl) sysIdEl.textContent = `ID: ${profile.systemId}`;
+
+            // Update version
+            const versionEl = document.getElementById('version');
+            if (versionEl) versionEl.textContent = `v${profile.version}`;
+        }
+
+        loadProfileData();
+    </script>
+
+    <!-- Admin Mode -->
+    <script type="module" src="../js/admin-mode.js"></script>
+
+    <!-- Background Effects Script -->
+    <script type="module" src="../js/stars.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,300 @@
+{
+    "categories": [
+        {
+            "id": "L-01",
+            "title": "LANGUAGES & FOUNDATIONS",
+            "icon": "code",
+            "type": "list",
+            "items": [
+                {
+                    "name": "Python",
+                    "version": "v3.x",
+                    "active": true
+                },
+                {
+                    "name": "C",
+                    "version": "ANSI",
+                    "active": true
+                },
+                {
+                    "name": "C++",
+                    "version": "STL",
+                    "active": true
+                },
+                {
+                    "name": "Java",
+                    "version": "SE",
+                    "active": true
+                },
+                {
+                    "name": "JavaScript",
+                    "version": "ES2023",
+                    "active": true
+                },
+                {
+                    "name": "TypeScript",
+                    "version": "Basic",
+                    "active": true
+                },
+                {
+                    "name": "SQL",
+                    "version": "ANSI",
+                    "active": true
+                }
+            ]
+        },
+        {
+            "id": "M-02",
+            "title": "ML / AI CORE",
+            "icon": "psychology",
+            "type": "tags",
+            "items": [
+                {
+                    "name": "Supervised Learning"
+                },
+                {
+                    "name": "Unsupervised Learning"
+                },
+                {
+                    "name": "Linear & Logistic Regression"
+                },
+                {
+                    "name": "Decision Trees & Ensembles"
+                },
+                {
+                    "name": "Random Forest / XGBoost"
+                },
+                {
+                    "name": "Neural Networks (ANN)"
+                },
+                {
+                    "name": "Overfitting & Regularization"
+                },
+                {
+                    "name": "Feature Engineering"
+                },
+                {
+                    "name": "Model Evaluation"
+                },
+                {
+                    "name": "PCA"
+                },
+                {
+                    "name": "PyTorch"
+                },
+                {
+                    "name": "TensorFlow / Keras"
+                },
+                {
+                    "name": "OpenCV"
+                },
+                {
+                    "name": "Tokenization"
+                },
+                {
+                    "name": "Transformers (Learning)"
+                },
+                {
+                    "name": "RAG Pipelines (Learning)"
+                },
+                {
+                    "name": "Embeddings"
+                },
+                {
+                    "name": "Vector Databases"
+                },
+                {
+                    "name": "Prompt Engineering"
+                }
+            ]
+        },
+        {
+            "id": "S-04",
+            "title": "SYSTEMS, DATA & STREAMING",
+            "icon": "dns",
+            "type": "grid",
+            "groups": [
+                {
+                    "label": "Backend & Data",
+                    "items": [
+                        {
+                            "name": "Flask",
+                            "active": true
+                        },
+                        {
+                            "name": "REST APIs",
+                            "active": true
+                        },
+                        {
+                            "name": "Data Modeling",
+                            "active": true
+                        },
+                        {
+                            "name": "PostgreSQL",
+                            "active": true
+                        },
+                        {
+                            "name": "Supabase",
+                            "active": true
+                        },
+                        {
+                            "name": "Redis",
+                            "active": true
+                        },
+                        {
+                            "name": "Caching Strategies",
+                            "active": true
+                        },
+                        {
+                            "name": "API Rate Limiting",
+                            "active": true
+                        },
+                        {
+                            "name": "Async Processing (Basics)",
+                            "active": true
+                        }
+                    ]
+                },
+                {
+                    "label": "Streaming & Messaging",
+                    "items": [
+                        {
+                            "name": "Kafka",
+                            "active": true
+                        }
+                    ]
+                },
+                {
+                    "label": "Computer Science Foundations",
+                    "items": [
+                        {
+                            "name": "Data Structures & Algorithms",
+                            "active": true
+                        },
+                        {
+                            "name": "ML Algorithms & Optimization",
+                            "active": true
+                        },
+                        {
+                            "name": "DBMS Basics",
+                            "active": true
+                        },
+                        {
+                            "name": "OS Basics",
+                            "active": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "I-05",
+            "title": "INFRA & DEPLOYMENT",
+            "icon": "cloud",
+            "type": "list-prefixed",
+            "items": [
+                {
+                    "name": "AWS (EC2, S3)",
+                    "primary": true
+                },
+                {
+                    "name": "Cloudflare (Pages, Workers)",
+                    "primary": true
+                },
+                {
+                    "name": "Environment Configuration (.env)",
+                    "primary": true
+                },
+                {
+                    "name": "Basic CI/CD Concepts",
+                    "primary": false
+                },
+                {
+                    "name": "Cloud Cost Awareness",
+                    "primary": false
+                },
+                {
+                    "name": "Docker (Basics)",
+                    "primary": false
+                }
+            ]
+        },
+        {
+            "id": "F-03",
+            "title": "INTERFACE (SUPPORTING)",
+            "icon": "web",
+            "type": "list",
+            "items": [
+                {
+                    "name": "HTML / CSS",
+                    "active": true
+                },
+                {
+                    "name": "JavaScript (DOM, Fetch)",
+                    "active": true
+                },
+                {
+                    "name": "React",
+                    "active": true
+                },
+                {
+                    "name": "Next.js",
+                    "active": true
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "active": true
+                },
+                {
+                    "name": "Streamlit",
+                    "active": true
+                },
+                {
+                    "name": "Webflow",
+                    "active": true
+                },
+                {
+                    "name": "Framer",
+                    "active": true
+                }
+            ]
+        },
+        {
+            "id": "U-06",
+            "title": "UTILITIES",
+            "icon": "build",
+            "type": "inline",
+            "items": [
+                "Git / GitHub",
+                "Linux / Bash",
+                "VS Code",
+                "Jupyter",
+                "Postman",
+                "Figma"
+            ],
+            "syncStatus": true
+        }
+    ],
+    "proficiencyBars": [
+        {
+            "name": "PYTHON & MACHINE LEARNING",
+            "percentage": 88,
+            "color": "bg-emerald-500"
+        },
+        {
+            "name": "DSA & C / C++",
+            "percentage": 80,
+            "color": "bg-orange-500"
+        },
+        {
+            "name": "SYSTEMS & BACKEND",
+            "percentage": 78,
+            "color": "bg-primary"
+        },
+        {
+            "name": "GEN AI (IN PROGRESS)",
+            "percentage": 65,
+            "color": "bg-indigo-500"
+        }
+    ]
+}

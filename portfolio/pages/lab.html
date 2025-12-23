@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab / Experiments | Gabriel James</title>
+    <meta name="description" content="Experimental sandbox - Testing hypotheses, prototypes, and research notes." />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <!-- Custom Styles -->
+    <link href="../assets/styles.css" rel="stylesheet" />
+    <link rel="icon" href="../assets/favicon.png" type="image/x-icon">
+</head>
+
+<body
+    class="bg-background-dark text-white font-display overflow-x-hidden selection:bg-primary/30 min-h-screen flex flex-col">
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-[0.15] bg-grid-pattern bg-[length:40px_40px]"></div>
+    <div
+        class="fixed inset-0 z-0 pointer-events-none bg-gradient-to-t from-background-dark via-transparent to-background-dark/80">
+    </div>
+    <div class="scanline"></div>
+    <div class="crt-overlay"></div>
+
+    <!-- Header -->
+    <header
+        class="fixed top-0 left-0 right-0 z-40 w-full flex items-center justify-between border-b border-border-dark bg-background-dark/90 backdrop-blur-md px-6 h-14">
+        <div class="flex items-center gap-4 text-primary">
+            <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <span class="material-symbols-outlined text-lg">terminal</span>
+                <span class="text-xs font-mono font-bold tracking-widest text-white">ROOT@SYSTEM:~/LAB</span>
+            </a>
+        </div>
+        <div class="hidden md:flex items-center gap-1 bg-surface-dark border border-border-dark rounded-full px-1 p-1">
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="dashboard.html">DASHBOARD</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="projects.html">PROJECTS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="skills.html">SKILLS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="experience.html">EXPERIENCE</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="certificates.html">CERTIFICATES</a>
+            <a class="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-mono font-medium border border-primary/20 fast-transition"
+                href="lab.html">LAB</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="resume.html">RESUME</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="contact.html">CONTACT</a>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span>SYSTEM_NORMAL</span>
+            </div>
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="material-symbols-outlined text-sm">wifi</span>
+                <span>UPLINK_ESTABLISHED</span>
+            </div>
+            <div
+                class="text-[10px] font-mono text-primary font-bold border border-primary/20 px-2 py-0.5 rounded bg-primary/5">
+                SECURE
+            </div>
+        </div>
+        <!-- Mobile Hamburger -->
+        <button class="hamburger-btn md:hidden" id="mobile-menu-btn" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <nav class="mobile-nav-overlay" id="mobile-nav">
+        <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close navigation">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <a href="dashboard.html">DASHBOARD</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="skills.html">SKILLS</a>
+        <a href="experience.html">EXPERIENCE</a>
+        <a href="certificates.html">CERTIFICATES</a>
+        <a href="lab.html" class="active">LAB</a>
+        <a href="resume.html">RESUME</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const mobileNavClose = document.getElementById('mobile-nav-close');
+
+        function toggleMobileNav() {
+            mobileMenuBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.classList.toggle('mobile-nav-open');
+        }
+
+        mobileMenuBtn?.addEventListener('click', toggleMobileNav);
+        mobileNavClose?.addEventListener('click', toggleMobileNav);
+
+        // Close on link click
+        mobileNav?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('mobile-nav-open');
+            });
+        });
+    </script>
+
+    <!-- Main Content -->
+    <main class="relative z-10 w-full max-w-7xl mx-auto pt-28 pb-20 px-6 flex flex-col gap-10">
+        <!-- Page Header -->
+        <section class="flex flex-col gap-6 animate-[slideUp_0.6s_ease-out_forwards]">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-6">
+                <div class="max-w-3xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="h-[1px] w-8 bg-primary"></div>
+                        <span class="text-xs font-mono text-primary uppercase tracking-[0.2em]">Laboratory</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-white mb-4">
+                        Experimental Sandbox
+                    </h1>
+                    <p class="text-text-dim font-light text-lg leading-relaxed max-w-2xl">
+                        A digital workbench for testing hypothesis. Exploring the intersection of design engineering and
+                        machine intelligence.
+                    </p>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div
+                    class="flex items-center gap-px bg-border-dark p-px rounded-sm font-mono text-[10px] uppercase tracking-wider self-start md:self-end">
+                    <button data-filter="all"
+                        class="px-4 py-2 bg-primary text-black font-bold hover:bg-primary/90 transition-colors">All</button>
+                    <button data-filter="ml"
+                        class="px-4 py-2 bg-surface-dark text-text-dim hover:text-white hover:bg-card-dark transition-colors">ML</button>
+                    <button data-filter="web"
+                        class="px-4 py-2 bg-surface-dark text-text-dim hover:text-white hover:bg-card-dark transition-colors">Web</button>
+                    <button data-filter="log"
+                        class="px-4 py-2 bg-surface-dark text-text-dim hover:text-white hover:bg-card-dark transition-colors">Log</button>
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div
+                class="w-full border border-warning/20 bg-warning/5 rounded-sm p-4 flex items-start md:items-center gap-4 text-warning/80 font-mono text-xs leading-relaxed">
+                <span class="material-symbols-outlined text-base animate-pulse">warning_amber</span>
+                <p class="uppercase tracking-wide">
+                    Disclaimer: This space contains unfinished experiments, technical notes, and prototypes built to
+                    explore ideas — not production-ready projects.
+                </p>
+            </div>
+        </section>
+
+        <!-- Experiments Grid -->
+        <div id="experiment-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Content rendered by JS -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 w-full px-6 py-4 flex justify-between items-end pointer-events-none z-30">
+        <div class="hidden md:flex flex-col gap-1">
+            <div class="w-16 h-[1px] bg-border-dark"></div>
+            <div class="w-8 h-[1px] bg-border-dark"></div>
+            <div class="text-[10px] font-mono text-text-muted mt-2">SYS.LATENCY: 12ms</div>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="text-[10px] font-mono text-text-muted hidden md:block">
+                UPTIME: 421:22:10
+            </div>
+            <div class="flex flex-col items-end gap-1">
+                <div class="text-[10px] font-mono text-text-dim text-right">
+                    <span class="text-primary">&gt;</span> WAITING FOR INPUT<span class="animate-blink">_</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lab Renderer -->
+    <script type="module" src="../js/render-lab.js"></script>
+
+    <!-- Admin Mode -->
+    <script type="module" src="../js/admin-mode.js"></script>
+
+    <!-- Background Effects Script -->
+    <script type="module" src="../js/stars.js"></script>
+
+</body>
+
+</html>

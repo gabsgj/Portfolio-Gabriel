@@ -1,0 +1,473 @@
+/* ============================================
+   PORTFOLIO SYSTEM - SHARED STYLES
+   ============================================ */
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1F1F1F;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3B82F6;
+}
+
+
+
+
+
+/* Grid Background */
+.grid-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.1;
+    background-image: linear-gradient(to right, #1F1F1F 1px, transparent 1px),
+        linear-gradient(to bottom, #1F1F1F 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* Gradient Overlay */
+.gradient-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(to top, #050505, transparent, rgba(5, 5, 5, 0.9));
+}
+
+/* Glass Panel Effect */
+.glass-panel {
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Boot Screen */
+#boot-screen {
+    position: fixed;
+    inset: 0;
+    background-color: #050505;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: hideBoot 0.1s linear 1.8s forwards;
+}
+
+@keyframes hideBoot {
+    to {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+.loader-bar {
+    width: 0%;
+    height: 2px;
+    background-color: #3B82F6;
+    animation: loadBar 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes loadBar {
+    0% {
+        width: 0%;
+    }
+
+    50% {
+        width: 70%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+
+
+
+
+/* Log Entry Hover Effects */
+.log-entry:hover .log-marker {
+    background-color: #3B82F6;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.log-entry:hover .log-line {
+    border-color: #3B82F6;
+}
+
+/* Skill Card Hover */
+.skill-card:hover .card-decor-line {
+    width: 100%;
+    background-color: #3B82F6;
+}
+
+/* Tech Card Hover */
+.tech-card:hover .tech-border {
+    opacity: 1;
+    border-color: #3B82F6;
+}
+
+.tech-card:hover .tech-title {
+    color: #3B82F6;
+}
+
+.tech-card:hover .expand-icon {
+    transform: translate(2px, -2px);
+    color: #3B82F6;
+}
+
+/* Project Card Hover */
+.project-card {
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    border-color: rgba(59, 130, 246, 0.5);
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+.project-card.active {
+    border-color: rgba(59, 130, 246, 0.4);
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* Resume Paper Styling */
+.resume-paper {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    font-family: 'Times New Roman', serif;
+    line-height: 1.4;
+}
+
+.resume-paper h1,
+.resume-paper h2,
+.resume-paper h3 {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Admin Mode Indicator */
+.admin-mode [data-editable] {
+    outline: 1px dashed rgba(59, 130, 246, 0.5);
+    outline-offset: 2px;
+}
+
+.admin-mode [data-editable]:focus {
+    outline-color: #3B82F6;
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Floating Particles */
+.particle {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+/* Status Indicators */
+.status-deployed {
+    color: #10B981;
+}
+
+.status-experiment {
+    color: #F59E0B;
+}
+
+.status-archived {
+    color: #6B7280;
+}
+
+.status-training {
+    color: #10B981;
+}
+
+/* Navigation Active State */
+.nav-link.active {
+    color: white;
+    border-bottom: 1px solid #3B82F6;
+}
+
+/* Typewriter Effect */
+.tagline {
+    margin: 0;
+    color: #9ca3af;
+    /* muted text-gray-400 */
+    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+    min-height: 1.3em;
+    text-align: center;
+    width: 100%;
+}
+
+.type-text {
+    display: inline-block;
+}
+
+.type-text::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 1.05em;
+    margin-left: 8px;
+    background: #3B82F6;
+    /* primary blue */
+    animation: cursor-blink 1.05s steps(2, start) infinite;
+    vertical-align: middle;
+}
+
+@keyframes cursor-blink {
+    to {
+        opacity: 0;
+    }
+}
+
+/* Custom Cursor */
+body {
+    cursor: url('../assets/cursor.png'), auto;
+}
+
+/* Force cursor on all interactive elements to ensure consistency */
+a,
+button,
+input,
+textarea,
+select,
+.cursor-pointer {
+    cursor: url('../assets/cursor.png'), pointer;
+}
+
+.clickable {
+    cursor: url('../assets/pointer.png'), pointer;
+}
+
+
+
+/* Secure Badge Blink Animation - Disabled by user request */
+.animate-blink {
+    /* animation: blink-badge 2s infinite; */
+}
+
+@keyframes blink-badge {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Min Height Utility for Layout Fixes */
+.min-h-screen-safe {
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+/* Fast Transition Utility */
+.fast-transition {
+    transition: all 0.12s ease-out;
+}
+
+/* ============================================
+   MOBILE NAVIGATION
+   ============================================ */
+
+/* Hamburger Button */
+.hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    gap: 5px;
+    cursor: url('../assets/cursor.png'), pointer;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    padding: 8px;
+    position: relative;
+    z-index: 50;
+}
+
+.hamburger-btn:hover {
+    border-color: #3B82F6;
+    background: rgba(59, 130, 246, 0.15);
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    transition: all 0.3s ease;
+    border-radius: 1px;
+}
+
+.hamburger-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Hide hamburger on desktop (768px+) */
+@media (min-width: 768px) {
+    .hamburger-btn {
+        display: none !important;
+    }
+}
+
+/* Mobile Navigation Overlay */
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 45;
+    background: rgba(5, 5, 5, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 5rem 2rem 2rem;
+    visibility: hidden;
+}
+
+.mobile-nav-overlay.active {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.mobile-nav-overlay a {
+    font-size: 1.1rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.75rem 2rem;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.mobile-nav-overlay a:hover,
+.mobile-nav-overlay a.active {
+    color: #fff;
+    border-color: rgba(59, 130, 246, 0.3);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.mobile-nav-overlay a.active {
+    color: #3B82F6;
+}
+
+/* Close button for mobile nav */
+.mobile-nav-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9CA3AF;
+    transition: color 0.2s, background 0.2s;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: url('../assets/cursor.png'), pointer;
+}
+
+.mobile-nav-close:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Prevent body scroll when mobile nav is open */
+body.mobile-nav-open {
+    overflow: hidden;
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+/* Hide on mobile, show on md+ */
+@media (max-width: 767px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Show only on mobile */
+@media (min-width: 768px) {
+    .show-mobile-only {
+        display: none !important;
+    }
+}
+
+
+/* Shooting Star Effect */
+.shooting-star {
+    position: fixed;
+    height: 2px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, var(--star-color, #fff) 50%, rgba(255, 255, 255, 0) 100%);
+    width: 100px;
+    z-index: 0;
+    /* Behind content but in front of deep background */
+    pointer-events: none;
+    opacity: 0;
+    filter: drop-shadow(0 0 4px var(--star-color, #fff));
+}
+
+@keyframes shoot {
+    0% {
+        opacity: 0;
+        transform: translateX(0) translateY(0) rotate(45deg) scale(1);
+    }
+
+    10% {
+        opacity: 1;
+        /* Fade in quickly */
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(150vh) translateY(150vh) rotate(45deg) scale(1);
+    }
+}

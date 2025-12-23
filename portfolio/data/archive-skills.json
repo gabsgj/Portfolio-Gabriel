@@ -1,0 +1,202 @@
+{
+    "categories": [
+        {
+            "id": "L-01",
+            "title": "LANGUAGES",
+            "icon": "code",
+            "type": "list",
+            "items": [
+                {
+                    "name": "Python",
+                    "version": "v3.12",
+                    "active": true
+                },
+                {
+                    "name": "TypeScript",
+                    "version": "ES2023",
+                    "active": true
+                },
+                {
+                    "name": "Rust",
+                    "version": "Stable",
+                    "active": true
+                },
+                {
+                    "name": "Go (Golang)",
+                    "version": "v1.21",
+                    "active": true
+                },
+                {
+                    "name": "SQL",
+                    "version": "ANSI",
+                    "active": false
+                }
+            ]
+        },
+        {
+            "id": "M-02",
+            "title": "ML / AI CORE",
+            "icon": "psychology",
+            "type": "tags",
+            "items": [
+                {
+                    "name": "PyTorch"
+                },
+                {
+                    "name": "TensorFlow"
+                },
+                {
+                    "name": "Transformers"
+                },
+                {
+                    "name": "LangChain"
+                },
+                {
+                    "name": "OpenCV"
+                },
+                {
+                    "name": "HuggingFace"
+                },
+                {
+                    "name": "RAG Pipelines"
+                }
+            ]
+        },
+        {
+            "id": "F-03",
+            "title": "INTERFACE",
+            "icon": "web",
+            "type": "list",
+            "items": [
+                {
+                    "name": "React / Next.js",
+                    "active": true
+                },
+                {
+                    "name": "Vue 3",
+                    "active": true
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "active": true
+                },
+                {
+                    "name": "Three.js / WebGL",
+                    "active": false
+                },
+                {
+                    "name": "Framer Motion",
+                    "active": false
+                }
+            ]
+        },
+        {
+            "id": "S-04",
+            "title": "SYSTEM",
+            "icon": "dns",
+            "type": "grid",
+            "groups": [
+                {
+                    "label": "Database",
+                    "items": [
+                        {
+                            "name": "PostgreSQL",
+                            "active": true
+                        },
+                        {
+                            "name": "Redis",
+                            "active": true
+                        },
+                        {
+                            "name": "MongoDB",
+                            "active": false
+                        }
+                    ]
+                },
+                {
+                    "label": "Message",
+                    "items": [
+                        {
+                            "name": "Kafka",
+                            "active": true
+                        },
+                        {
+                            "name": "RabbitMQ",
+                            "active": false
+                        }
+                    ]
+                },
+                {
+                    "label": "Architecture",
+                    "items": [
+                        {
+                            "name": "Microservices",
+                            "active": true
+                        },
+                        {
+                            "name": "Event-Driven",
+                            "active": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "I-05",
+            "title": "INFRA",
+            "icon": "cloud",
+            "type": "list-prefixed",
+            "items": [
+                {
+                    "name": "AWS (EC2, S3, Lambda)",
+                    "primary": true
+                },
+                {
+                    "name": "Docker & Kubernetes",
+                    "primary": false
+                },
+                {
+                    "name": "Terraform (IaC)",
+                    "primary": false
+                },
+                {
+                    "name": "GitHub Actions",
+                    "primary": false
+                }
+            ]
+        },
+        {
+            "id": "U-06",
+            "title": "UTILITIES",
+            "icon": "build",
+            "type": "inline",
+            "items": [
+                "Git",
+                "Linux/Bash",
+                "Vim",
+                "Figma",
+                "Postman",
+                "Jira",
+                "Nginx"
+            ],
+            "syncStatus": true
+        }
+    ],
+    "proficiencyBars": [
+        {
+            "name": "JAVASCRIPT / TS",
+            "percentage": 98,
+            "color": "bg-primary"
+        },
+        {
+            "name": "PYTHON / PYTORCH",
+            "percentage": 85,
+            "color": "bg-emerald-500"
+        },
+        {
+            "name": "RUST",
+            "percentage": 60,
+            "color": "bg-orange-500"
+        }
+    ]
+}

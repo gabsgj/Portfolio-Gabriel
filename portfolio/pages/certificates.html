@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Certificates | Gabriel James</title>
+    <meta name="description"
+        content="Professional certifications and achievements - Validated expertise in cloud, development, and AI." />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <!-- Custom Styles -->
+    <link href="../assets/styles.css" rel="stylesheet" />
+    <link rel="icon" href="../assets/favicon.png" type="image/x-icon">
+</head>
+
+<body
+    class="bg-background-dark text-white font-display overflow-x-hidden selection:bg-primary/30 min-h-screen flex flex-col">
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-10 bg-grid-pattern bg-[length:30px_30px]"></div>
+    <div
+        class="fixed inset-0 z-0 pointer-events-none bg-gradient-to-t from-background-dark via-transparent to-background-dark/90">
+    </div>
+
+    <!-- Navigation -->
+    <header
+        class="fixed top-0 w-full z-40 border-b border-border-dark bg-background-dark/80 backdrop-blur-lg h-14 flex items-center justify-between px-6">
+        <div class="flex items-center gap-4 text-primary">
+            <a href="index.html" class="flex items-center gap-2 hover:opacity-80 fast-transition">
+                <span class="material-symbols-outlined text-lg">terminal</span>
+                <span class="text-xs font-mono font-bold tracking-widest text-white">ROOT@SYSTEM:~/CERTIFICATES</span>
+            </a>
+        </div>
+        <div class="hidden md:flex items-center gap-1 bg-surface-dark border border-border-dark rounded-full px-1 p-1">
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="dashboard.html">DASHBOARD</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="projects.html">PROJECTS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="skills.html">SKILLS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="experience.html">EXPERIENCE</a>
+            <a class="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-mono font-medium border border-primary/20 fast-transition"
+                href="certificates.html">CERTIFICATES</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="lab.html">LAB</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="resume.html">RESUME</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="contact.html">CONTACT</a>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span>SYSTEM_NORMAL</span>
+            </div>
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="material-symbols-outlined text-sm">wifi</span>
+                <span>UPLINK_ESTABLISHED</span>
+            </div>
+            <div
+                class="text-[10px] font-mono text-primary font-bold border border-primary/20 px-2 py-0.5 rounded bg-primary/5">
+                SECURE
+            </div>
+        </div>
+        <!-- Mobile Hamburger -->
+        <button class="hamburger-btn md:hidden" id="mobile-menu-btn" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <nav class="mobile-nav-overlay" id="mobile-nav">
+        <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close navigation">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <a href="dashboard.html">DASHBOARD</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="skills.html">SKILLS</a>
+        <a href="experience.html">EXPERIENCE</a>
+        <a href="certificates.html" class="active">CERTIFICATES</a>
+        <a href="lab.html">LAB</a>
+        <a href="resume.html">RESUME</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const mobileNavClose = document.getElementById('mobile-nav-close');
+
+        function toggleMobileNav() {
+            mobileMenuBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.classList.toggle('mobile-nav-open');
+        }
+
+        mobileMenuBtn?.addEventListener('click', toggleMobileNav);
+        mobileNavClose?.addEventListener('click', toggleMobileNav);
+
+        // Close on link click
+        mobileNav?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('mobile-nav-open');
+            });
+        });
+    </script>
+
+    <!-- Main Content -->
+    <main class="relative z-10 pt-24 pb-12 px-4 md:px-8 max-w-[1400px] mx-auto w-full flex-1">
+        <!-- Header -->
+        <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <span
+                        class="text-xs font-mono text-primary border border-primary/30 px-1.5 py-0.5 rounded bg-primary/5">Verified</span>
+                    <span class="text-xs font-mono text-gray-600">Professional Credentials</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-medium tracking-tight text-white">
+                    Certificates & Credentials
+                </h1>
+                <p class="text-gray-400 mt-2 font-light max-w-lg">
+                    Professional certifications validating expertise across cloud platforms, development frameworks, and
+                    AI technologies.
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 px-4 py-2 bg-surface-dark border border-border-dark rounded-lg">
+                    <span class="material-symbols-outlined text-primary text-lg">verified</span>
+                    <span class="text-sm text-gray-400 font-mono"><span id="cert-count" class="text-white">0</span>
+                        Certifications</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Certificates Grid -->
+        <div id="certificates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <!-- Certificates will be rendered here by JS -->
+        </div>
+    </main>
+
+    <!-- Footer Decoration -->
+    <div class="fixed bottom-4 right-8 hidden lg:block z-30 pointer-events-none">
+        <div class="flex flex-col items-end gap-1">
+            <div class="flex gap-1">
+                <div class="w-1 h-1 bg-gray-600"></div>
+                <div class="w-1 h-1 bg-gray-600"></div>
+                <div class="w-1 h-1 bg-gray-600"></div>
+            </div>
+            <div class="text-[10px] font-mono text-gray-600 uppercase tracking-widest">
+                Interface v2.4
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificates Renderer -->
+    <script type="module">
+        import { loadJSON } from '../js/core.js';
+
+        // Map issuer names to their logo files - returns object with path and background info
+        // { path: string|null, darkBg: boolean }
+        function getProviderLogo(issuer) {
+            const issuerLower = issuer.toLowerCase();
+
+            // AWS - orange logo works on white
+            if (issuerLower.includes('amazon web services') || issuerLower.includes('aws')) {
+                return { path: '../assets/logos/aws.png', darkBg: false };
+            }
+            // Amazon (non-AWS) - black logo needs dark background
+            if (issuerLower.includes('amazon')) {
+                return { path: '../assets/logos/amazon.png', darkBg: true };
+            }
+            // IBM - blue logo works on white
+            if (issuerLower.includes('ibm')) {
+                return { path: '../assets/logos/ibm.png', darkBg: false };
+            }
+            // Google Cloud - multicolor works on white
+            if (issuerLower.includes('google cloud') || issuerLower.includes('google')) {
+                return { path: '../assets/logos/google-cloud.png', darkBg: false };
+            }
+            // Meta - blue logo works on white
+            if (issuerLower.includes('meta')) {
+                return { path: '../assets/logos/meta.png', darkBg: false };
+            }
+            // DeepLearning.AI / Stanford - red logo works on white
+            if (issuerLower.includes('deeplearning') || issuerLower.includes('stanford')) {
+                return { path: '../assets/logos/deeplearning-ai.png', darkBg: false };
+            }
+            // Vanderbilt - gold on brown
+            if (issuerLower.includes('vanderbilt')) {
+                return { path: '../assets/logos/vanderbilt.png', darkBg: false };
+            }
+            // Yale - blue works on white
+            if (issuerLower.includes('yale')) {
+                return { path: '../assets/logos/yale.png', darkBg: false };
+            }
+            // NYU - purple works on white
+            if (issuerLower.includes('new york university')) {
+                return { path: '../assets/logos/nyu.png', darkBg: false };
+            }
+            // NY Institute of Finance - dark logo needs dark background
+            if (issuerLower.includes('new york institute of finance') || issuerLower.includes('nyif')) {
+                return { path: '../assets/logos/nyif.png', darkBg: true };
+            }
+            // UC Davis - blue/gold works on white
+            if (issuerLower.includes('california') && issuerLower.includes('davis')) {
+                return { path: '../assets/logos/ucdavis.png', darkBg: false };
+            }
+            // Coursera - blue works on white
+            if (issuerLower.includes('coursera')) {
+                return { path: '../assets/logos/coursera.png', darkBg: false };
+            }
+            // No logo available - return null path
+            return { path: null, darkBg: false };
+        }
+
+        async function initCertificates() {
+            const profile = await loadJSON('../data/profile.json');
+            if (!profile || !profile.certificates) {
+                console.error('[CERTIFICATES] Failed to load certificates data');
+                return;
+            }
+
+            const grid = document.getElementById('certificates-grid');
+            const countEl = document.getElementById('cert-count');
+
+            if (countEl) {
+                countEl.textContent = profile.certificates.length;
+            }
+
+            if (!grid) return;
+
+            grid.innerHTML = profile.certificates.map((cert, index) => {
+                const logoInfo = getProviderLogo(cert.issuer);
+                return `
+                <div class="group relative bg-surface-card border border-border-dark hover:border-primary/50 p-6 fast-transition overflow-hidden"
+                     style="animation: fadeInUp 0.4s ease-out ${index * 0.1}s both">
+                    <!-- Background Icon -->
+                    <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <span class="material-symbols-outlined text-7xl">${cert.icon || 'verified'}</span>
+                    </div>
+                    
+                    <!-- Badge with Provider Logo or Material Icon -->
+                    <div class="flex items-center gap-3 mb-4">
+                        ${logoInfo.path ? `
+                        <div class="w-12 h-12 rounded-lg bg-transparent flex items-center justify-center transition-all overflow-hidden">
+                            <img src="${logoInfo.path}" alt="${cert.issuer}" class="w-full h-full object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity" onerror="this.parentElement.innerHTML='<span class=\\'material-symbols-outlined text-primary text-xl\\'>${cert.icon || 'verified'}</span>';" />
+                        </div>
+                        ` : `
+                        <div class="w-12 h-12 rounded-lg bg-transparent flex items-center justify-center transition-all">
+                            <span class="material-symbols-outlined text-white text-3xl opacity-90 group-hover:opacity-100 transition-opacity">${cert.icon || 'verified'}</span>
+                        </div>
+                        `}
+                        <span class="text-xs font-mono text-gray-500 uppercase">${cert.date}</span>
+                    </div>
+                    
+                    <!-- Content -->
+                    <h3 class="text-lg font-medium text-white mb-2 group-hover:text-primary transition-colors">${cert.name}</h3>
+                    <p class="text-sm text-gray-400 mb-4">${cert.issuer}</p>
+                    
+                    <!-- Link -->
+                    ${cert.link && cert.link !== '#' ? `
+                        <a href="${cert.link}" target="_blank" 
+                           class="inline-flex items-center gap-2 text-xs font-mono text-primary hover:text-white transition-colors">
+                            <span>View Certificate</span>
+                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        </a>
+                    ` : `
+                        <div class="inline-flex items-center gap-2 text-xs font-mono text-emerald-500">
+                            <span class="material-symbols-outlined text-sm">verified</span>
+                            <span>Verified</span>
+                        </div>
+                    `}
+                </div>
+            `}).join('');
+
+            console.log('[CERTIFICATES] Rendered', profile.certificates.length, 'certificates');
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCertificates);
+        } else {
+            initCertificates();
+        }
+    </script>
+
+    <!-- Admin Mode -->
+    <script type="module" src="../js/admin-mode.js"></script>
+
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <!-- Background Effects Script -->
+    <script type="module" src="../js/stars.js"></script>
+
+</body>
+
+</html>

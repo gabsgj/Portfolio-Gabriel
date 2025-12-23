@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Export | Gabriel James</title>
+    <meta name="description" content="Resume/CV export - Downloadable PDF resume viewer." />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind-config.js"></script>
+
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link href="../assets/styles.css" rel="stylesheet" />
+    <link rel="icon" href="../assets/favicon.png" type="image/x-icon">
+
+    <style>
+        /* Print Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #pdf-canvas-container,
+            #pdf-canvas-container * {
+                visibility: visible;
+            }
+
+            #pdf-canvas-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            #pdf-canvas-container canvas {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+        }
+
+        /* PDF Container Styling */
+        #pdf-container {
+            position: relative;
+            overflow: auto;
+        }
+
+        #pdf-canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            width: fit-content;
+            min-width: 100%;
+        }
+
+        #pdf-canvas-container canvas {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: white;
+        }
+
+        /* Ensure PDF stays contained within its panel */
+        .pdf-preview-panel {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-dark text-white font-display md:overflow-hidden selection:bg-primary/30 min-h-screen md:h-screen flex flex-col">
+    <!-- Boot Overlay -->
+    <div class="fixed inset-0 bg-background-dark z-50 flex items-center justify-center" id="boot-overlay">
+        <div class="w-64">
+            <div class="flex justify-between text-[10px] font-mono text-primary mb-2">
+                <span>RETRIEVING FILE</span>
+                <span>100%</span>
+            </div>
+            <div class="h-[2px] bg-gray-900 w-full overflow-hidden">
+                <div class="h-full bg-primary loader-bar"></div>
+            </div>
+            <div class="mt-2 font-mono text-[10px] text-gray-500">
+                <span class="block">decoding stream...</span>
+            </div>
+        </div>
+    </div>
+    <style>
+        #boot-overlay {
+            animation: fadeOut 0.5s ease-out 1.2s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    </style>
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-10 bg-grid-pattern bg-[length:30px_30px]"></div>
+    <div
+        class="fixed inset-0 z-0 pointer-events-none bg-gradient-to-t from-background-dark via-transparent to-background-dark/90">
+    </div>
+    <div class="scanline"></div>
+    <div class="crt-overlay"></div>
+
+    <!-- Header -->
+    <header
+        class="relative z-30 w-full flex items-center justify-between border-b border-border-dark bg-background-dark/80 backdrop-blur-md px-6 py-3 h-14 shrink-0">
+        <div class="flex items-center gap-4 text-primary">
+            <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <span class="material-symbols-outlined text-lg">terminal</span>
+                <span class="text-xs font-mono font-bold tracking-widest text-white">ROOT@SYSTEM:~/RESUME</span>
+            </a>
+        </div>
+        <div class="hidden md:flex items-center gap-1 bg-surface-dark border border-border-dark rounded-full px-1 p-1">
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="dashboard.html">DASHBOARD</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="projects.html">PROJECTS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="skills.html">SKILLS</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="experience.html">EXPERIENCE</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="certificates.html">CERTIFICATES</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="lab.html">LAB</a>
+            <a class="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-mono font-medium border border-primary/20 fast-transition"
+                href="resume.html">RESUME</a>
+            <a class="px-4 py-1.5 rounded-full hover:bg-white/5 text-gray-400 hover:text-white fast-transition text-xs font-mono font-medium"
+                href="contact.html">CONTACT</a>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span>SYSTEM_NORMAL</span>
+            </div>
+            <div class="flex items-center gap-2 text-[10px] font-mono text-gray-500">
+                <span class="material-symbols-outlined text-sm">wifi</span>
+                <span>UPLINK_ESTABLISHED</span>
+            </div>
+            <div
+                class="text-[10px] font-mono text-primary font-bold border border-primary/20 px-2 py-0.5 rounded bg-primary/5">
+                SECURE
+            </div>
+        </div>
+        <!-- Mobile Hamburger -->
+        <button class="hamburger-btn md:hidden" id="mobile-menu-btn" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <nav class="mobile-nav-overlay" id="mobile-nav">
+        <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close navigation">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <a href="dashboard.html">DASHBOARD</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="skills.html">SKILLS</a>
+        <a href="experience.html">EXPERIENCE</a>
+        <a href="certificates.html">CERTIFICATES</a>
+        <a href="lab.html">LAB</a>
+        <a href="resume.html" class="active">RESUME</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const mobileNavClose = document.getElementById('mobile-nav-close');
+
+        function toggleMobileNav() {
+            mobileMenuBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.classList.toggle('mobile-nav-open');
+        }
+
+        mobileMenuBtn?.addEventListener('click', toggleMobileNav);
+        mobileNavClose?.addEventListener('click', toggleMobileNav);
+
+        // Close on link click
+        mobileNav?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('mobile-nav-open');
+            });
+        });
+    </script>
+
+    <!-- Main Content -->
+    <main
+        class="relative z-10 flex flex-col md:flex-row md:h-full md:overflow-hidden w-full max-w-full mx-auto p-4 md:p-4 gap-6">
+        <!-- Resume Preview -->
+        <div class="pdf-preview-panel flex-1 flex flex-col min-h-0 bg-surface-dark/50 border border-border-dark backdrop-blur-sm relative group rounded-sm animate-fade-in-up"
+            style="animation-delay: 0.1s">
+            <div
+                class="h-10 border-b border-border-dark flex items-center justify-between px-4 bg-background-dark/90 shrink-0">
+                <div class="flex items-center gap-3">
+                    <span class="text-xs font-mono text-gray-400">Gabriel_James_Resume.pdf</span>
+                    <span class="text-[10px] font-mono text-gray-600 bg-gray-900 px-1.5 rounded" id="page-info">Page
+                        1</span>
+                </div>
+                <div class="flex items-center gap-3 text-gray-400">
+                    <button id="zoom-out-btn" class="hover:text-white transition-colors p-1 hover:bg-white/10 rounded"
+                        title="Zoom Out">
+                        <span class="material-symbols-outlined text-sm">remove</span>
+                    </button>
+                    <span class="text-[10px] font-mono min-w-[40px] text-center" id="zoom-level">100%</span>
+                    <button id="zoom-in-btn" class="hover:text-white transition-colors p-1 hover:bg-white/10 rounded"
+                        title="Zoom In">
+                        <span class="material-symbols-outlined text-sm">add</span>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1 overflow-auto bg-[#1a1a1a]" id="pdf-container">
+                <div id="pdf-canvas-container">
+                    <!-- PDF pages rendered here as canvas elements -->
+                </div>
+                <div id="loading-indicator" class="flex items-center justify-center h-full">
+                    <div class="text-center">
+                        <span
+                            class="material-symbols-outlined text-4xl text-primary animate-pulse mb-4">hourglass_empty</span>
+                        <p class="text-gray-400 text-sm font-mono">Loading PDF...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="w-full md:w-80 shrink-0 flex flex-col gap-4 animate-fade-in-up" style="animation-delay: 0.2s">
+            <!-- File Metadata -->
+            <div class="bg-background-dark border border-border-dark p-4">
+                <div class="flex items-center gap-2 mb-4 text-primary">
+                    <span class="material-symbols-outlined text-sm">info</span>
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider">File Metadata</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center text-xs border-b border-gray-900 pb-2">
+                        <span class="text-gray-500">Format</span>
+                        <span class="font-mono text-gray-300">Portable Document Format</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs border-b border-gray-900 pb-2">
+                        <span class="text-gray-500">Pages</span>
+                        <span class="font-mono text-gray-300" id="total-pages">--</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs border-b border-gray-900 pb-2">
+                        <span class="text-gray-500">Last Modified</span>
+                        <span class="font-mono text-gray-300" id="last-modified">--</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs pb-1">
+                        <span class="text-gray-500">Sensitivity</span>
+                        <span class="font-mono text-emerald-500">PUBLIC / LOW</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Actions -->
+            <div class="bg-surface-dark border border-border-dark p-4 flex flex-col gap-3">
+                <div class="text-xs font-mono text-gray-500 uppercase tracking-wider mb-1">Export Actions</div>
+                <a href="../resume/Gabriel_James_Resume.pdf" download="Gabriel_James_Resume.pdf" id="download-btn"
+                    class="group w-full relative px-6 py-3 bg-white text-black font-mono font-bold text-sm tracking-widest uppercase transition-all duration-300 hover:bg-primary hover:text-white focus:outline-none overflow-hidden text-center block">
+                    <span class="relative z-10 flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-lg">download</span>
+                        Download PDF
+                    </span>
+                    <div
+                        class="absolute inset-0 bg-gray-200 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0">
+                    </div>
+                </a>
+                <button id="print-btn"
+                    class="w-full px-6 py-3 bg-transparent border border-gray-700 text-gray-400 font-mono font-bold text-xs tracking-widest uppercase transition-all duration-300 hover:border-primary hover:text-primary focus:outline-none flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-lg">print</span>
+                    Print
+                </button>
+            </div>
+
+            <!-- System Log -->
+            <div
+                class="flex-1 bg-black/50 border border-border-dark p-3 font-mono text-[10px] overflow-hidden flex flex-col">
+                <div class="text-gray-600 border-b border-gray-900 pb-1 mb-2">SYSTEM_LOG</div>
+                <div class="space-y-1 text-gray-500 overflow-y-auto flex-1" id="resume-log">
+                    <div class="flex gap-2">
+                        <span class="text-gray-700">[--:--:--]</span>
+                        <span>Initializing PDF.js...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- PDF.js Viewer Script -->
+    <script>
+        // PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const RESUME_PDF_PATH = '../resume/Gabriel_James_Resume.pdf';
+
+        let pdfDoc = null;
+        let currentPage = 1;
+        let totalPages = 0;
+        let displayScale = 1.5; // Start at 150% for better readability
+        // const BASE_RENDER_SCALE = 3.0; // Removed, using dynamic calculation
+        const MIN_SCALE = 0.5;
+        const MAX_SCALE = 4.0;
+        const SCALE_STEP = 0.25;
+        let isRendering = false;
+
+        // Log function
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('resume-log');
+            if (!logContainer) return;
+
+            const now = new Date();
+            const timeStr = now.toTimeString().slice(0, 8);
+            const colorClass = type === 'success' ? 'text-emerald-500' : type === 'error' ? 'text-red-500' : 'text-gray-500';
+
+            logContainer.innerHTML += `
+                <div class="flex gap-2">
+                    <span class="text-gray-700">[${timeStr}]</span>
+                    <span class="${colorClass}">${message}</span>
+                </div>
+            `;
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        // Update UI displays
+        function updateUI() {
+            document.getElementById('zoom-level').textContent = `${Math.round(displayScale * 100)}%`;
+            document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+
+        // Render a single page at the specified scale
+        async function renderPage(pageNum, container, scale) {
+            const page = await pdfDoc.getPage(pageNum);
+
+            // Determine device pixel ratio (e.g., 2.0 for Retina, 1.0 for standard)
+            const dpr = window.devicePixelRatio || 1;
+
+            // Render at high resolution (Device Pixel Ratio * 2 for supersampling)
+            const renderScale = scale * Math.max(dpr, 1.5) * 2.0;
+
+            const viewport = page.getViewport({ scale: renderScale });
+            const displayViewport = page.getViewport({ scale: scale });
+
+            const canvas = document.createElement('canvas');
+            canvas.id = `page-${pageNum}`;
+            canvas.className = 'pdf-page-canvas';
+            const context = canvas.getContext('2d');
+
+            // Set integer canvas dimensions
+            canvas.height = Math.floor(viewport.height);
+            canvas.width = Math.floor(viewport.width);
+
+            // Set CSS dimensions to match the display size
+            canvas.style.width = `${Math.floor(displayViewport.width)}px`;
+            canvas.style.height = `${Math.floor(displayViewport.height)}px`;
+
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+
+            await page.render(renderContext).promise;
+            container.appendChild(canvas);
+
+            return canvas;
+        }
+
+        // Render all pages at the current display scale
+        async function renderAllPages() {
+            if (isRendering) return;
+            isRendering = true;
+
+            const container = document.getElementById('pdf-canvas-container');
+            container.innerHTML = '';
+
+            log(`Rendering ${totalPages} page(s) at ${Math.round(displayScale * 100)}%...`);
+
+            for (let i = 1; i <= totalPages; i++) {
+                await renderPage(i, container, displayScale);
+            }
+
+            document.getElementById('loading-indicator').style.display = 'none';
+            log('PDF rendered successfully', 'success');
+            isRendering = false;
+        }
+
+        // Zoom in - re-render at higher scale
+        async function zoomIn() {
+            if (displayScale < MAX_SCALE && !isRendering) {
+                displayScale += SCALE_STEP;
+                displayScale = Math.min(displayScale, MAX_SCALE);
+                updateUI();
+                log(`Zooming to ${Math.round(displayScale * 100)}%...`);
+                await renderAllPages();
+            }
+        }
+
+        // Zoom out - re-render at lower scale
+        async function zoomOut() {
+            if (displayScale > MIN_SCALE && !isRendering) {
+                displayScale -= SCALE_STEP;
+                displayScale = Math.max(displayScale, MIN_SCALE);
+                updateUI();
+                log(`Zooming to ${Math.round(displayScale * 100)}%...`);
+                await renderAllPages();
+            }
+        }
+
+        // Scroll to page
+        function goToPage(pageNum) {
+            if (pageNum < 1 || pageNum > totalPages) return;
+            currentPage = pageNum;
+            const canvas = document.getElementById(`page-${pageNum}`);
+            if (canvas) {
+                canvas.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            updateUI();
+        }
+
+        // Print function - opens browser print dialog
+        function printPDF() {
+            log('Opening print dialog...');
+            // Create a hidden iframe to load and print the PDF
+            const printFrame = document.createElement('iframe');
+            printFrame.style.position = 'fixed';
+            printFrame.style.right = '0';
+            printFrame.style.bottom = '0';
+            printFrame.style.width = '0';
+            printFrame.style.height = '0';
+            printFrame.style.border = 'none';
+            printFrame.src = RESUME_PDF_PATH;
+            document.body.appendChild(printFrame);
+
+            printFrame.onload = () => {
+                setTimeout(() => {
+                    printFrame.contentWindow.print();
+                    log('Print dialog opened', 'success');
+                }, 500);
+            };
+        }
+
+        // Load PDF
+        async function loadPDF() {
+            try {
+                log('Loading PDF file...');
+
+                const loadingTask = pdfjsLib.getDocument(RESUME_PDF_PATH);
+                pdfDoc = await loadingTask.promise;
+
+                totalPages = pdfDoc.numPages;
+                document.getElementById('total-pages').textContent = totalPages;
+                document.getElementById('last-modified').textContent = new Date().toISOString().split('T')[0];
+
+                log(`PDF loaded: ${totalPages} page(s)`, 'success');
+
+                updateUI();
+                await renderAllPages();
+
+            } catch (error) {
+                log(`Error loading PDF: ${error.message}`, 'error');
+                document.getElementById('loading-indicator').innerHTML = `
+                    <div class="text-center p-8">
+                        <span class="material-symbols-outlined text-4xl text-red-500 mb-4">error</span>
+                        <p class="text-gray-400 text-sm font-mono mb-2">Failed to load PDF</p>
+                        <p class="text-gray-600 text-xs font-mono">${error.message}</p>
+                        <a href="${RESUME_PDF_PATH}" download class="inline-block mt-4 px-4 py-2 bg-primary text-white text-xs font-mono uppercase">
+                            Download Instead
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            log('Initializing PDF.js viewer...');
+
+            // Bind controls
+            document.getElementById('zoom-in-btn').addEventListener('click', zoomIn);
+            document.getElementById('zoom-out-btn').addEventListener('click', zoomOut);
+            document.getElementById('print-btn').addEventListener('click', printPDF);
+
+            // Load the PDF
+            loadPDF();
+
+            // Add cursor at end of log
+            setTimeout(() => {
+                const logContainer = document.getElementById('resume-log');
+                logContainer.innerHTML += `
+                    <div class="flex gap-2 animate-pulse">
+                        <span class="text-primary">&gt;</span>
+                        <span class="text-gray-300">Awaiting user action_</span>
+                    </div>
+                `;
+            }, 2000);
+        });
+    </script>
+
+    <!-- Admin Mode -->
+    <script type="module" src="../js/admin-mode.js"></script>
+
+    <!-- Background Effects Script -->
+    <script type="module" src="../js/stars.js"></script>
+
+</body>
+
+</html>
