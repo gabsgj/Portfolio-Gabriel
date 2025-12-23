@@ -471,3 +471,18 @@ body.mobile-nav-open {
         transform: translateX(150vh) translateY(150vh) rotate(45deg) scale(1);
     }
 }
+
+/* Set default browser view to 90% */
+/* Primary: use `zoom` (Chromium, Safari, Edge). */
+/* Firefox fallback uses transform/scale. */
+html {
+    zoom: 90%;
+}
+
+@-moz-document url-prefix() {
+    html {
+        transform: scale(0.9);
+        transform-origin: 0 0;
+        width: 111.111111%;
+    }
+}
