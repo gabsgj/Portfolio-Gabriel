@@ -1,68 +1,153 @@
 [
     {
         "type": "work",
-        "date": "2024.06 - PRESENT",
-        "title": "Senior Frontend Engineer Intern",
-        "company": "Uber Technologies",
+        "date": "2025.04 - PRESENT",
+        "title": "AI Project Lead — Team Arete",
+        "company": "Government Engineering College Thrissur",
         "colorClass": "text-primary",
         "highlights": [
-            "Architected a new internal dashboard reducing load times by 40% using React Server Components.",
-            "Implemented accessibility features compliant with WCAG 2.1 AA standards across core products.",
-            "Collaborated with design systems team to migrate 50+ components to TypeScript."
+            "Led a multidisciplinary AI research team building Stampede Predictor (real-time CV) and ATHENIS (legal NLP).",
+            "Mentored team members on ML modelling, prompt engineering, and end-to-end system design.",
+            "Coordinated hackathon submissions and dev-ops for live demos and streaming pipelines (Fluvio)."
         ],
         "tech": [
-            "REACT",
-            "TYPESCRIPT",
-            "GRAPHQL"
-        ]
+            "Python",
+            "YOLOv8",
+            "OpenCV",
+            "Fluvio",
+            "Transformers",
+            "Flask"
+        ],
+        "source": "Resume (uploaded). :contentReference[oaicite:4]{index=4}"
     },
     {
         "type": "achievement",
-        "date": "2024.02",
-        "title": "Global AI Hackathon - 1st Place",
-        "company": "Devpost",
+        "date": "2025.04 - 2025.05",
+        "title": "Top 15 — HACKHAZARDS '25 (Fluvio Track)",
+        "company": "NAMESPACE / HackHazards",
         "colorClass": "text-emerald-500",
-        "hoverBorderClass": "hover:border-emerald-500/30",
-        "description": "Developed \"NeuroSync,\" a real-time sign language translation tool using computer vision and LSTM networks.",
-        "award": "Awarded Best Technical Implementation",
-        "icon": "trophy"
+        "description": "Team Arete’s 'Stampede Predictor' placed in the Top 15 (Fluvio track) at HACKHAZARDS '25 — a large, community-run global hackathon (Apr 2025 event window).",
+        "award": "Top 15 Finalist",
+        "icon": "trophy",
+        "links": [
+            "HackHazards schedule / event page provided the event timeline and track info. :contentReference[oaicite:5]{index=5}",
+            "LinkedIn post announcing the team’s Top-15 placement. :contentReference[oaicite:6]{index=6}"
+        ],
+        "note": "Event ran April–May 2025 (see schedule). :contentReference[oaicite:7]{index=7}"
+    },
+    {
+        "type": "achievement",
+        "date": "2025.09",
+        "title": "Top 6 Finalist — HackOdisha 5.0",
+        "company": "HackOdisha / Webwiz",
+        "colorClass": "text-emerald-500",
+        "description": "Team Arete (ATHENIS / Stampede Predictor) ranked Top 6 at HackOdisha 5.0.",
+        "award": "Top 6 Finalist",
+        "icon": "medal",
+        "links": [
+            "HackOdisha 5.0 event page / announcement (dates & edition). :contentReference[oaicite:8]{index=8}"
+        ],
+        "note": "HackOdisha 5.0 (Sept 2025) event pages confirm the 5.0 edition timeline. :contentReference[oaicite:9]{index=9}"
+    },
+    {
+        "type": "achievement",
+        "date": "2025.12",
+        "title": "Winner — Srishti Hackathon (Domain 3) — XENIA",
+        "company": "Srishti (student hackathon / festival)",
+        "colorClass": "text-emerald-500",
+        "description": "Reported: XENIA project awarded 1st place in Srishti (Domain 3) in December 2025 (user-provided).",
+        "award": "1st Place — Domain 3",
+        "icon": "trophy",
+        "note": "User-reported win (Dec 2025). Public confirmation was not found during the web check — please share an event link or certificate if you want this linked to a public source."
     },
     {
         "type": "work",
-        "date": "2023.05 - 2023.08",
-        "title": "Software Engineering Intern",
-        "company": "Amazon AWS",
+        "date": "2024 - PRESENT",
+        "title": "AI & Machine Learning Engineer — Independent / Open Source",
+        "company": "Independent",
         "colorClass": "text-primary",
         "highlights": [
-            "Optimized cloud resource allocation algorithms, saving approx. $15k/month in compute costs.",
-            "Designed and deployed a microservice for log aggregation handling 1M+ requests per minute."
+            "Built and fine-tuned ML pipelines for NLP, Computer Vision, and predictive analytics using TensorFlow, PyTorch and scikit-learn.",
+            "Applied LLMs (Gemini, OpenAI, Claude) for tutoring, summarization, and reasoning automation.",
+            "Engineered data processing and evaluation pipelines (pandas, NumPy) to optimize training and model evaluation."
         ],
         "tech": [
-            "JAVA",
-            "AWS LAMBDA",
-            "DYNAMODB"
-        ]
+            "TensorFlow",
+            "PyTorch",
+            "scikit-learn",
+            "pandas",
+            "NumPy",
+            "Transformers",
+            "Flask"
+        ],
+        "source": "Resume (uploaded). :contentReference[oaicite:10]{index=10}"
     },
     {
-        "type": "opensource",
-        "date": "2023.01",
-        "title": "Core Contributor",
-        "company": "OpenUI Library",
-        "colorClass": "text-purple-400",
-        "hoverBorderClass": "hover:border-purple-500/30",
-        "description": "Authored the \"Data Grid\" component, now used by over 5,000 developers. Improved rendering performance for large datasets by implementing windowing techniques.",
-        "stats": {
-            "prs": "12 PRs Merged",
-            "stars": "1.2k Stars"
-        }
+        "type": "achievement",
+        "date": "2024.06",
+        "title": "KEAM 2024 — Rank 688 (Top ~1%)",
+        "company": "Commissioner for Entrance Examinations, Kerala",
+        "colorClass": "text-blue-400",
+        "description": "Secured an All-India rank of 688 in the Kerala Engineering Architecture Medical (KEAM) entrance examination among ~90,000+ candidates.",
+        "award": "Top 1% National Rank",
+        "icon": "school"
     },
     {
-        "type": "certification",
-        "date": "2022.11",
-        "title": "AWS Certified Solutions Architect",
-        "company": "Associate",
-        "colorClass": "text-orange-400",
-        "hoverBorderClass": "hover:border-orange-500/30",
-        "validationNumber": "AWS-ASA-49920"
+        "type": "work",
+        "date": "2024.12 - PRESENT",
+        "title": "Student Developer — IEEE Computer Society (GEC Thrissur)",
+        "company": "IEEE CS, GEC Thrissur Chapter",
+        "colorClass": "text-primary",
+        "highlights": [
+            "Organized ML and Git workshops and mentored students on version control and best practices.",
+            "Supported peer projects in predictive modelling and data-driven applications."
+        ],
+        "tech": [
+            "Python",
+            "Git",
+            "ML toolkits"
+        ],
+        "source": "Resume (uploaded). "
+    },
+    {
+        "type": "project",
+        "date": "2024 - 2025",
+        "title": "Stampede Predictor — Real-Time Crowd Safety",
+        "company": "Team Arete / Personal Project",
+        "colorClass": "text-primary",
+        "highlights": [
+            "Real-time person detection using YOLOv8 and density heatmaps with OpenCV.",
+            "Risk-scoring algorithm combining spatio-temporal grid analysis and motion clustering.",
+            "Integrated Fluvio event streaming for frame-level inference and live visualization; achieved >90% detection metrics in testing."
+        ],
+        "tech": [
+            "YOLOv8",
+            "OpenCV",
+            "Fluvio",
+            "Python",
+            "TensorFlow / PyTorch"
+        ],
+        "links": [
+            "Devfolio / HackHazards submission references in the HackHazards community materials (team demo / results). :contentReference[oaicite:12]{index=12}"
+        ],
+        "source": "Resume (uploaded). :contentReference[oaicite:13]{index=13}"
+    },
+    {
+        "type": "project",
+        "date": "2024",
+        "title": "ATHENIS — Legal Document Simplifier",
+        "company": "Team Arete / Personal Project",
+        "colorClass": "text-primary",
+        "highlights": [
+            "Transformer-based clause-level simplification and semantic anomaly detection for legal text.",
+            "Real-time inference pipeline with adaptive token generation for large documents."
+        ],
+        "tech": [
+            "Transformers",
+            "Embeddings",
+            "Flask",
+            "Python"
+        ],
+        "source": "Resume (uploaded). :contentReference[oaicite:14]{index=14}"
     }
 ]

@@ -8,6 +8,40 @@ import { loadJSON } from './core.js';
 let experiences = [];
 
 /**
+ * Parse date string to a sortable value (higher = more recent)
+ * Handles formats: "2025.04 - PRESENT", "2025.09", "2024 - 2025", "2024"
+ */
+function parseDateForSort(dateStr) {
+    if (!dateStr) return 0;
+
+    // "PRESENT" entries should be at the top
+    if (dateStr.toUpperCase().includes('PRESENT')) {
+        // Extract the start year/month for secondary sorting among PRESENT entries
+        const match = dateStr.match(/(\d{4})\.?(\d{2})?/);
+        if (match) {
+            const year = parseInt(match[1]);
+            const month = match[2] ? parseInt(match[2]) : 1;
+            return 100000 + year * 100 + month; // PRESENT entries get priority
+        }
+        return 100000;
+    }
+
+    // For date ranges like "2024 - 2025", use the end date
+    // For single dates like "2025.09" or "2024", parse directly
+    const parts = dateStr.split('-').map(p => p.trim());
+    const relevantPart = parts.length > 1 ? parts[0] : parts[0]; // Use start date for sorting
+
+    const match = relevantPart.match(/(\d{4})\.?(\d{2})?/);
+    if (match) {
+        const year = parseInt(match[1]);
+        const month = match[2] ? parseInt(match[2]) : 1;
+        return year * 100 + month;
+    }
+
+    return 0;
+}
+
+/**
  * Initialize experience page
  */
 export async function initExperience() {
@@ -17,6 +51,9 @@ export async function initExperience() {
         console.error('[EXPERIENCE] Failed to load experience data');
         return;
     }
+
+    // Sort experiences by date (latest first)
+    experiences.sort((a, b) => parseDateForSort(b.date) - parseDateForSort(a.date));
 
     renderExperienceTimeline();
     renderSidebar();
@@ -204,15 +241,17 @@ async function renderSidebar() {
                         </div>
                     `).join('')}
                 </div>
-                <div class="mt-6 pt-4 border-t border-border-dark grid grid-cols-2 gap-2">
+                <div class="mt-6 pt-4 border-t border-border-dark grid ${profile.stats.ossContribs ? 'grid-cols-2' : 'grid-cols-1'} gap-2">
                     <div class="text-center p-2 bg-background-dark border border-border-dark">
                         <span class="block text-xl font-display text-white">${profile.stats.hackathonsWon}</span>
                         <span class="text-[9px] font-mono text-gray-500 uppercase">Hackathons Won</span>
                     </div>
+                    ${profile.stats.ossContribs ? `
                     <div class="text-center p-2 bg-background-dark border border-border-dark">
                         <span class="block text-xl font-display text-white">${profile.stats.ossContribs}</span>
                         <span class="text-[9px] font-mono text-gray-500 uppercase">OSS Contribs</span>
                     </div>
+                    ` : ''}
                 </div>
             </div>
             

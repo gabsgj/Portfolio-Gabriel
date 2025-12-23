@@ -1,0 +1,68 @@
+[
+    {
+        "type": "work",
+        "date": "2024.06 - PRESENT",
+        "title": "Senior Frontend Engineer Intern",
+        "company": "Uber Technologies",
+        "colorClass": "text-primary",
+        "highlights": [
+            "Architected a new internal dashboard reducing load times by 40% using React Server Components.",
+            "Implemented accessibility features compliant with WCAG 2.1 AA standards across core products.",
+            "Collaborated with design systems team to migrate 50+ components to TypeScript."
+        ],
+        "tech": [
+            "REACT",
+            "TYPESCRIPT",
+            "GRAPHQL"
+        ]
+    },
+    {
+        "type": "achievement",
+        "date": "2024.02",
+        "title": "Global AI Hackathon - 1st Place",
+        "company": "Devpost",
+        "colorClass": "text-emerald-500",
+        "hoverBorderClass": "hover:border-emerald-500/30",
+        "description": "Developed \"NeuroSync,\" a real-time sign language translation tool using computer vision and LSTM networks.",
+        "award": "Awarded Best Technical Implementation",
+        "icon": "trophy"
+    },
+    {
+        "type": "work",
+        "date": "2023.05 - 2023.08",
+        "title": "Software Engineering Intern",
+        "company": "Amazon AWS",
+        "colorClass": "text-primary",
+        "highlights": [
+            "Optimized cloud resource allocation algorithms, saving approx. $15k/month in compute costs.",
+            "Designed and deployed a microservice for log aggregation handling 1M+ requests per minute."
+        ],
+        "tech": [
+            "JAVA",
+            "AWS LAMBDA",
+            "DYNAMODB"
+        ]
+    },
+    {
+        "type": "opensource",
+        "date": "2023.01",
+        "title": "Core Contributor",
+        "company": "OpenUI Library",
+        "colorClass": "text-purple-400",
+        "hoverBorderClass": "hover:border-purple-500/30",
+        "description": "Authored the \"Data Grid\" component, now used by over 5,000 developers. Improved rendering performance for large datasets by implementing windowing techniques.",
+        "stats": {
+            "prs": "12 PRs Merged",
+            "stars": "1.2k Stars"
+        }
+    },
+    {
+        "type": "certification",
+        "date": "2022.11",
+        "title": "AWS Certified Solutions Architect",
+        "company": "Associate",
+        "colorClass": "text-orange-400",
+        "hoverBorderClass": "hover:border-orange-500/30",
+        "validationNumber": "AWS-ASA-49920"
+    }
+]
