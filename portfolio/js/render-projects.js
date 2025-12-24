@@ -333,11 +333,11 @@ async function loadScreenshots(folderPath) {
         return;
     }
 
-    // Render gallery
+    // Render gallery with lazy loading
     gallery.innerHTML = foundImages.map((img, index) => `
         <div class="aspect-video bg-surface-dark border border-border-dark overflow-hidden cursor-pointer group hover:border-primary/50 transition-all"
              data-screenshot-index="${index}">
-            <img src="${img}" alt="Screenshot ${index + 1}" 
+            <img src="${img}" alt="Screenshot ${index + 1}" loading="lazy"
                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         </div>
     `).join('');

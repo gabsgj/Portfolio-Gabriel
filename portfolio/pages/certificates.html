@@ -181,51 +181,51 @@
 
             // AWS - orange logo works on white
             if (issuerLower.includes('amazon web services') || issuerLower.includes('aws')) {
-                return { path: '../assets/logos/aws.png', darkBg: false };
+                return { path: '../assets/logos/aws.webp', darkBg: false };
             }
             // Amazon (non-AWS) - black logo needs dark background
             if (issuerLower.includes('amazon')) {
-                return { path: '../assets/logos/amazon.png', darkBg: true };
+                return { path: '../assets/logos/amazon.webp', darkBg: true };
             }
             // IBM - blue logo works on white
             if (issuerLower.includes('ibm')) {
-                return { path: '../assets/logos/ibm.png', darkBg: false };
+                return { path: '../assets/logos/ibm.webp', darkBg: false };
             }
             // Google Cloud - multicolor works on white
             if (issuerLower.includes('google cloud') || issuerLower.includes('google')) {
-                return { path: '../assets/logos/google-cloud.png', darkBg: false };
+                return { path: '../assets/logos/google-cloud.webp', darkBg: false };
             }
             // Meta - blue logo works on white
             if (issuerLower.includes('meta')) {
-                return { path: '../assets/logos/meta.png', darkBg: false };
+                return { path: '../assets/logos/meta.webp', darkBg: false };
             }
             // DeepLearning.AI / Stanford - red logo works on white
             if (issuerLower.includes('deeplearning') || issuerLower.includes('stanford')) {
-                return { path: '../assets/logos/deeplearning-ai.png', darkBg: false };
+                return { path: '../assets/logos/deeplearning-ai.webp', darkBg: false };
             }
             // Vanderbilt - gold on brown
             if (issuerLower.includes('vanderbilt')) {
-                return { path: '../assets/logos/vanderbilt.png', darkBg: false };
+                return { path: '../assets/logos/vanderbilt.webp', darkBg: false };
             }
             // Yale - blue works on white
             if (issuerLower.includes('yale')) {
-                return { path: '../assets/logos/yale.png', darkBg: false };
+                return { path: '../assets/logos/yale.webp', darkBg: false };
             }
             // NYU - purple works on white
             if (issuerLower.includes('new york university')) {
-                return { path: '../assets/logos/nyu.png', darkBg: false };
+                return { path: '../assets/logos/nyu.webp', darkBg: false };
             }
             // NY Institute of Finance - dark logo needs dark background
             if (issuerLower.includes('new york institute of finance') || issuerLower.includes('nyif')) {
-                return { path: '../assets/logos/nyif.png', darkBg: true };
+                return { path: '../assets/logos/nyif.webp', darkBg: true };
             }
             // UC Davis - blue/gold works on white
             if (issuerLower.includes('california') && issuerLower.includes('davis')) {
-                return { path: '../assets/logos/ucdavis.png', darkBg: false };
+                return { path: '../assets/logos/ucdavis.webp', darkBg: false };
             }
             // Coursera - blue works on white
             if (issuerLower.includes('coursera')) {
-                return { path: '../assets/logos/coursera.png', darkBg: false };
+                return { path: '../assets/logos/coursera.webp', darkBg: false };
             }
             // No logo available - return null path
             return { path: null, darkBg: false };
@@ -261,7 +261,7 @@
                     <div class="flex items-center gap-3 mb-4">
                         ${logoInfo.path ? `
                         <div class="w-12 h-12 rounded-lg bg-transparent flex items-center justify-center transition-all overflow-hidden">
-                            <img src="${logoInfo.path}" alt="${cert.issuer}" class="w-full h-full object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity" onerror="this.parentElement.innerHTML='<span class=\\'material-symbols-outlined text-primary text-xl\\'>${cert.icon || 'verified'}</span>';" />
+                            <img src="${logoInfo.path}" alt="${cert.issuer}" loading="lazy" class="w-full h-full object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity" onerror="this.parentElement.innerHTML='<span class=\\'material-symbols-outlined text-primary text-xl\\'>${cert.icon || 'verified'}</span>';" />
                         </div>
                         ` : `
                         <div class="w-12 h-12 rounded-lg bg-transparent flex items-center justify-center transition-all">

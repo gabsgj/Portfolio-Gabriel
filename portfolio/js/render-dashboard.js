@@ -87,7 +87,7 @@ function renderProfileCard() {
     container.innerHTML = `
         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-10"></div>
         <div class="w-full h-full bg-surface-dark relative">
-            <div class="absolute inset-0 bg-[url('../assets/profile-bg.jpg')] bg-cover bg-center opacity-50 grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+            <div class="absolute inset-0 bg-[url('../assets/profile-bg.webp')] bg-cover bg-center opacity-50 grayscale group-hover:grayscale-0 transition-all duration-700"></div>
             <div class="absolute bottom-6 left-6 right-6 z-20">
                 <div class="inline-block px-2 py-0.5 bg-primary text-white text-[10px] font-mono font-bold mb-2">USER_PROFILE</div>
                 <h3 class="text-2xl text-white font-medium" data-editable="profile-name">${profile.name}</h3>

@@ -4,21 +4,108 @@
  */
 
 // ============================================
+// CACHING SYSTEM
+// ============================================
+
+const CACHE_VERSION = 'v1';
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const memoryCache = new Map();
+
+/**
+ * Get cached data from memory or localStorage
+ * @param {string} key - Cache key
+ * @returns {any|null} Cached data or null
+ */
+function getCachedData(key) {
+    // Check memory cache first (fastest)
+    if (memoryCache.has(key)) {
+        const { data, timestamp } = memoryCache.get(key);
+        if (Date.now() - timestamp < CACHE_TTL) {
+            return data;
+        }
+        memoryCache.delete(key);
+    }
+
+    // Check localStorage (persists across page navigations)
+    try {
+        const stored = localStorage.getItem(`portfolio_${CACHE_VERSION}_${key}`);
+        if (stored) {
+            const { data, timestamp } = JSON.parse(stored);
+            if (Date.now() - timestamp < CACHE_TTL) {
+                // Restore to memory cache for faster subsequent access
+                memoryCache.set(key, { data, timestamp });
+                return data;
+            }
+            // Clean up expired data
+            localStorage.removeItem(`portfolio_${CACHE_VERSION}_${key}`);
+        }
+    } catch (e) {
+        // localStorage may be unavailable or full
+    }
+
+    return null;
+}
+
+/**
+ * Store data in cache (both memory and localStorage)
+ * @param {string} key - Cache key
+ * @param {any} data - Data to cache
+ */
+function setCachedData(key, data) {
+    const timestamp = Date.now();
+    memoryCache.set(key, { data, timestamp });
+
+    try {
+        localStorage.setItem(
+            `portfolio_${CACHE_VERSION}_${key}`,
+            JSON.stringify({ data, timestamp })
+        );
+    } catch (e) {
+        // localStorage may be full or unavailable
+    }
+}
+
+/**
+ * Clear all portfolio cache data
+ */
+export function clearCache() {
+    memoryCache.clear();
+    try {
+        Object.keys(localStorage).forEach(key => {
+            if (key.startsWith('portfolio_')) {
+                localStorage.removeItem(key);
+            }
+        });
+    } catch (e) { }
+    console.log('[CACHE] Cleared');
+}
+
+// ============================================
 // UTILITY FUNCTIONS
 // ============================================
 
 /**
- * Fetch JSON data from a path
+ * Fetch JSON data from a path (with caching)
  * @param {string} path - Path to JSON file
  * @returns {Promise<any>} Parsed JSON data
  */
 export async function loadJSON(path) {
+    // Check cache first
+    const cached = getCachedData(path);
+    if (cached) {
+        console.log(`[CACHE] Hit: ${path}`);
+        return cached;
+    }
+
     try {
         const response = await fetch(path);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return await response.json();
+        const data = await response.json();
+        setCachedData(path, data);
+        console.log(`[CACHE] Miss, stored: ${path}`);
+        return data;
     } catch (error) {
         console.error(`[SYSTEM] Failed to load ${path}:`, error);
         return null;
@@ -26,17 +113,27 @@ export async function loadJSON(path) {
 }
 
 /**
- * Fetch Markdown content from a path
+ * Fetch Markdown content from a path (with caching)
  * @param {string} path - Path to markdown file
  * @returns {Promise<string>} Raw markdown content
  */
 export async function loadMarkdown(path) {
+    // Check cache first
+    const cached = getCachedData(path);
+    if (cached) {
+        console.log(`[CACHE] Hit: ${path}`);
+        return cached;
+    }
+
     try {
         const response = await fetch(path);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return await response.text();
+        const text = await response.text();
+        setCachedData(path, text);
+        console.log(`[CACHE] Miss, stored: ${path}`);
+        return text;
     } catch (error) {
         console.error(`[SYSTEM] Failed to load ${path}:`, error);
         return null;
