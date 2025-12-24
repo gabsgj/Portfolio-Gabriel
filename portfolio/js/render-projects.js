@@ -87,16 +87,12 @@ function renderProjectCard(project) {
     return `
         <div class="project-card group relative p-4 ${isActive ? 'bg-primary/5 border-primary/40' : 'bg-surface-highlight border-border-dark'} border cursor-pointer transition-all duration-300 hover:bg-primary/10"
              data-project-id="${project.id}">
-            ${isActive ? `
-                <div class="absolute top-0 right-0 p-2 opacity-100 transition-opacity">
-                    <span class="material-symbols-outlined text-primary text-sm">arrow_outward</span>
-                </div>
-            ` : ''}
             <div class="flex items-start justify-between mb-2">
                 <span class="text-[10px] font-mono ${isActive ? 'text-primary/80 border-primary/20' : 'text-gray-600 border-gray-800'} border px-1 py-0.5">${project.id}</span>
-                <span class="flex items-center gap-1 text-[10px] font-mono ${statusColor}">
+                <span class="flex items-center gap-1.5 text-[10px] font-mono ${statusColor}">
                     ${project.status === 'DEPLOYED' ? '<span class="w-1 h-1 bg-emerald-500 rounded-full"></span>' : ''}
                     ${project.status}
+                    ${isActive ? '<span class="material-symbols-outlined text-primary text-sm">arrow_outward</span>' : ''}
                 </span>
             </div>
             <h3 class="text-lg font-medium ${isActive ? 'text-white' : 'text-gray-300'} mb-1 group-hover:text-primary transition-colors" data-editable="project-${project.id}-title">${project.title}</h3>
