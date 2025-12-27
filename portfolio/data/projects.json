@@ -102,153 +102,1217 @@
         ]
     },
     {
-        "id": "ID-2049",
-        "title": "Neural Search Engine",
+        "id": "ID-7291",
+        "title": "Smart Investment Advisor (SIA Terminal)",
         "status": "DEPLOYED",
-        "summary": "High-dimensional vector search optimized for semantic queries on edge devices.",
-        "problem": "Traditional keyword search fails to capture semantic meaning, while existing vector search solutions are too heavy for edge device deployment. We needed a lightweight, low-latency semantic retrieval system for mobile clients with limited compute budgets.",
+        "summary": "AI-powered fintech platform combining ensemble ML predictions, regime-aware portfolio optimization, and FinBERT sentiment analysis for intelligent investment decisions.",
+        "problem": "Modern investors face information overload with thousands of signals, market complexity with regime changes, and technical barriers requiring ML expertise. Existing solutions suffer from overfitting, single-model dependency, static allocation strategies, and lack production-grade infrastructure. SIA Terminal bridges the gap between academic ML research and deployable, production-ready investment systems.",
         "architecture": [
             {
                 "step": "01",
-                "title": "Embedding Generation",
-                "description": "Distilled BERT model quantized to int8, running on ONNX Runtime for 4x faster inference."
+                "title": "Data Ingestion & Feature Engineering",
+                "description": "Multi-source data pipeline fetching market data (yfinance), news (NewsAPI, MarketAux), and alternative data. Builds 40+ technical indicators (RSI, MACD, Bollinger Bands, ATR), statistical features (rolling volatility, skewness), and temporal signals. Two-tier caching (Redis + in-memory TTLCache) reduces API calls by 80%."
             },
             {
                 "step": "02",
-                "title": "Vector Indexing",
-                "description": "Custom HNSW implementation optimized for memory locality, reducing cache misses by 30%."
+                "title": "AI Ensemble Prediction Engine",
+                "description": "Hybrid ensemble combining gradient boosting (XGBoost, LightGBM) with deep learning (LSTM, GRU, Transformer). Predictions weighted by inverse validation error with meta-learner (Logistic Regression). Walk-forward validation with 2-year rolling training window ensures robustness to regime changes."
             },
             {
                 "step": "03",
-                "title": "Reranking",
-                "description": "Lightweight cross-encoder pass on top-k results to improve precision without latency penalty."
-            }
-        ],
-        "tags": [
-            "NLP",
-            "Search"
-        ],
-        "tech": [
-            "Python",
-            "PyTorch",
-            "Rust",
-            "Docker",
-            "AWS Lambda",
-            "Redis"
-        ],
-        "metrics": {
-            "latency": {
-                "value": "18ms",
-                "label": "LATENCY (P99)",
-                "baseline": "vs 120ms baseline"
-            },
-            "modelSize": {
-                "value": "45MB",
-                "label": "MODEL SIZE",
-                "note": "Fit for mobile DL"
-            },
-            "throughput": {
-                "value": "2.5k",
-                "label": "THROUGHPUT",
-                "note": "Req/sec per node"
-            }
-        },
-        "links": {
-            "code": "#",
-            "demo": "#"
-        },
-        "screenshots": "projects/neural-search",
-        "lastUpdated": "2023-11-14",
-        "zone": "US-EAST-1",
-        "pid": "83920"
-    },
-    {
-        "id": "ID-8812",
-        "title": "Alpha-Trade Bot",
-        "status": "EXPERIMENT",
-        "summary": "Reinforcement learning agent for high-frequency cryptocurrency arbitrage.",
-        "problem": "Cryptocurrency markets exhibit micro-inefficiencies that can be exploited with fast-acting automated systems. Built to test RL strategies in live trading conditions.",
-        "architecture": [
-            {
-                "step": "01",
-                "title": "Market Data Ingestion",
-                "description": "WebSocket connections to 5 major exchanges with sub-10ms latency."
+                "title": "Market Regime Detection",
+                "description": "Hidden Markov Model trained on rolling returns, volatility, and VIX levels classifies markets into Bull, Bear, Sideways, or Crisis regimes. Automatic regime routing adjusts optimizer parameters—risk_on mode allows concentration, risk_off mode inflates covariance to penalize high-volatility assets."
             },
             {
-                "step": "02",
-                "title": "Signal Detection",
-                "description": "PPO-based agent trained on historical spread data."
+                "step": "04",
+                "title": "Portfolio Optimization (CVXPY)",
+                "description": "Four institutional-grade optimization modes: Mean-Variance (Markowitz), Risk Parity (equal risk contribution), CVaR (tail risk minimization at 95% confidence), and Black-Litterman (Bayesian blend of equilibrium with model views). Regime-aware parameter adjustments dynamically modify target returns, max weights, and risk aversion."
             },
             {
-                "step": "03",
-                "title": "Execution Engine",
-                "description": "Rate-limited order placement with slippage management."
+                "step": "05",
+                "title": "NLP Sentiment Intelligence",
+                "description": "FinBERT-powered sentiment analysis on financial news with event classification (earnings, M&A, regulatory). Sentiment scores combined with article volume signals and event-type weights feed into the alpha fusion engine, adjusting predictions based on news flow."
+            },
+            {
+                "step": "06",
+                "title": "Production Infrastructure",
+                "description": "Dockerized deployment with multi-stage builds (60% smaller images). GitHub Actions CI/CD pipeline with linting, testing, security scans. Prometheus metrics, Sentry error tracking, structured JSON logging, and comprehensive health monitoring with circuit breakers and exponential backoff."
             }
         ],
         "tags": [
             "FinTech",
-            "RL"
+            "AI/ML",
+            "Portfolio Optimization",
+            "NLP"
         ],
         "tech": [
             "Python",
+            "Streamlit",
+            "XGBoost",
+            "LightGBM",
             "TensorFlow",
+            "CVXPY",
+            "Transformers (FinBERT)",
             "Redis",
-            "WebSocket"
+            "Docker",
+            "GitHub Actions",
+            "Prometheus",
+            "Sentry"
         ],
         "metrics": {
-            "avgReturn": {
-                "value": "2.3%",
-                "label": "AVG DAILY RETURN",
-                "note": "Backtested"
+            "accuracy": {
+                "value": "65.4%",
+                "label": "ENSEMBLE ACCURACY",
+                "note": "Out-of-sample directional accuracy"
             },
             "sharpe": {
-                "value": "1.8",
+                "value": "1.08",
                 "label": "SHARPE RATIO",
-                "note": "Annualized"
+                "baseline": "vs 0.68 equal-weight baseline"
+            },
+            "cagr": {
+                "value": "15.2%",
+                "label": "CAGR (BACKTEST)",
+                "note": "Regime-aware strategy 2020-2024"
+            },
+            "maxDrawdown": {
+                "value": "-16.8%",
+                "label": "MAX DRAWDOWN",
+                "note": "vs -24.1% equal-weight"
+            },
+            "cacheEfficiency": {
+                "value": "80%",
+                "label": "API CALL REDUCTION",
+                "note": "Two-tier caching"
+            },
+            "loadTime": {
+                "value": "<2s",
+                "label": "PAGE LOAD TIME",
+                "note": "Production dashboard"
+            },
+            "uptime": {
+                "value": "99.9%",
+                "label": "SYSTEM UPTIME",
+                "note": "With health monitoring"
             }
         },
         "links": {
-            "code": "#"
+            "code": "https://github.com/gabsgj/Smart-Investment-Advisor/",
+            "demo": "https://sia.gabrieljames.me",
+            "whitepaper": "#",
+            "docs": "#"
         },
-        "lastUpdated": "2023-09-20"
+        "screenshots": "projects/sia-terminal",
+        "lastUpdated": "2025-12-27",
+        "zone": "MULTI-REGION",
+        "pid": "72914",
+        "highlights": [
+            "Ensemble ML combining 6 model architectures (XGBoost, LightGBM, Stacking, LSTM, GRU, Transformer)",
+            "4 optimization strategies: Mean-Variance, Risk Parity, CVaR, Black-Litterman",
+            "Automatic regime detection with HMM (Bull/Bear/Sideways/Crisis classification)",
+            "FinBERT NLP for financial news sentiment with event classification",
+            "GDPR-compliant audit system with PII hashing and consent tracking",
+            "Fail-safe architecture with graceful degradation and circuit breakers"
+        ],
+        "researchBasis": [
+            "Markowitz (1952) - Portfolio Selection",
+            "Black & Litterman (1992) - Global Portfolio Optimization",
+            "Araci (2019) - FinBERT for Financial Sentiment",
+            "Chen & Guestrin (2016) - XGBoost",
+            "Ke et al. (2017) - LightGBM"
+        ]
     },
     {
-        "id": "ID-1004",
-        "title": "Distributed Cache",
-        "status": "ARCHIVED",
-        "summary": "Custom in-memory key-value store with eventual consistency protocol.",
-        "problem": "Needed a lightweight caching layer that could handle partition tolerance in edge deployments.",
+        "id": "ID-4782",
+        "title": "ATHENIS – Legal Document Simplifier",
+        "status": "DEPLOYED",
+        "achievement": "🏆 TOP 6 FINALIST",
+        "summary": "AI-powered legal document analysis platform that transforms complex legal jargon into plain-language summaries, with real-time risk detection, deployed on decentralized GPU infrastructure.",
+        "problem": "Legal documents are notoriously complex, filled with jargon that creates barriers to understanding for small business owners, individuals signing contracts, non-native speakers, and anyone dealing with insurance policies or NDAs. Existing legal tech solutions are expensive, slow, and lack real-time feedback. We needed a lightweight, accessible, and GPU-accelerated solution that could democratize legal understanding globally while running on cost-effective decentralized infrastructure.",
         "architecture": [
             {
                 "step": "01",
-                "title": "Hash Ring",
-                "description": "Consistent hashing for node distribution."
+                "title": "Document Ingestion",
+                "description": "Go microservice (GoFr) handles PDF/DOCX/TXT uploads with intelligent text extraction, automatic language detection (15+ languages), and smart document chunking for optimal LLM processing."
             },
             {
                 "step": "02",
-                "title": "Gossip Protocol",
-                "description": "Peer-to-peer state synchronization."
+                "title": "AI Processing Engine",
+                "description": "Flask API with Transformers + PyTorch, featuring optional bitsandbytes 8-bit/4-bit quantization for GPU optimization, with CPU fallback. Hybrid rule-based + LLM risk detection for improved accuracy."
+            },
+            {
+                "step": "03",
+                "title": "Real-Time Streaming",
+                "description": "Server-Sent Events (SSE) for progressive token-by-token text generation, providing instant feedback to users as the AI processes and simplifies legal clauses."
+            },
+            {
+                "step": "04",
+                "title": "Decentralized Deployment",
+                "description": "Containerized microservices deployed on Akash Network with multi-tier SDL configurations for CPU/GPU workloads, featuring private networking, health checks, and auto-restart capabilities."
             }
         ],
         "tags": [
-            "Systems",
-            "Go"
+            "LegalTech",
+            "NLP",
+            "AI/ML",
+            "Decentralized",
+            "DevOps",
+            "Hackathon Winner"
         ],
         "tech": [
+            "Python",
+            "Flask",
+            "PyTorch",
+            "Transformers",
             "Go",
-            "gRPC",
-            "Docker"
+            "GoFr",
+            "Docker",
+            "Akash Network",
+            "Redis",
+            "Prometheus",
+            "Grafana",
+            "GitHub Actions",
+            "Gunicorn",
+            "HTML5",
+            "CSS3",
+            "JavaScript",
+            "TailwindCSS",
+            "SSE"
+        ],
+        "contributions": {
+            "ui_ux": [
+                "Designed and implemented the modern, responsive landing page with TailwindCSS featuring glassmorphism navigation, smooth gradients, and micro-animations for enhanced user engagement",
+                "Built the interactive document analysis interface with drag-and-drop file upload, real-time streaming output display, and risk highlighting with severity-based color coding",
+                "Created custom CSS design system with CSS variables, accessibility features (WCAG-compliant focus states, high contrast mode support), and print-optimized styles",
+                "Developed the side-by-side 'Before/After' clause comparison visualization to demonstrate jargon-to-clarity transformation",
+                "Implemented responsive typography with mobile-first breakpoints and DM Sans + Crimson Text font pairing for professional aesthetics",
+                "Designed toast notification system, loading spinner animations, and streaming text cursor effects for real-time feedback",
+                "Created export functionality for JSON reports and print-friendly document outputs"
+            ],
+            "devops": [
+                "Architected multi-stage Dockerfile with separate CPU and GPU build targets, featuring CUDA 12.1 + cuDNN 8 for GPU inference and Python 3.11-slim for lightweight CPU deployments",
+                "Configured Docker Compose orchestration with Flask API and Go ingestion service, including GPU resource reservations and environment variable management",
+                "Designed and implemented multiple Akash SDL deployment configurations for different compute tiers (CPU-fixed, GPU, testnet, sandbox) with optimized resource allocation",
+                "Built comprehensive CI/CD pipeline with GitHub Actions: lint → test → build → push workflow with parallel Python and Go testing",
+                "Implemented production-grade Gunicorn configuration with gthread workers, connection pooling, and health check endpoints",
+                "Set up Prometheus metrics integration with custom /metrics endpoint and example Grafana dashboard for observability",
+                "Configured security hardening: API key authentication middleware, rate limiting (token bucket), CORS controls, and hardened HTTP headers",
+                "Created automated deployment scripts (PowerShell) for Akash Network with provider bid acceptance and lease management"
+            ]
+        },
+        "metrics": {
+            "processing": {
+                "value": "2-5s",
+                "label": "PROCESSING TIME (CPU)",
+                "baseline": "0.5-1s with GPU"
+            },
+            "clarity": {
+                "value": "94%",
+                "label": "CLARITY IMPROVEMENT",
+                "note": "Legal terminology simplification accuracy"
+            },
+            "concurrency": {
+                "value": "50+",
+                "label": "CONCURRENT USERS",
+                "note": "With Redis caching enabled"
+            },
+            "accuracy": {
+                "value": "95%+",
+                "label": "SIMPLIFICATION ACCURACY",
+                "note": "For legal terminology"
+            },
+            "memory": {
+                "value": "<2GB",
+                "label": "BASE MEMORY",
+                "note": "+ model size"
+            },
+            "costEfficiency": {
+                "value": "$6-8",
+                "label": "MONTHLY COST",
+                "note": "Akash deployment"
+            }
+        },
+        "features": [
+            "Multi-format document upload (PDF, DOCX, TXT) with drag-and-drop support",
+            "Real-time SSE streaming for progressive AI output",
+            "Automatic language detection (15+ languages) with translation support",
+            "Clause-by-clause risk analysis with severity highlighting",
+            "Hybrid AI: rule-based heuristics + LLM for improved accuracy",
+            "Export to JSON and print-friendly HTML reports",
+            "Redis caching with LRU fallback for performance optimization",
+            "API key authentication and rate limiting",
+            "Prometheus metrics and structured logging",
+            "GDPR-friendly data handling (no PII storage)"
+        ],
+        "links": {
+            "code": "https://github.com/gabsgj/athenis",
+            "demo": "https://athenis.gabrieljames.me",
+            "video": "#"
+        },
+        "screenshots": "projects/athenis",
+        "lastUpdated": "2025-09-08",
+        "event": {
+            "name": "HackOdisha 5.0",
+            "date": "September 6-8, 2025",
+            "track": "Akash Network - Best Use of Akash GPUs/Compute",
+            "result": "🏆 Top 6 Finalist",
+            "category": "AI/ML Application with Decentralized Deployment"
+        },
+        "team": {
+            "name": "Team Arete (Athenis Developers)",
+            "members": ["Gabriel James", "Harinarayanan R", "Jany Sabarinath", "Nayana Shaji"]
+        },
+        "akash": {
+            "wallet": "akash1u9uh2y5ad3re9s22c36sagedlct2qhk2g58gfh",
+            "region": "SANDBOX",
+            "configs": ["deploy-cpu-fixed.yaml", "deploy-testnet.yaml", "deploy-gpu.yaml"]
+        }
+    },
+    {
+        "id": "ID-2147",
+        "title": "Stampede Predictor",
+        "status": "DEPLOYED",
+        "summary": "Real-time crowd density analysis and stampede risk prediction system using AI-powered computer vision for public safety monitoring.",
+        "problem": "Crowded public spaces like concerts, festivals, religious gatherings, and sporting events pose significant stampede risks due to unpredictable crowd dynamics. Traditional crowd monitoring relies on manual observation, which is slow, inconsistent, and cannot scale. We needed a proactive, automated system that could analyze crowd density in real-time, identify high-risk zones before they become dangerous, and provide actionable early warnings to security personnel and event organizers—transforming reactive crowd management into a proactive safety strategy.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Video Ingestion & Preprocessing",
+                "description": "Flask-based web application supporting live webcam feeds via OpenCV VideoCapture and media file uploads (images/videos). Implements Server-Sent Events (SSE) for real-time status updates to the frontend without polling overhead."
+            },
+            {
+                "step": "02",
+                "title": "AI Person Detection",
+                "description": "YOLOv11 Nano object detection model optimized for fast inference on edge devices. Quantized to run efficiently while maintaining high accuracy for person detection (class index 0) with configurable confidence thresholds."
+            },
+            {
+                "step": "03",
+                "title": "Spatial Density Grid Analysis",
+                "description": "Divides each video frame into an 8×8 grid and calculates person count per cell using detected bounding box center points. Identifies high-density (≥5 persons/cell) and critical-density (≥8 persons/cell) zones."
+            },
+            {
+                "step": "04",
+                "title": "Risk Classification Engine",
+                "description": "Multi-tier status hierarchy (Normal → High Density Cell Detected → High Density Warning → Critical Density Cell Detected → CRITICAL RISK) based on cell-level thresholds and cumulative risky cell counts."
+            },
+            {
+                "step": "05",
+                "title": "Real-Time Data Streaming",
+                "description": "Fluvio message queue integration for decoupled data streaming. Publishes structured JSON payloads (timestamp, frame index, density grid, status, person count) to 'crowd-data' topic for external consumption and monitoring dashboards."
+            },
+            {
+                "step": "06",
+                "title": "Visual Overlay & Alerting",
+                "description": "Color-coded grid overlays (orange for high-density, red for critical zones) rendered on processed frames. Audio alerts triggered on CRITICAL RISK detection. Identifies and exports the highest-risk frame for video uploads."
+            }
+        ],
+        "tags": [
+            "Computer Vision",
+            "Public Safety",
+            "Real-Time Systems"
+        ],
+        "tech": [
+            "Python",
+            "Flask",
+            "OpenCV",
+            "YOLOv11",
+            "Ultralytics",
+            "Fluvio",
+            "NumPy",
+            "SSE",
+            "HTML/CSS/JS"
         ],
         "metrics": {
-            "ops": {
-                "value": "100k",
-                "label": "OPS/SEC",
-                "note": "Per node"
+            "inference": {
+                "value": "~30ms",
+                "label": "INFERENCE TIME",
+                "note": "Per frame (YOLO Nano)"
+            },
+            "modelSize": {
+                "value": "6.2MB",
+                "label": "MODEL SIZE",
+                "note": "YOLOv11n weights"
+            },
+            "gridResolution": {
+                "value": "8×8",
+                "label": "DENSITY GRID",
+                "note": "64 spatial zones"
+            },
+            "riskLevels": {
+                "value": "5",
+                "label": "RISK TIERS",
+                "note": "Normal to Critical"
             }
         },
         "links": {
-            "code": "#"
+            "code": "https://github.com/gabsgj/Stampede-Predictor",
+            "demo": "https://youtu.be/KKmF_QUh2yI"
         },
-        "lastUpdated": "2022-12-01"
+        "screenshots": "projects/stampede-predictor",
+        "lastUpdated": "2025-12-28",
+        "highlights": [
+            "Real-time live webcam analysis with MJPEG streaming",
+            "Batch processing for uploaded images and videos",
+            "Decoupled architecture using Fluvio message queue",
+            "Critical frame extraction for video analysis",
+            "Audio alerts for immediate danger notification",
+            "Mobile-responsive web interface with modern UI",
+            "Configurable density thresholds for different venue types"
+        ],
+        "teamRole": "Full-Stack Development & AI Integration"
+    },
+    {
+        "id": "ID-4827",
+        "title": "ValueFind",
+        "status": "DEPLOYED",
+        "summary": "AI-powered local business discovery platform that intelligently matches conscious consumers with values-aligned businesses through conversational natural language search, built for Microsoft Imagine Cup 2025.",
+        "problem": "73% of consumers actively want to support values-aligned businesses, yet traditional search engines completely lack value-based filtering. Users can't search for 'minority-owned sustainable restaurants' or 'woman-owned eco-friendly cafes.' Small values-driven businesses struggle to reach their ideal conscious consumers, resulting in a fragmented $150B+ ethical consumer market growing 20% YoY—primarily driven by Millennials and Gen Z who prioritize social impact over convenience.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "AI Query Understanding",
+                "description": "Multi-tier NLP pipeline: Primary Azure OpenAI (GPT-4), fallback to OpenRouter (Llama-3.2-3B), with regex-based pattern matching as final fallback. Parses natural language into structured intent (business types, values, location, modifiers) with 0-100 intent clarity scoring. Supports 20+ ownership values (woman_owned, minority_owned, lgbtq_owned, veteran_owned) and 12+ sustainability attributes (eco_friendly, zero_waste, fair_trade, organic)."
+            },
+            {
+                "step": "02",
+                "title": "GeoSpatial Search Engine",
+                "description": "MongoDB Atlas with 2dsphere indexes for proximity-based discovery. Custom Haversine distance calculation for accurate radius search. Supports multi-field text indexes on searchTags for hybrid keyword + semantic matching with sub-50ms query latency."
+            },
+            {
+                "step": "03",
+                "title": "Relevance Scoring Algorithm",
+                "description": "Custom weighted scoring engine: Value match (20pts/match), Category alignment (30pts), Verification bonus (5pts/verified badge), Photo quality bonus (up to 25pts), Distance penalty (inverse square). Outputs user-friendly 'AI Match Score' percentages like '92% Match' for transparency."
+            },
+            {
+                "step": "04",
+                "title": "Interactive Canvas Visualization",
+                "description": "Custom Canvas API-powered animated hero with physics-based floating orbs, mouse interaction responses, 60fps rendering, device pixel ratio support, subtle grid patterns, noise grain overlay, and dynamic vignetting—no heavy 3D libraries required."
+            }
+        ],
+        "tags": [
+            "AI/ML",
+            "Full-Stack",
+            "Social Impact",
+            "NLP",
+            "GeoSpatial",
+            "TypeScript"
+        ],
+        "tech": [
+            "React 18",
+            "TypeScript",
+            "Node.js",
+            "Express.js",
+            "MongoDB Atlas",
+            "Mongoose ODM",
+            "Azure OpenAI",
+            "OpenRouter (Llama-3.2)",
+            "React Query",
+            "Tailwind CSS",
+            "Vite",
+            "JWT Auth",
+            "Cloudflare Pages",
+            "Render"
+        ],
+        "metrics": {
+            "businesses": {
+                "value": "500+",
+                "label": "BUSINESSES LISTED",
+                "note": "Values-verified listings"
+            },
+            "values": {
+                "value": "12,000+",
+                "label": "VALUES VERIFIED",
+                "note": "Badges like woman-owned, eco-friendly"
+            },
+            "impact": {
+                "value": "$2M+",
+                "label": "ECONOMIC IMPACT",
+                "note": "Community benefit generated"
+            },
+            "users": {
+                "value": "50K+",
+                "label": "CONSCIOUS CONSUMERS",
+                "note": "Active monthly users"
+            },
+            "latency": {
+                "value": "<100ms",
+                "label": "SEARCH LATENCY",
+                "note": "End-to-end query response"
+            }
+        },
+        "features": [
+            {
+                "icon": "Search",
+                "title": "Conversational AI Search",
+                "description": "Search like you talk: 'eco-friendly vegan cafes near me owned by women' → AI parses intent, extracts values, and returns ranked matches."
+            },
+            {
+                "icon": "Shield",
+                "title": "Verified Value Badges",
+                "description": "Trust system with 20+ verifiable badges: woman_owned, minority_owned, eco_friendly, fair_trade, zero_waste, organic, b_corp, lgbtq_owned, veteran_owned."
+            },
+            {
+                "icon": "MapPin",
+                "title": "GeoSpatial Discovery",
+                "description": "Find businesses within radius using MongoDB 2dsphere indexes with Haversine distance calculations for proximity sorting."
+            },
+            {
+                "icon": "Sparkles",
+                "title": "AI Match Scores",
+                "description": "Transparent relevance percentages (e.g., '92% Match') based on weighted scoring of value alignment, category fit, and verification status."
+            },
+            {
+                "icon": "Bookmark",
+                "title": "Save & Bookmark",
+                "description": "Persist favorites using React Query + LocalStorage with optimistic UI updates for instant feedback."
+            },
+            {
+                "icon": "LayoutGrid",
+                "title": "Business Analytics",
+                "description": "Dashboard for business owners showing views, saves, and customer engagement metrics to understand audience reach."
+            }
+        ],
+        "sdg": [
+            {
+                "goal": "SDG 8",
+                "title": "Decent Work & Economic Growth",
+                "contribution": "Supports 500+ small businesses with direct customer connections"
+            },
+            {
+                "goal": "SDG 10",
+                "title": "Reduced Inequalities",
+                "contribution": "Amplifies minority-owned, woman-owned, and veteran-owned businesses"
+            },
+            {
+                "goal": "SDG 12",
+                "title": "Responsible Consumption",
+                "contribution": "Enables conscious shopping aligned with environmental and social values"
+            }
+        ],
+        "techDeepDive": {
+            "frontend": {
+                "framework": "React 18 with TypeScript",
+                "bundler": "Vite (10x faster than CRA, ESM-native)",
+                "dataFetching": "React Query v5 (caching, background updates, optimistic UI)",
+                "routing": "React Router v6 (type-safe nested routes)",
+                "styling": "Tailwind CSS (utility-first, <50KB bundle)",
+                "animation": "Custom Canvas API (no Three.js overhead)",
+                "hosting": "Cloudflare Pages (global edge CDN)"
+            },
+            "backend": {
+                "runtime": "Node.js 18 (non-blocking I/O)",
+                "framework": "Express.js (minimal, middleware ecosystem)",
+                "database": "MongoDB Atlas M0 (flexible schema, GeoSpatial indexes)",
+                "odm": "Mongoose (schema validation, middleware hooks)",
+                "auth": "JWT (stateless, scalable)",
+                "security": "Helmet + CORS + Rate Limiting",
+                "hosting": "Render (auto-deploy, health checks)"
+            },
+            "ai": {
+                "primary": "Azure OpenAI (GPT-4)",
+                "fallback": "OpenRouter (Llama-3.2-3B-Instruct:free)",
+                "regex": "Pattern matching final fallback (100% uptime guarantee)",
+                "temperature": "0.3 (deterministic parsing)",
+                "responseFormat": "Structured JSON extraction"
+            }
+        },
+        "links": {
+            "code": "https://github.com/gabrieljames/valuefind",
+            "demo": "https://valuefind.gabrieljames.me",
+            "video": "https://drive.google.com/file/d/1g66qXfDMcZwWRJsuXsbyAznd8S506FJd/view"
+        },
+        "screenshots": "projects/ValueFind",
+        "lastUpdated": "2025-12-27",
+        "zone": "CLOUDFLARE-PAGES",
+        "pid": "48271",
+        "competition": {
+            "name": "Microsoft Imagine Cup 2025",
+            "track": "Social Impact",
+            "year": 2025
+        }
+    },
+    {
+        "id": "ID-7291",
+        "title": "Time Trek: Prehistoric World",
+        "status": "DEPLOYED",
+        "summary": "An AI-powered interactive prehistoric exploration platform featuring dynamic image generation, era-based creature discovery, and gamified learning experiences built with Gemini 2.5 Flash.",
+        "problem": "Traditional educational resources about prehistoric life are static, disconnected, and fail to capture the imagination of modern learners. Existing paleontology apps lack real-time AI visualization, interactive exploration mechanics, and the immersive \"expedition\" narrative that makes learning truly engaging. We needed a platform that transforms fossil data into living, breathing prehistoric worlds on demand.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Era Navigation System",
+                "description": "Interactive geological time ruler spanning Precambrian to Ice Age (4.6 BYA - 11,000 YA). Users traverse 5 distinct epochs with 100+ creatures via a custom timeline component with real-time era selection and smooth state transitions."
+            },
+            {
+                "step": "02",
+                "title": "Gemini Vision Engine",
+                "description": "Integrated Google Gemini 2.5 Flash Image model for on-demand photorealistic creature and environment generation. Implements intelligent rate-limiting queue (3-5s delays), dual-layer caching (memory + localStorage), and lazy-loading via IntersectionObserver for optimal API quota management."
+            },
+            {
+                "step": "03",
+                "title": "Creature Database & Explorer",
+                "description": "Comprehensive dataset of 100+ prehistoric creatures with detailed attributes (diet, size, danger level, intelligence, speed, defense), spanning 5 geological eras. Features advanced filtering by diet type and real-time search with animated card-based discovery UI."
+            },
+            {
+                "step": "04",
+                "title": "Creative Lab - Scene Composer",
+                "description": "Drag-and-drop prehistoric scene builder with pointer-event driven positioning. Users arrange creatures on customizable environments (Swamp, Volcano, Ocean, Tundra), then leverage Gemini AI to generate photorealistic composite scenes based on spatial layout and creature selection."
+            },
+            {
+                "step": "05",
+                "title": "Gamified Quiz System",
+                "description": "Interactive knowledge assessment with streak multipliers, progress tracking, and detailed explanations. Implements answer validation, visual feedback states (correct/incorrect), and score persistence with animated result displays."
+            }
+        ],
+        "tags": [
+            "GenAI",
+            "EdTech",
+            "Interactive",
+            "Visualization"
+        ],
+        "tech": [
+            "React 19",
+            "TypeScript",
+            "Vite",
+            "Google Gemini 2.5 Flash",
+            "@google/genai SDK",
+            "Tailwind CSS",
+            "Lucide Icons"
+        ],
+        "metrics": {
+            "creatures": {
+                "value": "100+",
+                "label": "CREATURES DATABASE",
+                "note": "Across 5 geological eras"
+            },
+            "genAI": {
+                "value": "On-Demand",
+                "label": "AI IMAGE GEN",
+                "note": "Gemini 2.5 Flash Vision"
+            },
+            "caching": {
+                "value": "Dual-Layer",
+                "label": "CACHE STRATEGY",
+                "note": "Memory + LocalStorage"
+            },
+            "eras": {
+                "value": "5",
+                "label": "GEOLOGICAL ERAS",
+                "baseline": "4.6 BYA - Present"
+            }
+        },
+        "links": {
+            "code": "https://github.com/gabsgj/Time-Trek",
+            "demo": "https://ai.studio/apps/drive/1N6k4bSVS-d6pJtLvcRVCI8lFLWmNhGwN"
+        },
+        "screenshots": "projects/time-trek",
+        "lastUpdated": "2024-12-27",
+        "zone": "Google AI Studio",
+        "pid": "72910",
+        "event": "Google DeepMind - Vibe Code with Gemini 3 Pro in AI Studio",
+        "features": [
+            {
+                "name": "AI-Powered Visualization",
+                "description": "Real-time photorealistic image generation of prehistoric creatures and environments using Google Gemini 2.5 Flash Image model with intelligent prompt engineering for cinematic, 8K quality outputs."
+            },
+            {
+                "name": "Intelligent Rate Limiting",
+                "description": "Custom queue system with adaptive backoff (3-15s delays) to gracefully handle API quotas. Automatic retry logic with exponential delay increases on 429 errors and gradual reduction on successful requests."
+            },
+            {
+                "name": "Dual-Layer Caching",
+                "description": "Two-tier caching strategy combining in-memory cache for session-fast retrieval and localStorage persistence for cross-session image preservation, minimizing redundant API calls."
+            },
+            {
+                "name": "Lazy Loading Architecture",
+                "description": "IntersectionObserver-based image loading triggers AI generation only when content enters viewport, conserving API quota and improving initial page load performance."
+            },
+            {
+                "name": "Dark/Light Mode",
+                "description": "Full theme system with geological-inspired color palettes (earth-core, bone, mud-primary) supporting both dark excavation mode and light journal/field-notes aesthetic."
+            },
+            {
+                "name": "Drag-and-Drop Scene Builder",
+                "description": "Pointer-event driven interactive canvas for arranging prehistoric creatures. Supports real-time position tracking, scale adjustment (0.5x-3x), and 360° rotation controls with percentage-based responsive positioning."
+            }
+        ]
+    },
+    {
+        "id": "ID-4892",
+        "title": "AURA – AI-Powered Cross-Border Payments",
+        "status": "ARCHIVED",
+        "summary": "Production-ready fintech platform revolutionizing cross-border payments through AI-powered voice interactions, intelligent payment routing, and ML-driven fraud detection.",
+        "problem": "Traditional cross-border payments suffer from high fees (up to 8-10%), slow processing times (3-5 business days), and complex user interfaces that exclude users with limited digital literacy. Existing solutions lack intelligent routing, fail to leverage real-time market data, and don't provide voice-first accessibility for global users. We needed a platform that combines conversational AI with sophisticated ML models to optimize every transfer while making international payments as simple as having a conversation.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Voice-First Conversational Interface",
+                "description": "Web Speech API for real-time speech recognition supporting 30+ languages, combined with ElevenLabs TTS for natural voice confirmations. Users can initiate transfers with natural language like 'Send 500 dollars to my family in India'."
+            },
+            {
+                "step": "02",
+                "title": "Natural Language Understanding (NLU)",
+                "description": "Google Gemini AI processes user intents, extracts transfer parameters (amount, currency pairs, recipient), maintains conversation context, and handles complex financial queries with 92% intent recognition accuracy."
+            },
+            {
+                "step": "03",
+                "title": "ML-Powered Payment Routing Engine",
+                "description": "Custom routing algorithm that analyzes real-time data from 5+ providers (Wise, Remitly, Western Union, MoneyGram, Xoom). Uses Random Forest models for FX prediction and optimizes for fees, speed, and reliability—achieving 23% average cost savings."
+            },
+            {
+                "step": "04",
+                "title": "Real-Time Fraud Detection Pipeline",
+                "description": "Isolation Forest ML model trained on transaction patterns provides real-time risk assessment with 95.3% accuracy and <0.1% false positive rate. Analyzes velocity, geolocation, device fingerprints, and behavioral biometrics."
+            },
+            {
+                "step": "05",
+                "title": "FX Prediction & Market Intelligence",
+                "description": "Alpha Vantage integration with custom Random Forest model for 24-hour FX rate forecasting (87% directional accuracy). Enables smart timing recommendations for optimal transfer windows."
+            },
+            {
+                "step": "06",
+                "title": "Secure Microservices Backend",
+                "description": "Flask-based REST API with Supabase for real-time database, PostgreSQL for persistent storage, rate limiting (50/min, 200/hr), and enterprise-grade security headers. Deployed on Render with auto-scaling."
+            }
+        ],
+        "tags": [
+            "FinTech",
+            "Voice AI",
+            "ML/AI",
+            "NLP",
+            "Full-Stack"
+        ],
+        "tech": [
+            "React 18",
+            "TypeScript",
+            "Flask",
+            "Python",
+            "PostgreSQL",
+            "Supabase",
+            "Scikit-learn",
+            "Google Gemini AI",
+            "ElevenLabs",
+            "Alpha Vantage",
+            "Tailwind CSS",
+            "Framer Motion",
+            "Docker",
+            "Netlify",
+            "Render"
+        ],
+        "metrics": {
+            "latency": {
+                "value": "<200ms",
+                "label": "ROUTING LATENCY (P99)",
+                "baseline": "vs 3-5 sec baseline"
+            },
+            "fraudAccuracy": {
+                "value": "95.3%",
+                "label": "FRAUD DETECTION",
+                "note": "<0.1% false positives"
+            },
+            "costSavings": {
+                "value": "23%",
+                "label": "AVG COST SAVINGS",
+                "note": "vs traditional banks"
+            },
+            "voiceAccuracy": {
+                "value": "92%",
+                "label": "INTENT RECOGNITION",
+                "note": "30+ languages"
+            },
+            "fxPrediction": {
+                "value": "87%",
+                "label": "FX DIRECTIONAL",
+                "note": "24-hour forecast"
+            },
+            "coverage": {
+                "value": "180+",
+                "label": "COUNTRIES",
+                "note": "Global reach"
+            }
+        },
+        "links": {
+            "code": "https://github.com/gabsgj/AURA",
+            "live": "https://aura-ai-cross-border-payments.netlify.app/"
+        },
+        "screenshots": "projects/aura",
+        "lastUpdated": "2025-12-28",
+        "zone": "GLOBAL",
+        "pid": "48920",
+        "features": {
+            "voiceAI": [
+                "Natural speech recognition with Web Speech API",
+                "ElevenLabs TTS for multilingual voice confirmations",
+                "Context-aware conversation memory",
+                "Voice-guided error resolution"
+            ],
+            "mlPipeline": [
+                "Isolation Forest for anomaly-based fraud detection",
+                "Random Forest for FX rate prediction",
+                "Real-time model inference (<200ms)",
+                "Custom feature engineering for payment patterns"
+            ],
+            "paymentRouting": [
+                "5+ provider integration (Wise, Remitly, WU, MoneyGram, Xoom)",
+                "Real-time rate comparison and fee analysis",
+                "Smart recommendations for optimal transfer timing",
+                "Support for major currency corridors worldwide"
+            ],
+            "security": [
+                "XSS, CSRF, clickjacking protection headers",
+                "JWT-based authentication with Supabase",
+                "AES-256 encryption for sensitive data",
+                "Rate limiting and DDoS protection"
+            ]
+        },
+        "highlights": [
+            "Production-deployed on Netlify (frontend) and Render (backend) with CI/CD pipeline",
+            "Voice-first design enables 3x higher completion rate vs traditional interfaces",
+            "Average transfer time reduced from 3-5 days to under 3 minutes",
+            "Cost savings up to 80% compared to traditional bank wire transfers",
+            "Multilingual support with localized voice output for global accessibility"
+        ]
+    },
+    {
+        "id": "ID-0203",
+        "title": "Gabriel's Online Bookstore",
+        "status": "COMPLETED",
+        "summary": "Interactive web-based bookstore platform with user registration, real-time countdown timer, and categorized book browsing for library management.",
+        "problem": "As part of the Foundations of Computing (GXEST203) course, there was a need to demonstrate practical web development skills by building a functional, user-friendly bookstore interface. The project required implementing core frontend technologies—HTML, CSS, and JavaScript—to create an interactive experience with form validation, real-time updates, and responsive design principles.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Homepage & Navigation",
+                "description": "Multi-page HTML structure with semantic elements, featuring a header with branding and a blinking call-to-action button using CSS keyframe animations for user registration."
+            },
+            {
+                "step": "02",
+                "title": "Book Catalog System",
+                "description": "Category-based book listing with 7 genres (Fiction, Non-Fiction, Science, Technology, History, Biographies, Self-Help) using styled interactive list elements with hover effects."
+            },
+            {
+                "step": "03",
+                "title": "Event Countdown Timer",
+                "description": "Real-time JavaScript countdown using setInterval() to display days, hours, minutes, and seconds until the Library Annual Day celebration, with automatic state change on event day."
+            },
+            {
+                "step": "04",
+                "title": "User Registration System",
+                "description": "Comprehensive form with client-side validation using regex patterns for email, phone (10-digit), and password (min 8 chars with letter+number) with real-time error messaging."
+            },
+            {
+                "step": "05",
+                "title": "Responsive Design & Theming",
+                "description": "Custom color palette (#F4EDD3, #4C585B, #A5BFCC) with modern typography (Roboto Mono), consistent spacing, and shadow effects for a cohesive user experience."
+            }
+        ],
+        "tags": [
+            "Web Development",
+            "Frontend",
+            "Academic Project"
+        ],
+        "tech": [
+            "HTML5",
+            "CSS3",
+            "JavaScript",
+            "Google Fonts",
+            "GitHub Pages"
+        ],
+        "metrics": {
+            "pages": {
+                "value": "2",
+                "label": "PAGES",
+                "note": "Homepage + Registration"
+            },
+            "categories": {
+                "value": "7",
+                "label": "BOOK CATEGORIES",
+                "note": "Browsable genres"
+            },
+            "validations": {
+                "value": "4",
+                "label": "FORM VALIDATIONS",
+                "note": "Name, Email, Phone, Password"
+            },
+            "codeSize": {
+                "value": "~8KB",
+                "label": "CODEBASE SIZE",
+                "note": "Lightweight & efficient"
+            }
+        },
+        "features": {
+            "blinkingCTA": "CSS animation-based blinking 'Register Now' button for enhanced visibility",
+            "realtimeCountdown": "Dynamic countdown timer updating every second with formatted display",
+            "formValidation": "Regex-powered validation for email format, 10-digit phone, and strong password requirements",
+            "colorTheory": "Warm beige (#F4EDD3) background with complementary teal accents for readability"
+        },
+        "links": {
+            "code": "https://github.com/gabsgj/online-bookstore/",
+            "demo": "https://bookstore.gabrieljames.me"
+        },
+        "screenshots": "projects/online-bookstore",
+        "lastUpdated": "2025-12-28",
+        "course": "Foundations of Computing GXEST203",
+        "institution": "Academic Project"
+    },
+    {
+        "id": "ID-5721",
+        "title": "WhyBot",
+        "status": "DEPLOYED",
+        "summary": "A satirical AI assistant that deliberately over-engineers solutions—guiding users to build AI apps instead of answering questions directly, or responding philosophically through famous historical personas.",
+        "problem": "Modern AI assistants are too helpful. They provide instant answers without requiring users to think, explore, or appreciate the journey of problem-solving. We aimed to create an intentionally 'useless' AI that transforms simple questions into elaborate adventures—either by prescribing AI development blueprints for technical queries or channeling the wisdom of Shakespeare, Oscar Wilde, and other literary giants for life's deeper questions.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Intent Classification",
+                "description": "Gemini 2.5 Pro-powered classifier analyzes incoming queries with structured JSON output to determine technical vs. non-technical intent with confidence scoring (>0.6 threshold for technical routing)."
+            },
+            {
+                "step": "02",
+                "title": "Response Generation Pipeline",
+                "description": "Dual-path LLM orchestration using Gemini 2.5 Flash: technical queries receive AI development blueprints with architecture diagrams and code examples; non-technical queries are answered in the voice of randomly selected historical personas (Shakespeare, Oscar Wilde, Mark Twain, Einstein, etc.)."
+            },
+            {
+                "step": "03",
+                "title": "Conversation Management",
+                "description": "PostgreSQL-backed conversation storage with Drizzle ORM, supporting multi-turn dialogue persistence, message threading, and metadata tagging for response classification."
+            },
+            {
+                "step": "04",
+                "title": "Real-time Chat Interface",
+                "description": "React-based SPA with TanStack Query for server-state management, featuring responsive sidebar navigation, typing indicators, and message-type-aware bubble rendering with syntax highlighting."
+            }
+        ],
+        "tags": [
+            "AI/ML",
+            "Full-Stack",
+            "Hackathon"
+        ],
+        "tech": [
+            "TypeScript",
+            "React",
+            "Express",
+            "Vite",
+            "Google Gemini API",
+            "PostgreSQL",
+            "Drizzle ORM",
+            "TanStack Query",
+            "Shadcn/UI",
+            "TailwindCSS",
+            "Framer Motion",
+            "Render"
+        ],
+        "metrics": {
+            "responseTime": {
+                "value": "<2s",
+                "label": "AVG RESPONSE",
+                "note": "Classification + generation"
+            },
+            "characters": {
+                "value": "6+",
+                "label": "PERSONAS",
+                "note": "Shakespeare, Wilde, Twain..."
+            },
+            "codebase": {
+                "value": "70+",
+                "label": "COMPONENTS",
+                "note": "Reusable UI library"
+            }
+        },
+        "links": {
+            "code": "https://github.com/nayanashaji/why_bot",
+            "demo": "https://whybot-mv4b.onrender.com"
+        },
+        "screenshots": "projects/whybot",
+        "lastUpdated": "2025-02",
+        "event": "TinkerHub Useless Projects Hackathon",
+        "teamSize": 2,
+        "role": "UI/UX Development & Frontend Integration"
+    },
+    {
+        "id": "ID-4720",
+        "title": "Online Food Ordering System",
+        "status": "COMPLETED",
+        "summary": "A feature-rich, console-based food delivery simulation built with Java, demonstrating Object-Oriented Programming principles with MySQL database integration and secure authentication.",
+        "problem": "Food delivery platforms involve complex workflows—authentication, menu browsing, cart management, payment processing, and delivery tracking. This project was designed to simulate these real-world operations while serving as a comprehensive demonstration of OOP concepts for academic purposes. The challenge was to architect a modular, extensible system that cleanly separates concerns while maintaining cohesive functionality across all modules.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "User Authentication Layer",
+                "description": "Secure registration and login system using BCrypt password hashing. User credentials and profiles are persisted in MySQL with prepared statements preventing SQL injection attacks."
+            },
+            {
+                "step": "02",
+                "title": "Restaurant & Menu Service",
+                "description": "Dynamic restaurant catalog with categorized menu items, ratings, and real-time availability status. Shopping cart management with add/remove functionality and automatic price calculations including tax and delivery charges."
+            },
+            {
+                "step": "03",
+                "title": "Payment Processing Engine",
+                "description": "Abstract payment hierarchy implementing polymorphism—Card, UPI, and Cash on Delivery all extend a common Payment interface. Factory pattern creates appropriate payment handlers based on user selection."
+            },
+            {
+                "step": "04",
+                "title": "Delivery Management System",
+                "description": "Automatic delivery personnel assignment with estimated delivery time calculation. Personnel selection based on availability and rating, with real-time status tracking."
+            },
+            {
+                "step": "05",
+                "title": "Order Confirmation & History",
+                "description": "Comprehensive order summary generation with transaction IDs, delivery partner details, and persistent order history tracking for user accounts."
+            }
+        ],
+        "tags": [
+            "OOP",
+            "Java",
+            "Full-Stack"
+        ],
+        "tech": [
+            "Java",
+            "MySQL",
+            "JDBC",
+            "BCrypt",
+            "IntelliJ IDEA"
+        ],
+        "metrics": {
+            "classes": {
+                "value": "17",
+                "label": "JAVA CLASSES",
+                "note": "Modular design"
+            },
+            "restaurants": {
+                "value": "6",
+                "label": "RESTAURANTS",
+                "note": "With 30+ menu items"
+            },
+            "paymentMethods": {
+                "value": "3",
+                "label": "PAYMENT TYPES",
+                "note": "Card, UPI, COD"
+            }
+        },
+        "oopConcepts": {
+            "abstraction": {
+                "title": "Abstraction",
+                "description": "Payment abstract class hides complex payment implementation details, providing a common interface processPayment() that clients use without knowing internal logic."
+            },
+            "encapsulation": {
+                "title": "Encapsulation",
+                "description": "User, Restaurant, and MenuItem classes utilize private fields with controlled access through public getters/setters, ensuring data integrity and information hiding."
+            },
+            "inheritance": {
+                "title": "Inheritance",
+                "description": "Payment hierarchy where CardPayment, UPIPayment, and CashOnDelivery extend the abstract Payment class, inheriting common attributes (amount, transactionId) and behavior (generateTransactionId)."
+            },
+            "polymorphism": {
+                "title": "Polymorphism",
+                "description": "Payment reference can point to any payment type object, enabling uniform processing through the same interface while each implementation behaves differently at runtime."
+            }
+        },
+        "designPatterns": [
+            {
+                "pattern": "Factory Pattern",
+                "usage": "PaymentProcessor creates appropriate payment objects (Card/UPI/COD) based on user selection."
+            },
+            {
+                "pattern": "Singleton Pattern (Implicit)",
+                "usage": "DatabaseManager provides single point of database access with centralized configuration management."
+            },
+            {
+                "pattern": "MVC-like Architecture",
+                "usage": "Clean separation between Models (User, Restaurant, MenuItem), Controllers (Services), and Views (Console output)."
+            }
+        ],
+        "databaseSchema": {
+            "tables": 7,
+            "description": "Normalized relational design with foreign key constraints maintaining referential integrity",
+            "entities": [
+                "users",
+                "restaurants",
+                "menu_items",
+                "orders",
+                "order_items",
+                "delivery_personnel",
+                "deliveries"
+            ]
+        },
+        "features": [
+            {
+                "category": "Authentication",
+                "items": [
+                    "User registration with validation",
+                    "Secure BCrypt password hashing",
+                    "Profile management (phone, address updates)",
+                    "Session management"
+                ]
+            },
+            {
+                "category": "Ordering",
+                "items": [
+                    "Multi-restaurant browsing with ratings",
+                    "Categorized menus with descriptions",
+                    "Dynamic cart with quantity management",
+                    "Automatic tax (5%) and delivery charge (₹30) calculation"
+                ]
+            },
+            {
+                "category": "Payments",
+                "items": [
+                    "Credit/Debit card processing with validation",
+                    "UPI ID and PIN-based payments",
+                    "Cash on Delivery option",
+                    "Transaction ID generation"
+                ]
+            },
+            {
+                "category": "Delivery",
+                "items": [
+                    "Automatic personnel assignment",
+                    "Estimated delivery time calculation",
+                    "Delivery partner ratings",
+                    "Status tracking"
+                ]
+            }
+        ],
+        "technicalHighlights": [
+            "JDBC with prepared statements for SQL injection prevention",
+            "Try-with-resources for automatic connection management",
+            "Properties file-based configuration",
+            "Colorful ANSI terminal UI",
+            "Automatic database initialization on first run"
+        ],
+        "projectType": "Academic Mini Project",
+        "course": "Object Oriented Programming (PBCST304)",
+        "links": {
+            "code": "https://github.com/nevinbeno/Online-Food-Ordering-System-in-Java"
+        },
+        "screenshots": "projects/food-ordering-system",
+        "lastUpdated": "2025-12-28"
+    },
+    {
+        "id": "ID-3742",
+        "title": "Kasse Grandeur Bank",
+        "status": "ARCHIVED",
+        "summary": "Full-featured banking system simulation with account management, transactions, fixed deposits, and card services built in pure C.",
+        "problem": "Traditional banking education relies on theoretical concepts without hands-on experience. Students and developers learning systems programming need practical exposure to real-world financial data structures, transaction handling, memory management, and secure credential validation workflows. This project bridges that gap by simulating a complete banking environment in C.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Account Management Layer",
+                "description": "Nested struct architecture supporting up to 200 concurrent accounts with dynamic memory allocation for credentials, holder information, and branch details. Implements account type classification (Savings, BSBDA, Current, Salary) with automatic type reassignment based on balance thresholds."
+            },
+            {
+                "step": "02",
+                "title": "Transaction Engine",
+                "description": "Bidirectional credit/debit system with transaction history tracking (up to 1000 transactions per account). Implements balance validation, sender/receiver tracking, and date-stamped audit trails for complete financial traceability."
+            },
+            {
+                "step": "03",
+                "title": "Fixed Deposit Module",
+                "description": "Comprehensive FD management with 18 interest rate tiers (3.50% - 7.50%) based on deposit duration. Supports 5 payout frequencies (Monthly, Quarterly, Half-Yearly, Yearly, Cumulative) with compound interest calculation and auto-renewal options."
+            },
+            {
+                "step": "04",
+                "title": "Card & Demat Services",
+                "description": "Card number generation using pseudo-random algorithms with multi-card support (up to 30 debit/credit cards per account). Includes Demat account registration for stock trading integration."
+            },
+            {
+                "step": "05",
+                "title": "Authentication System",
+                "description": "Username/password credential validation with duplicate username detection. Iterative login flow with re-authentication support and session-based menu access control."
+            },
+            {
+                "step": "06",
+                "title": "Memory Management",
+                "description": "Structured memory lifecycle with dynamic allocation via malloc() for variable-length strings and explicit deallocation through free_memory() to prevent memory leaks."
+            }
+        ],
+        "tags": [
+            "Systems Programming",
+            "FinTech",
+            "Data Structures"
+        ],
+        "tech": [
+            "C",
+            "GCC",
+            "Standard Libraries (stdio.h, stdlib.h, string.h, math.h, time.h, stdbool.h)"
+        ],
+        "metrics": {
+            "accounts": {
+                "value": "200",
+                "label": "MAX ACCOUNTS",
+                "note": "Concurrent users supported"
+            },
+            "transactions": {
+                "value": "1000",
+                "label": "TRANSACTIONS/ACCOUNT",
+                "note": "Full audit trail"
+            },
+            "fdTiers": {
+                "value": "18",
+                "label": "INTEREST TIERS",
+                "note": "Dynamic rate calculation"
+            },
+            "codeLines": {
+                "value": "978",
+                "label": "LINES OF CODE",
+                "note": "Pure C implementation"
+            }
+        },
+        "features": {
+            "core": [
+                "Multi-account creation with personalized credentials",
+                "Credit & Debit transactions with balance validation",
+                "Mini-statement generation with complete transaction history",
+                "Account type auto-classification based on balance"
+            ],
+            "deposits": [
+                "Fixed Deposit creation with flexible tenure (30+ days)",
+                "5 payout frequency options (Monthly to Lumpsum)",
+                "Compound interest calculation for cumulative FDs",
+                "Auto-renewal configuration",
+                "Active FD portfolio view with detailed breakdown"
+            ],
+            "cards": [
+                "Debit card application and issuance",
+                "Credit card application and issuance",
+                "Multi-card support (up to 30 per type)",
+                "Random card number generation"
+            ],
+            "other": [
+                "Demat account registration",
+                "Secure authentication flow",
+                "Clean memory management",
+                "Interactive CLI menu system"
+            ]
+        },
+        "dataStructures": {
+            "bank": "Primary struct containing account details, balance, cards, transactions, and FD sub-structures",
+            "transaction": "Nested struct for credit/debit operations with sender/receiver metadata",
+            "fixed_deposit": "Nested struct with FD amount, tenure, rate, payout frequency enum, and renewal flag",
+            "fd_rates": "Lookup table struct for interest rate tiers by deposit duration"
+        },
+        "functionsImplemented": {
+            "accountOps": ["create_acc()", "acc_details()", "authentication()"],
+            "transactionOps": ["credit()", "debit()", "transaction()", "view_mini_statement()"],
+            "fdOps": ["open_fd()", "fd_rates()", "fd_rate_selection()", "fd_interest_calc()", "fd_details()", "active_fd()", "fixed_deposit()"],
+            "cardOps": ["apply_debit_card()", "apply_credit_card()"],
+            "utilities": ["heading()", "mini_heading()", "register_demat()", "free_memory()", "home_screen()", "main_menu()"]
+        },
+        "learnings": [
+            "Nested struct design for complex data relationships",
+            "Enum usage for discrete state management",
+            "Dynamic memory allocation patterns in C",
+            "Input buffer management (scanf quirks)",
+            "Compound interest calculation algorithms",
+            "Menu-driven CLI architecture"
+        ],
+        "links": {
+            "code": "https://github.com/gabsgj/banking-system"
+        },
+        "screenshots": "projects/banking-system",
+        "lastUpdated": "2025-12-28",
+        "zone": "LOCAL",
+        "pid": "37421"
     }
 ]
