@@ -119,8 +119,19 @@ function selectProject(projectId) {
         document.body.classList.add('mobile-detail-active');
     }
 
+    // Save scroll position before re-rendering
+    const container = document.getElementById('project-list');
+    const scrollableDiv = container?.querySelector('.overflow-y-auto');
+    const scrollTop = scrollableDiv?.scrollTop || 0;
+
     // Re-render list to update active state
     renderProjectList();
+
+    // Restore scroll position after re-rendering
+    const newScrollableDiv = document.getElementById('project-list')?.querySelector('.overflow-y-auto');
+    if (newScrollableDiv) {
+        newScrollableDiv.scrollTop = scrollTop;
+    }
 
     // Render detail view
     renderProjectDetail(project);
@@ -281,44 +292,85 @@ function renderProjectDetail(project) {
 }
 
 /**
- * Load screenshots from the specified folder
- * @param {string} folderPath - Relative path to screenshots folder (e.g., "projects/neural-search")
+ * Load screenshots from the specified folder or array of paths
+ * @param {string|string[]} screenshots - Either a folder path (e.g., "projects/neural-search") or an array of image paths
  */
-async function loadScreenshots(folderPath) {
+async function loadScreenshots(screenshots) {
     const gallery = document.getElementById('screenshots-gallery');
     const lightbox = document.getElementById('screenshot-lightbox');
     const lightboxImage = document.getElementById('lightbox-image');
 
     if (!gallery) return;
 
-    // Try to load images - since we can't list directory contents in browser,
-    // we'll use a manifest file or numbered images approach
-    // For now, try loading numbered images (1.png, 2.png, etc.) or check for common names
-    const basePath = `../assets/${folderPath}`;
+    let foundImages = [];
     const imageExtensions = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
-    const foundImages = [];
 
-    // Try numbered images first (1.png, 2.png, etc.)
-    for (let i = 1; i <= 10; i++) {
-        for (const ext of imageExtensions) {
-            const imgPath = `${basePath}/${i}.${ext}`;
-            const exists = await checkImageExists(imgPath);
+    // Handle array format (e.g., ["Media/planner.png", "Media/quiz.png"])
+    if (Array.isArray(screenshots)) {
+        for (const imgPath of screenshots) {
+            const fullPath = `../assets/${imgPath}`;
+            const exists = await checkImageExists(fullPath);
             if (exists) {
-                foundImages.push(imgPath);
-                break;
+                foundImages.push(fullPath);
             }
         }
-    }
+    } else {
+        // Handle folder path format (e.g., "projects/neural-search")
+        const basePath = `../assets/${screenshots}`;
 
-    // Also try common names
-    const commonNames = ['screenshot', 'main', 'demo', 'preview', 'cover', 'hero'];
-    for (const name of commonNames) {
-        for (const ext of imageExtensions) {
-            const imgPath = `${basePath}/${name}.${ext}`;
-            const exists = await checkImageExists(imgPath);
-            if (exists && !foundImages.includes(imgPath)) {
-                foundImages.push(imgPath);
-                break;
+        // Try numbered images first (1.png, 2.png, etc.) - up to 20
+        for (let i = 1; i <= 20; i++) {
+            for (const ext of imageExtensions) {
+                const imgPath = `${basePath}/${i}.${ext}`;
+                const exists = await checkImageExists(imgPath);
+                if (exists) {
+                    foundImages.push(imgPath);
+                    break;
+                }
+            }
+        }
+
+        // Also try common names
+        const commonNames = ['screenshot', 'main', 'demo', 'preview', 'cover', 'hero', 'logo'];
+        for (const name of commonNames) {
+            for (const ext of imageExtensions) {
+                const imgPath = `${basePath}/${name}.${ext}`;
+                const exists = await checkImageExists(imgPath);
+                if (exists && !foundImages.includes(imgPath)) {
+                    foundImages.push(imgPath);
+                    break;
+                }
+            }
+        }
+
+        // Try Screenshot patterns (Screenshot 2025-12-27 151802.png format)
+        // Since we can't list directories in browser, try a broader approach with known patterns
+        const screenshotPatterns = [];
+        // Generate date-based patterns for recent dates
+        for (let day = 20; day <= 31; day++) {
+            for (let hour = 10; hour <= 23; hour++) {
+                for (let min = 0; min <= 59; min += 10) {
+                    screenshotPatterns.push(`Screenshot 2025-12-${day} ${hour}${String(min).padStart(2, '0')}`);
+                    screenshotPatterns.push(`Screenshot 2025-10-29 ${hour}${String(min).padStart(2, '0')}`);
+                }
+            }
+        }
+
+        // Limit concurrent checks to avoid overwhelming the browser
+        const checkPromises = [];
+        for (const pattern of screenshotPatterns.slice(0, 50)) {
+            for (const ext of ['png', 'jpg']) {
+                const imgPath = `${basePath}/${pattern}.${ext}`;
+                checkPromises.push(
+                    checkImageExists(imgPath).then(exists => exists ? imgPath : null)
+                );
+            }
+        }
+
+        const results = await Promise.all(checkPromises);
+        for (const result of results) {
+            if (result && !foundImages.includes(result)) {
+                foundImages.push(result);
             }
         }
     }
@@ -332,6 +384,9 @@ async function loadScreenshots(folderPath) {
         `;
         return;
     }
+
+    // Sort images for consistent ordering
+    foundImages.sort();
 
     // Render gallery with lazy loading
     gallery.innerHTML = foundImages.map((img, index) => `
