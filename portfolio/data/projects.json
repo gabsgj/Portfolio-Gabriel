@@ -360,12 +360,21 @@
         },
         "team": {
             "name": "Team Arete (Athenis Developers)",
-            "members": ["Gabriel James", "Harinarayanan R", "Jany Sabarinath", "Nayana Shaji"]
+            "members": [
+                "Gabriel James",
+                "Harinarayanan R",
+                "Jany Sabarinath",
+                "Nayana Shaji"
+            ]
         },
         "akash": {
             "wallet": "akash1u9uh2y5ad3re9s22c36sagedlct2qhk2g58gfh",
             "region": "SANDBOX",
-            "configs": ["deploy-cpu-fixed.yaml", "deploy-testnet.yaml", "deploy-gpu.yaml"]
+            "configs": [
+                "deploy-cpu-fixed.yaml",
+                "deploy-testnet.yaml",
+                "deploy-gpu.yaml"
+            ]
         }
     },
     {
@@ -632,7 +641,7 @@
         }
     },
     {
-        "id": "ID-7291",
+        "id": "ID-7292",
         "title": "Time Trek: Prehistoric World",
         "status": "DEPLOYED",
         "summary": "An AI-powered interactive prehistoric exploration platform featuring dynamic image generation, era-based creature discovery, and gamified learning experiences built with Gemini 2.5 Flash.",
@@ -1293,11 +1302,38 @@
             "fd_rates": "Lookup table struct for interest rate tiers by deposit duration"
         },
         "functionsImplemented": {
-            "accountOps": ["create_acc()", "acc_details()", "authentication()"],
-            "transactionOps": ["credit()", "debit()", "transaction()", "view_mini_statement()"],
-            "fdOps": ["open_fd()", "fd_rates()", "fd_rate_selection()", "fd_interest_calc()", "fd_details()", "active_fd()", "fixed_deposit()"],
-            "cardOps": ["apply_debit_card()", "apply_credit_card()"],
-            "utilities": ["heading()", "mini_heading()", "register_demat()", "free_memory()", "home_screen()", "main_menu()"]
+            "accountOps": [
+                "create_acc()",
+                "acc_details()",
+                "authentication()"
+            ],
+            "transactionOps": [
+                "credit()",
+                "debit()",
+                "transaction()",
+                "view_mini_statement()"
+            ],
+            "fdOps": [
+                "open_fd()",
+                "fd_rates()",
+                "fd_rate_selection()",
+                "fd_interest_calc()",
+                "fd_details()",
+                "active_fd()",
+                "fixed_deposit()"
+            ],
+            "cardOps": [
+                "apply_debit_card()",
+                "apply_credit_card()"
+            ],
+            "utilities": [
+                "heading()",
+                "mini_heading()",
+                "register_demat()",
+                "free_memory()",
+                "home_screen()",
+                "main_menu()"
+            ]
         },
         "learnings": [
             "Nested struct design for complex data relationships",

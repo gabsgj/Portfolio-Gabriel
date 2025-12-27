@@ -202,11 +202,25 @@ function renderProjectDetail(project) {
                                 <!-- Screenshots will be loaded dynamically -->
                             </div>
                             <!-- Lightbox for viewing larger images -->
-                            <div id="screenshot-lightbox" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 cursor-pointer">
-                                <button class="absolute top-4 right-4 text-white hover:text-primary transition-colors">
-                                    <span class="material-symbols-outlined text-3xl">close</span>
+                            <div id="screenshot-lightbox" class="fixed inset-0 z-[100] bg-black/95 hidden items-center justify-center p-4 md:p-8">
+                                <!-- Close button -->
+                                <button id="lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10">
+                                    <span class="material-symbols-outlined text-4xl">close</span>
                                 </button>
-                                <img id="lightbox-image" src="" alt="Screenshot" class="max-w-full max-h-full object-contain" />
+                                <!-- Left navigation -->
+                                <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-10 p-2 hover:bg-white/10 rounded-full">
+                                    <span class="material-symbols-outlined text-4xl">chevron_left</span>
+                                </button>
+                                <!-- Right navigation -->
+                                <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-10 p-2 hover:bg-white/10 rounded-full">
+                                    <span class="material-symbols-outlined text-4xl">chevron_right</span>
+                                </button>
+                                <!-- Image counter -->
+                                <div id="lightbox-counter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 font-mono text-sm z-10"></div>
+                                <!-- Image container -->
+                                <div class="w-full h-full flex items-center justify-center" id="lightbox-container">
+                                    <img id="lightbox-image" src="" alt="Screenshot" class="max-w-[90vw] max-h-[85vh] object-contain" />
+                                </div>
                             </div>
                         </div>
                     ` : ''}
@@ -388,6 +402,37 @@ async function loadScreenshots(screenshots) {
     // Sort images for consistent ordering
     foundImages.sort();
 
+    // Track current image index for navigation
+    let currentImageIndex = 0;
+
+    // Helper function to update lightbox display
+    const updateLightboxImage = (index) => {
+        currentImageIndex = index;
+        lightboxImage.src = foundImages[index];
+        const counter = document.getElementById('lightbox-counter');
+        if (counter) {
+            counter.textContent = `${index + 1} / ${foundImages.length}`;
+        }
+    };
+
+    // Helper function to close lightbox
+    const closeLightbox = () => {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+    };
+
+    // Helper function to show previous image
+    const showPrevImage = () => {
+        const newIndex = currentImageIndex > 0 ? currentImageIndex - 1 : foundImages.length - 1;
+        updateLightboxImage(newIndex);
+    };
+
+    // Helper function to show next image
+    const showNextImage = () => {
+        const newIndex = currentImageIndex < foundImages.length - 1 ? currentImageIndex + 1 : 0;
+        updateLightboxImage(newIndex);
+    };
+
     // Render gallery with lazy loading
     gallery.innerHTML = foundImages.map((img, index) => `
         <div class="aspect-video bg-surface-dark border border-border-dark overflow-hidden cursor-pointer group hover:border-primary/50 transition-all"
@@ -401,19 +446,65 @@ async function loadScreenshots(screenshots) {
     gallery.querySelectorAll('[data-screenshot-index]').forEach(thumb => {
         thumb.addEventListener('click', () => {
             const index = parseInt(thumb.dataset.screenshotIndex);
-            lightboxImage.src = foundImages[index];
+            updateLightboxImage(index);
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
         });
     });
 
-    // Close lightbox on click
-    if (lightbox) {
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.add('hidden');
-            lightbox.classList.remove('flex');
+    // Close button handler
+    const closeBtn = document.getElementById('lightbox-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeLightbox();
         });
     }
+
+    // Previous button handler
+    const prevBtn = document.getElementById('lightbox-prev');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showPrevImage();
+        });
+    }
+
+    // Next button handler
+    const nextBtn = document.getElementById('lightbox-next');
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showNextImage();
+        });
+    }
+
+    // Close lightbox when clicking the background container (not the image)
+    const lightboxContainer = document.getElementById('lightbox-container');
+    if (lightboxContainer) {
+        lightboxContainer.addEventListener('click', (e) => {
+            if (e.target === lightboxContainer) {
+                closeLightbox();
+            }
+        });
+    }
+
+    // Keyboard navigation
+    const handleKeydown = (e) => {
+        if (!lightbox.classList.contains('hidden')) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                showPrevImage();
+            } else if (e.key === 'ArrowRight') {
+                showNextImage();
+            }
+        }
+    };
+
+    // Remove any existing keydown handler to avoid duplicates
+    document.removeEventListener('keydown', handleKeydown);
+    document.addEventListener('keydown', handleKeydown);
 }
 
 /**
