@@ -21,6 +21,28 @@
         "source": "Resume (uploaded). :contentReference[oaicite:4]{index=4}"
     },
     {
+        "type": "work",
+        "date": "2025.11 - PRESENT",
+        "title": "Campus Ambassador",
+        "company": "NAMESPACE",
+        "colorClass": "text-primary",
+        "highlights": [
+            "Representing NAMESPACE — a global tech ecosystem empowering students, professionals, and communities through flagship programs like HACKHAZARDS, TechXcelerate, and OpenCode.",
+            "Driving campus outreach and student engagement for hackathons, bootcamps, and developer programs reaching 17,000+ participants globally.",
+            "Building bridges between academia and industry by promoting accessible tech opportunities for talent across tier-2/3 cities and underrepresented groups.",
+            "Coordinating local tech events and workshops to foster innovation, collaboration, and skill development within the campus community."
+        ],
+        "tech": [
+            "Community Building",
+            "Event Management",
+            "Technical Outreach",
+            "Developer Relations"
+        ],
+        "links": [
+            "https://www.namespace.world/"
+        ]
+    },
+    {
         "type": "achievement",
         "date": "2025.04 - 2025.05",
         "title": "Top 15 — HACKHAZARDS '25 (Fluvio Track)",
@@ -104,8 +126,13 @@
         ],
         "tech": [
             "Python",
+            "TensorFlow",
+            "Docker",
             "Git",
-            "ML toolkits"
+            "ML toolkits",
+            "PostgreSQL",
+            "Flask",
+            "CI/CD"
         ],
         "source": "Resume (uploaded). "
     },
@@ -149,5 +176,29 @@
             "Python"
         ],
         "source": "Resume (uploaded). :contentReference[oaicite:14]{index=14}"
+    },
+    {
+        "type": "work",
+        "date": "2025.01 - PRESENT",
+        "title": "Independent Research — Applied Machine Learning & Systems",
+        "company": "Self-Directed",
+        "colorClass": "text-primary",
+        "highlights": [
+            "Conducting independent research and experimentation on applied machine learning systems with emphasis on generalization limits, failure modes, and system-level tradeoffs.",
+            "Maintaining structured research notes documenting hypotheses, negative results, and design decisions across experiments.",
+            "Exploring intersections of ML models, data pipelines, and systems design beyond benchmark-driven or competition-focused development."
+        ],
+        "tech": [
+            "TensorFlow",
+            "PyTorch",
+            "scikit-learn",
+            "Python",
+            "NumPy",
+            "pandas",
+            "Statistical Learning",
+            "Experiment Design",
+            "System Design"
+        ]
     }
+
 ]
