@@ -82,12 +82,7 @@
             "code": "https://github.com/gabsgj/Xenia",
             "demo": "https://xenia.gabrieljames.me"
         },
-        "screenshots": [
-            "Media/planner.png",
-            "Media/quiz.png",
-            "Media/ai tutor.png",
-            "Media/dashboard.png"
-        ],
+        "screenshots": "projects/xenia",
         "lastUpdated": "2025-12-24",
         "zone": "Global",
         "pid": "XENIA-01",
@@ -606,7 +601,7 @@
             "code": "https://github.com/gabsgj/K-Means-Image-Compressor",
             "demo": "https://imagecompressor.gabrieljames.me"
         },
-        "screenshots": "projects/kmeans-compressor",
+        "screenshots": "projects/imagecompressorusingkmeans",
         "lastUpdated": "2026-01-24",
         "zone": "LOCAL",
         "pid": "83410"
