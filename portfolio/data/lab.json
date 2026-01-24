@@ -1,74 +1,256 @@
 [
     {
-        "id": "EXP-094",
-        "title": "Generative Adversarial Nets",
-        "status": "training",
-        "statusLabel": "Training",
-        "icon": "neurology",
-        "summary": "Style transfer experiments on edge devices. Hypothesis: Small-scale GANs can achieve 90% fidelity with quantized weights.",
+        "id": "AI-XS-001",
+        "title": "XENIA — AI Study Suite",
+        "status": "active",
+        "statusLabel": "Active",
+        "icon": "school",
+        "summary": "Exploratory work on evolving an AI study planner into a modular study suite. Focus on learning workflows, scheduling intelligence, and adaptive feedback mechanisms.",
         "tech": [
-            "PYTORCH"
+            "PYTHON",
+            "LLM"
         ],
-        "metadata": {
-            "epoch": "402"
-        },
-        "noteFile": "exp-094.md",
         "interactive": true,
         "colorTheme": "primary"
     },
     {
-        "id": "VIZ-021",
-        "title": "Fluid Dynamics (WebGL)",
+        "id": "WEB-NT-002",
+        "title": "Website Change Intelligence",
         "status": "prototype",
         "statusLabel": "Prototype",
-        "icon": "waves",
-        "summary": "Real-time particle simulation exploring browser-based compute shaders. Stable but high GPU overhead on mobile.",
+        "icon": "radar",
+        "summary": "Prototype system for detecting meaningful structural changes in web content, prioritizing signal relevance over raw diffs.",
         "tech": [
-            "TS",
-            "GLSL"
+            "PYTHON"
         ],
         "interactive": false,
         "colorTheme": "neutral"
     },
     {
-        "id": "NOTE-104",
-        "title": "Transformer Attention",
+        "id": "APP-BK-003",
+        "title": "Book Review Platform",
+        "status": "concept",
+        "statusLabel": "Concept",
+        "icon": "menu_book",
+        "summary": "Conceptual application for structured book reviews with emphasis on insight capture and long-term recall.",
+        "interactive": false,
+        "colorTheme": "neutral"
+    },
+    {
+        "id": "RES-TR-004",
+        "title": "Research Workflow Tracker",
+        "status": "research",
+        "statusLabel": "Research",
+        "icon": "science",
+        "summary": "Research-oriented tooling ideas for tracking hypotheses, literature, progress, and failed paths during exploratory work.",
+        "interactive": false,
+        "colorTheme": "blue"
+    },
+    {
+        "id": "NOTE-201",
+        "title": "Failure Modes in ML Pipelines",
         "status": "research",
         "statusLabel": "Research Note",
         "icon": "book_2",
-        "summary": "Deep dive into multi-head implementation details. Breakdown of \"What Didn't Work\" during initial custom layer implementation.",
+        "summary": "A reflective note documenting common failure modes encountered in experimental ML pipelines, including data leakage, silent metric inflation, and brittle assumptions.",
         "metadata": {
-            "readTime": "5M"
+            "readTime": "6M"
         },
-        "noteFile": "note-104.md",
+        "noteFile": "note-201.md",
         "interactive": true,
         "colorTheme": "blue"
     },
     {
-        "id": "IOT-003",
-        "title": "Home Automation Node",
-        "status": "dormant",
-        "statusLabel": "Dormant",
-        "icon": "router",
-        "summary": "ESP32 based sensor array. Project paused due to hardware latency issues with MQTT broker.",
-        "tech": [
-            "C++",
-            "MQTT"
-        ],
+        "id": "NOTE-202",
+        "title": "When Models Generalize — and When They Don’t",
+        "status": "research",
+        "statusLabel": "Research Note",
+        "icon": "book_2",
+        "summary": "Exploration of generalization behavior across small-scale experiments, highlighting cases where apparent performance failed to transfer across data regimes.",
+        "metadata": {
+            "readTime": "5M"
+        },
+        "noteFile": "note-202.md",
+        "interactive": true,
+        "colorTheme": "blue"
+    },
+    {
+        "id": "DOC-AI-005",
+        "title": "AI Notes & Schedules from PDFs",
+        "status": "experiment",
+        "statusLabel": "Experiment",
+        "icon": "description",
+        "summary": "Experiments in extracting structured notes and schedules from academic PDFs using document intelligence techniques.",
+        "interactive": true,
+        "colorTheme": "primary"
+    },
+    {
+        "id": "FIN-PDF-006",
+        "title": "Expense Insights from Documents",
+        "status": "concept",
+        "statusLabel": "Concept",
+        "icon": "receipt_long",
+        "summary": "High-level exploration of summarizing expense patterns from semi-structured financial documents.",
         "interactive": false,
         "colorTheme": "neutral"
     },
     {
-        "id": "NLP-002",
-        "title": "Semantic Search",
-        "status": "live",
-        "statusLabel": "Live",
-        "icon": "forum",
-        "summary": "Vector embedding search for local markdown notes. Goal: <100ms query time on 50k documents.",
-        "tech": [
-            "PYTHON",
-            "PINECONE"
-        ],
+        "id": "IP-SR-007",
+        "title": "Patent Keyword Discovery",
+        "status": "research",
+        "statusLabel": "Research",
+        "icon": "search",
+        "summary": "Keyword-driven exploration of patent corpora to surface thematic and technological trends.",
+        "interactive": false,
+        "colorTheme": "blue"
+    },
+    {
+        "id": "UTIL-EL-008",
+        "title": "Electrician Assistant App",
+        "status": "concept",
+        "statusLabel": "Concept",
+        "icon": "electrical_services",
+        "summary": "Utility app concept aimed at assisting field electricians with references, checks, and workflows.",
+        "interactive": false,
+        "colorTheme": "neutral"
+    },
+    {
+        "id": "CV-SAF-009",
+        "title": "Visual Safety Anomaly Detection",
+        "status": "research",
+        "statusLabel": "Research",
+        "icon": "visibility",
+        "summary": "Early research into visual anomaly detection for safety-related monitoring scenarios.",
+        "interactive": false,
+        "colorTheme": "blue"
+    },
+    {
+        "id": "FIN-AN-010",
+        "title": "Financial Loss Pattern Analysis",
+        "status": "experiment",
+        "statusLabel": "Experiment",
+        "icon": "trending_down",
+        "summary": "Experimental analysis of financial data to identify recurring loss-related patterns and behaviors.",
+        "interactive": true,
+        "colorTheme": "primary"
+    },
+    {
+        "id": "MKT-SP-011",
+        "title": "Sports Equipment Rental Platform",
+        "status": "concept",
+        "statusLabel": "Concept",
+        "icon": "sports",
+        "summary": "Marketplace concept for short-term sports equipment rentals with basic inventory intelligence.",
+        "interactive": false,
+        "colorTheme": "neutral"
+    },
+    {
+        "id": "STK-AI-012",
+        "title": "Stock Trend Exploration",
+        "status": "research",
+        "statusLabel": "Research",
+        "icon": "show_chart",
+        "summary": "Exploratory work on identifying structural trends in market data using statistical techniques.",
+        "interactive": false,
+        "colorTheme": "blue"
+    },
+    {
+        "id": "SUP-PL-013",
+        "title": "Custom Customer Support Engine",
+        "status": "concept",
+        "statusLabel": "Concept",
+        "icon": "support_agent",
+        "summary": "Design exploration for customizable customer support workflows supported by automation.",
+        "interactive": false,
+        "colorTheme": "neutral"
+    },
+    {
+        "id": "SIM-FIR-014",
+        "title": "Candle Fire Simulation",
+        "status": "experiment",
+        "statusLabel": "Experiment",
+        "icon": "local_fire_department",
+        "summary": "Physics-inspired simulation exploring flame dynamics at small spatial scales.",
+        "interactive": false,
+        "colorTheme": "neutral"
+    },
+    {
+        "id": "CLM-TD-015",
+        "title": "Tidal Flooding Patterns",
+        "status": "research",
+        "statusLabel": "Research",
+        "icon": "water",
+        "summary": "Conceptual research into coastal and tidal flooding patterns using environmental data.",
+        "interactive": false,
+        "colorTheme": "blue"
+    },
+    {
+        "id": "AFF-EM-016",
+        "title": "Emotion Analysis App",
+        "status": "experiment",
+        "statusLabel": "Experiment",
+        "icon": "psychology",
+        "summary": "Exploratory work on affect analysis from multimodal inputs with ethical constraints in mind.",
+        "interactive": true,
+        "colorTheme": "primary"
+    },
+    {
+        "id": "MUS-GT-017",
+        "title": "Guitar Tabs & Chords AI",
+        "status": "concept",
+        "statusLabel": "Concept",
+        "icon": "music_note",
+        "summary": "Conceptual tooling for translating musical structures into playable guitar representations.",
+        "interactive": false,
+        "colorTheme": "neutral"
+    },
+    {
+        "id": "HLT-AI-018",
+        "title": "AI Mental Health Assistant",
+        "status": "research",
+        "statusLabel": "Research",
+        "icon": "health_and_safety",
+        "summary": "Ethics-first research exploration of conversational systems for mental health support.",
+        "interactive": false,
+        "colorTheme": "blue"
+    },
+    {
+        "id": "ENG-EMS-019",
+        "title": "EMS Import Substitution Study",
+        "status": "research",
+        "statusLabel": "Research",
+        "icon": "factory",
+        "summary": "Analytical study of imported electronics components to identify potential local manufacturing opportunities.",
+        "interactive": false,
+        "colorTheme": "blue"
+    },
+    {
+        "id": "ENV-MON-020",
+        "title": "Environmental Monitoring Concepts",
+        "status": "research",
+        "statusLabel": "Research",
+        "icon": "public",
+        "summary": "High-level concepts for monitoring environmental anomalies using public data sources.",
+        "interactive": false,
+        "colorTheme": "blue"
+    },
+    {
+        "id": "FUN-AUD-021",
+        "title": "Audio Pattern Curiosity Project",
+        "status": "playground",
+        "statusLabel": "Playground",
+        "icon": "mic",
+        "summary": "Lightweight audio pattern detection experiment built purely for curiosity and signal processing practice.",
+        "interactive": false,
+        "colorTheme": "neutral"
+    },
+    {
+        "id": "DATA-VIZ-022",
+        "title": "Dataset Visualization Tool",
+        "status": "prototype",
+        "statusLabel": "Prototype",
+        "icon": "bar_chart",
+        "summary": "Interactive visualization tool for uploaded datasets to support exploratory data analysis.",
         "interactive": true,
         "colorTheme": "primary"
     }

@@ -1,0 +1,75 @@
+[
+    {
+        "id": "EXP-094",
+        "title": "Generative Adversarial Nets",
+        "status": "training",
+        "statusLabel": "Training",
+        "icon": "neurology",
+        "summary": "Style transfer experiments on edge devices. Hypothesis: Small-scale GANs can achieve 90% fidelity with quantized weights.",
+        "tech": [
+            "PYTORCH"
+        ],
+        "metadata": {
+            "epoch": "402"
+        },
+        "noteFile": "exp-094.md",
+        "interactive": true,
+        "colorTheme": "primary"
+    },
+    {
+        "id": "VIZ-021",
+        "title": "Fluid Dynamics (WebGL)",
+        "status": "prototype",
+        "statusLabel": "Prototype",
+        "icon": "waves",
+        "summary": "Real-time particle simulation exploring browser-based compute shaders. Stable but high GPU overhead on mobile.",
+        "tech": [
+            "TS",
+            "GLSL"
+        ],
+        "interactive": false,
+        "colorTheme": "neutral"
+    },
+    {
+        "id": "NOTE-104",
+        "title": "Transformer Attention",
+        "status": "research",
+        "statusLabel": "Research Note",
+        "icon": "book_2",
+        "summary": "Deep dive into multi-head implementation details. Breakdown of \"What Didn't Work\" during initial custom layer implementation.",
+        "metadata": {
+            "readTime": "5M"
+        },
+        "noteFile": "note-104.md",
+        "interactive": true,
+        "colorTheme": "blue"
+    },
+    {
+        "id": "IOT-003",
+        "title": "Home Automation Node",
+        "status": "dormant",
+        "statusLabel": "Dormant",
+        "icon": "router",
+        "summary": "ESP32 based sensor array. Project paused due to hardware latency issues with MQTT broker.",
+        "tech": [
+            "C++",
+            "MQTT"
+        ],
+        "interactive": false,
+        "colorTheme": "neutral"
+    },
+    {
+        "id": "NLP-002",
+        "title": "Semantic Search",
+        "status": "live",
+        "statusLabel": "Live",
+        "icon": "forum",
+        "summary": "Vector embedding search for local markdown notes. Goal: <100ms query time on 50k documents.",
+        "tech": [
+            "PYTHON",
+            "PINECONE"
+        ],
+        "interactive": true,
+        "colorTheme": "primary"
+    }
+]

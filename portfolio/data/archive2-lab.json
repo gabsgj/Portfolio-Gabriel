@@ -1,0 +1,232 @@
+{
+  "sandbox": {
+    "title": "Experimental Sandbox",
+    "icon": "warning_amber",
+    "description": "A digital workbench for testing hypotheses. Exploring the intersection of design engineering and machine intelligence.",
+    "disclaimer": "This space contains unfinished experiments, technical notes, and prototypes built to explore ideas — not production-ready projects."
+  },
+  "items": [
+    {
+      "id": "AI-XS-001",
+      "title": "XENIA — AI Study Suite",
+      "status": "active",
+      "statusLabel": "Active Exploration",
+      "icon": "school",
+      "summary": "Evolution of an AI study planner into a modular AI study suite. Focus on orchestration of learning tools, scheduling intelligence, and adaptive feedback loops.",
+      "tech": ["PYTHON", "LLM", "SYSTEM DESIGN"],
+      "interactive": true,
+      "colorTheme": "primary"
+    },
+    {
+      "id": "WEB-NT-002",
+      "title": "Website Change Intelligence",
+      "status": "prototype",
+      "statusLabel": "Prototype",
+      "icon": "radar",
+      "summary": "Monitoring system for detecting meaningful changes across web pages. Emphasis on signal filtering rather than raw diffing.",
+      "tech": ["PYTHON", "CRAWLING"],
+      "interactive": false,
+      "colorTheme": "neutral"
+    },
+    {
+      "id": "APP-BK-003",
+      "title": "Book Review Platform",
+      "status": "concept",
+      "statusLabel": "Concept",
+      "icon": "menu_book",
+      "summary": "A structured book review application emphasizing insight extraction and long-term knowledge recall.",
+      "interactive": false,
+      "colorTheme": "neutral"
+    },
+    {
+      "id": "RES-TR-004",
+      "title": "Research Workflow Tracker",
+      "status": "research",
+      "statusLabel": "Research",
+      "icon": "science",
+      "summary": "Tooling concepts for tracking research progress, hypotheses, dead ends, and literature dependencies.",
+      "interactive": false,
+      "colorTheme": "blue"
+    },
+    {
+      "id": "DOC-AI-005",
+      "title": "AI Notes & Schedule from PDFs",
+      "status": "experiment",
+      "statusLabel": "Experiment",
+      "icon": "description",
+      "summary": "Exploration of extracting structured notes and time tables from academic PDFs using document intelligence.",
+      "interactive": true,
+      "colorTheme": "primary"
+    },
+    {
+      "id": "FIN-PDF-006",
+      "title": "Expense Insights from Documents",
+      "status": "concept",
+      "statusLabel": "Concept",
+      "icon": "receipt_long",
+      "summary": "High-level exploration of deriving expense summaries from semi-structured financial documents.",
+      "interactive": false,
+      "colorTheme": "neutral"
+    },
+    {
+      "id": "IP-SR-007",
+      "title": "Patent Keyword Discovery",
+      "status": "research",
+      "statusLabel": "Research",
+      "icon": "search",
+      "summary": "Keyword-based exploration of patent databases to surface thematic trends and innovation clusters.",
+      "interactive": false,
+      "colorTheme": "blue"
+    },
+    {
+      "id": "UTIL-EL-008",
+      "title": "Electrician Assistant App",
+      "status": "concept",
+      "statusLabel": "Concept",
+      "icon": "electrical_services",
+      "summary": "Utility app concepts aimed at assisting field electricians with references, checks, and workflows.",
+      "interactive": false,
+      "colorTheme": "neutral"
+    },
+    {
+      "id": "CV-SAF-009",
+      "title": "Gas Leakage Detection (Vision)",
+      "status": "research",
+      "statusLabel": "Research",
+      "icon": "visibility",
+      "summary": "Early investigation into visual cues and anomaly detection for safety monitoring scenarios.",
+      "interactive": false,
+      "colorTheme": "blue"
+    },
+    {
+      "id": "FIN-AN-010",
+      "title": "Financial Loss Pattern Analyzer",
+      "status": "experiment",
+      "statusLabel": "Experiment",
+      "icon": "trending_down",
+      "summary": "Pattern-oriented analysis of financial data to identify recurring loss behaviors.",
+      "interactive": true,
+      "colorTheme": "primary"
+    },
+    {
+      "id": "MKT-SP-011",
+      "title": "Sports Equipment Rental Platform",
+      "status": "concept",
+      "statusLabel": "Concept",
+      "icon": "sports",
+      "summary": "Marketplace concept for short-term sports equipment rentals with inventory intelligence.",
+      "interactive": false,
+      "colorTheme": "neutral"
+    },
+    {
+      "id": "STK-AI-012",
+      "title": "Stock Trend Exploration",
+      "status": "research",
+      "statusLabel": "Research",
+      "icon": "show_chart",
+      "summary": "Exploratory work on identifying structural trends in market data using statistical learning.",
+      "interactive": false,
+      "colorTheme": "blue"
+    },
+    {
+      "id": "SUP-PL-013",
+      "title": "Custom Customer Support Engine",
+      "status": "concept",
+      "statusLabel": "Concept",
+      "icon": "support_agent",
+      "summary": "Design exploration for customizable customer support workflows powered by automation.",
+      "interactive": false,
+      "colorTheme": "neutral"
+    },
+    {
+      "id": "SIM-FIR-014",
+      "title": "Candle Fire Simulation",
+      "status": "experiment",
+      "statusLabel": "Experiment",
+      "icon": "local_fire_department",
+      "summary": "Physics-inspired simulation exploring flame dynamics at small scales.",
+      "interactive": false,
+      "colorTheme": "neutral"
+    },
+    {
+      "id": "CLM-TD-015",
+      "title": "Tidal Flooding Prediction",
+      "status": "research",
+      "statusLabel": "Research",
+      "icon": "water",
+      "summary": "Conceptual exploration of environmental data for understanding coastal flooding patterns.",
+      "interactive": false,
+      "colorTheme": "blue"
+    },
+    {
+      "id": "AFF-EM-016",
+      "title": "Emotion Analysis App",
+      "status": "experiment",
+      "statusLabel": "Experiment",
+      "icon": "psychology",
+      "summary": "Exploration of affect recognition from multimodal signals with ethical constraints.",
+      "interactive": true,
+      "colorTheme": "primary"
+    },
+    {
+      "id": "MUS-GT-017",
+      "title": "Guitar Tabs & Chords AI",
+      "status": "concept",
+      "statusLabel": "Concept",
+      "icon": "music_note",
+      "summary": "Conceptual tooling for translating musical structures into playable guitar representations.",
+      "interactive": false,
+      "colorTheme": "neutral"
+    },
+    {
+      "id": "HLT-AI-018",
+      "title": "AI Mental Health Assistant",
+      "status": "research",
+      "statusLabel": "Research",
+      "icon": "health_and_safety",
+      "summary": "Ethics-first exploration of conversational systems for mental health support.",
+      "interactive": false,
+      "colorTheme": "blue"
+    },
+    {
+      "id": "ENG-EMS-019",
+      "title": "EMS Import Substitution Analysis",
+      "status": "research",
+      "statusLabel": "Research",
+      "icon": "factory",
+      "summary": "Analytical study of imported electronics components to identify local manufacturing opportunities.",
+      "interactive": false,
+      "colorTheme": "blue"
+    },
+    {
+      "id": "ENV-MON-020",
+      "title": "Environmental Monitoring Concepts",
+      "status": "research",
+      "statusLabel": "Research",
+      "icon": "public",
+      "summary": "High-level concepts for monitoring environmental anomalies using public data sources.",
+      "interactive": false,
+      "colorTheme": "blue"
+    },
+    {
+      "id": "FUN-AUD-021",
+      "title": "Audio Pattern Curiosity Project",
+      "status": "playground",
+      "statusLabel": "Playground",
+      "icon": "mic",
+      "summary": "Lightweight audio pattern detection experiment built purely for curiosity and signal processing practice.",
+      "interactive": false,
+      "colorTheme": "neutral"
+    },
+    {
+      "id": "DATA-VIZ-022",
+      "title": "Dataset Visualization Tool",
+      "status": "prototype",
+      "statusLabel": "Prototype",
+      "icon": "bar_chart",
+      "summary": "Interactive visualization of uploaded datasets to support exploratory data analysis.",
+      "interactive": true,
+      "colorTheme": "primary"
+    }
+  ]
+}

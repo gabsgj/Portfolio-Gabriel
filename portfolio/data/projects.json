@@ -104,7 +104,7 @@
     {
         "id": "ID-7291",
         "title": "Smart Investment Advisor (SIA Terminal)",
-        "status": "DEPLOYED",
+        "status": "ARCHIVED",
         "summary": "AI-powered fintech platform combining ensemble ML predictions, regime-aware portfolio optimization, and FinBERT sentiment analysis for intelligent investment decisions.",
         "problem": "Modern investors face information overload with thousands of signals, market complexity with regime changes, and technical barriers requiring ML expertise. Existing solutions suffer from overfitting, single-model dependency, static allocation strategies, and lack production-grade infrastructure. SIA Terminal bridges the gap between academic ML research and deployable, production-ready investment systems.",
         "architecture": [
@@ -664,30 +664,30 @@
             "Render"
         ],
         "metrics": {
-            "businesses": {
-                "value": "500+",
-                "label": "BUSINESSES LISTED",
-                "note": "Values-verified listings"
+            "aiModels": {
+                "value": "3-Tier",
+                "label": "AI FALLBACK SYSTEM",
+                "note": "GPT-4 → Llama-3.2 → Regex"
             },
-            "values": {
-                "value": "12,000+",
-                "label": "VALUES VERIFIED",
-                "note": "Badges like woman-owned, eco-friendly"
-            },
-            "impact": {
-                "value": "$2M+",
-                "label": "ECONOMIC IMPACT",
-                "note": "Community benefit generated"
-            },
-            "users": {
-                "value": "50K+",
-                "label": "CONSCIOUS CONSUMERS",
-                "note": "Active monthly users"
+            "valuesBadges": {
+                "value": "20+",
+                "label": "VALUE BADGES",
+                "note": "Ownership & sustainability types"
             },
             "latency": {
                 "value": "<100ms",
                 "label": "SEARCH LATENCY",
-                "note": "End-to-end query response"
+                "note": "GeoSpatial query response"
+            },
+            "techStack": {
+                "value": "14+",
+                "label": "TECHNOLOGIES",
+                "note": "Full-stack MERN + AI"
+            },
+            "canvasAnimation": {
+                "value": "60fps",
+                "label": "RENDER PERFORMANCE",
+                "note": "Custom Canvas API hero"
             }
         },
         "features": [
