@@ -471,6 +471,147 @@
         "teamRole": "Full-Stack Development & AI Integration"
     },
     {
+        "id": "ID-8341",
+        "title": "K-Means Image Compressor",
+        "status": "DEPLOYED",
+        "summary": "High-performance image compression platform using K-Means clustering for intelligent color quantization. Reduces file sizes up to 6x while preserving visual quality, featuring interactive comparison, dimension control, target file size optimization, and a complete REST API.",
+        "problem": "Images on the web consume massive bandwidth and storage, yet traditional compression methods either sacrifice quality or lack fine-grained control. Designers and developers need a tool that balances file size with visual fidelity while offering advanced features like exact dimension targeting, custom crop controls, and programmatic API access. Existing solutions are either too simplistic (basic quality sliders) or too complex (require ML expertise). We needed a production-ready platform that democratizes intelligent compression through an intuitive interface backed by a sophisticated K-Means++ algorithm.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Image Ingestion & Preprocessing",
+                "description": "Flask-based upload handler supporting JPEG, PNG, GIF, and WebP formats up to 16MB. Converts images to RGB numpy arrays, applies optional cropping via Cropper.js coordinates, and resizes to target dimensions using 4 modes (Fit, Fill, Stretch, Crop)."
+            },
+            {
+                "step": "02",
+                "title": "K-Means++ Clustering Engine",
+                "description": "Optimized NumPy implementation with K-Means++ initialization for faster convergence. Pixel sampling (150K max) enables sub-second processing on large images. Uses squared Euclidean distance with batch processing (50K chunks) to prevent memory overflow."
+            },
+            {
+                "step": "03",
+                "title": "Adaptive Color Quantization",
+                "description": "Reduces image palette to 2-256 colors through iterative centroid refinement (up to 15 iterations, 1e-5 tolerance). Centroid refinement pass on full image after sampling ensures color accuracy across all regions."
+            },
+            {
+                "step": "04",
+                "title": "Target File Size Optimization",
+                "description": "Binary search algorithm on JPEG quality (10-100) combined with color reduction to achieve precise file size targets. Strips EXIF metadata and applies progressive encoding for optimal web delivery."
+            },
+            {
+                "step": "05",
+                "title": "Interactive Comparison UI",
+                "description": "Before/after slider with real-time drag interaction for visual quality assessment. Displays compression ratio, file sizes, processing time, and color reduction metrics with responsive design."
+            },
+            {
+                "step": "06",
+                "title": "REST API Layer",
+                "description": "Complete programmatic access via /api/upload, /api/compress, /api/compress-advanced, and /api/compress-direct endpoints. Supports presets, dimension targeting, and batch processing for integration into existing workflows."
+            }
+        ],
+        "tags": [
+            "Computer Vision",
+            "Image Processing",
+            "Machine Learning",
+            "Full-Stack",
+            "REST API"
+        ],
+        "tech": [
+            "Python",
+            "Flask",
+            "NumPy",
+            "Pillow",
+            "JavaScript",
+            "Cropper.js",
+            "HTML5",
+            "CSS3",
+            "Docker",
+            "Gunicorn"
+        ],
+        "metrics": {
+            "compression": {
+                "value": "Up to 6x",
+                "label": "COMPRESSION RATIO",
+                "note": "With 16 colors"
+            },
+            "processing": {
+                "value": "<500ms",
+                "label": "PROCESSING TIME",
+                "note": "1024×1024 image"
+            },
+            "colors": {
+                "value": "2-256",
+                "label": "COLOR RANGE",
+                "note": "Configurable palette"
+            },
+            "sampling": {
+                "value": "150K",
+                "label": "PIXEL SAMPLING",
+                "note": "For large image optimization"
+            },
+            "formats": {
+                "value": "4",
+                "label": "INPUT FORMATS",
+                "note": "JPEG, PNG, GIF, WebP"
+            }
+        },
+        "features": [
+            {
+                "icon": "Palette",
+                "title": "Intelligent Color Reduction",
+                "description": "K-Means++ algorithm clusters similar colors, reducing palette size while preserving visual perception through optimized centroid selection."
+            },
+            {
+                "icon": "Target",
+                "title": "Target File Size",
+                "description": "Specify exact file size in KB—binary search algorithm automatically adjusts JPEG quality and color count to hit your target within 5% accuracy."
+            },
+            {
+                "icon": "Crop",
+                "title": "Interactive Cropping",
+                "description": "Cropper.js integration with aspect ratio lock, rotation, flip controls, and dimension presets for precise image framing before compression."
+            },
+            {
+                "icon": "Sliders",
+                "title": "Dimension Control",
+                "description": "Resize to exact dimensions with 4 modes: Fit (letterbox), Fill (crop to fit), Stretch (distort), or Crop (center cut)."
+            },
+            {
+                "icon": "GitCompare",
+                "title": "Before/After Comparison",
+                "description": "Interactive slider overlay to visually compare original vs. compressed output with real-time drag interaction."
+            },
+            {
+                "icon": "Code",
+                "title": "REST API",
+                "description": "Full programmatic access for automation—upload, compress, and download via JSON endpoints with detailed stats and presets."
+            }
+        ],
+        "highlights": [
+            "K-Means++ initialization for 2-3x faster convergence vs random seeding",
+            "Pixel sampling (150K) enables sub-second processing on 4K+ images",
+            "Binary search file size targeting with <5% accuracy deviation",
+            "Batch processing in 50K chunks prevents memory overflow",
+            "Metadata stripping and progressive JPEG encoding for web optimization",
+            "5 compression presets from Maximum Compression to Maximum Quality",
+            "Docker-ready with multi-stage builds for production deployment"
+        ],
+        "algorithmDetails": {
+            "initialization": "K-Means++ (weighted probability selection favoring distant points)",
+            "distanceMetric": "Squared Euclidean (optimized—no sqrt needed for argmin)",
+            "convergence": "Centroid shift < 1e-5 or max 15 iterations",
+            "optimization": "NumPy bincount aggregation (3-5x faster than loops)",
+            "colorSpace": "RGB normalized to [0,1] for numerical stability"
+        },
+        "links": {
+            "code": "https://github.com/gabsgj/K-Means-Image-Compressor",
+            "demo": "https://imagecompressor.gabrieljames.me"
+        },
+        "screenshots": "projects/kmeans-compressor",
+        "lastUpdated": "2026-01-24",
+        "zone": "LOCAL",
+        "pid": "83410"
+    },
+    {
         "id": "ID-4827",
         "title": "ValueFind",
         "status": "DEPLOYED",
