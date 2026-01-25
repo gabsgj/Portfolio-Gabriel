@@ -306,7 +306,27 @@ function renderProjectDetail(project) {
 }
 
 /**
+ * Image cache for faster subsequent loads
+ */
+const imageCache = new Map();
+
+/**
+ * Preload images for faster display
+ * @param {string[]} images - Array of image paths to preload
+ */
+function preloadImages(images) {
+    images.forEach(src => {
+        if (!imageCache.has(src)) {
+            const img = new Image();
+            img.src = src;
+            imageCache.set(src, img);
+        }
+    });
+}
+
+/**
  * Load screenshots from the specified folder or array of paths
+ * All images are WebP format for faster loading (70-90% smaller files)
  * @param {string|string[]} screenshots - Either a folder path (e.g., "projects/neural-search") or an array of image paths
  */
 async function loadScreenshots(screenshots) {
@@ -317,12 +337,13 @@ async function loadScreenshots(screenshots) {
     if (!gallery) return;
 
     let foundImages = [];
-    const imageExtensions = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
 
-    // Handle array format (e.g., ["Media/planner.png", "Media/quiz.png"])
+    // Handle array format (e.g., ["Media/planner.webp", "Media/quiz.webp"])
     if (Array.isArray(screenshots)) {
         for (const imgPath of screenshots) {
-            const fullPath = `../assets/${imgPath}`;
+            // Convert to WebP path if not already
+            const webpPath = imgPath.replace(/\.(png|jpg|jpeg|gif)$/i, '.webp');
+            const fullPath = `../assets/${webpPath}`;
             const exists = await checkImageExists(fullPath);
             if (exists) {
                 foundImages.push(fullPath);
@@ -332,57 +353,34 @@ async function loadScreenshots(screenshots) {
         // Handle folder path format (e.g., "projects/neural-search")
         const basePath = `../assets/${screenshots}`;
 
-        // Try numbered images first (1.png, 2.png, etc.) - up to 20
+        // Check all WebP files in parallel for speed (1.webp to 20.webp)
+        const webpChecks = [];
         for (let i = 1; i <= 20; i++) {
-            for (const ext of imageExtensions) {
-                const imgPath = `${basePath}/${i}.${ext}`;
-                const exists = await checkImageExists(imgPath);
-                if (exists) {
-                    foundImages.push(imgPath);
-                    break;
-                }
+            webpChecks.push(
+                checkImageExists(`${basePath}/${i}.webp`).then(exists => 
+                    exists ? { index: i, path: `${basePath}/${i}.webp` } : null
+                )
+            );
+        }
+        
+        const webpResults = await Promise.all(webpChecks);
+        
+        for (const result of webpResults) {
+            if (result) {
+                foundImages.push(result.path);
             }
         }
 
         // Also try common names
         const commonNames = ['screenshot', 'main', 'demo', 'preview', 'cover', 'hero', 'logo'];
-        for (const name of commonNames) {
-            for (const ext of imageExtensions) {
-                const imgPath = `${basePath}/${name}.${ext}`;
-                const exists = await checkImageExists(imgPath);
-                if (exists && !foundImages.includes(imgPath)) {
-                    foundImages.push(imgPath);
-                    break;
-                }
-            }
-        }
-
-        // Try Screenshot patterns (Screenshot 2025-12-27 151802.png format)
-        // Since we can't list directories in browser, try a broader approach with known patterns
-        const screenshotPatterns = [];
-        // Generate date-based patterns for recent dates
-        for (let day = 20; day <= 31; day++) {
-            for (let hour = 10; hour <= 23; hour++) {
-                for (let min = 0; min <= 59; min += 10) {
-                    screenshotPatterns.push(`Screenshot 2025-12-${day} ${hour}${String(min).padStart(2, '0')}`);
-                    screenshotPatterns.push(`Screenshot 2025-10-29 ${hour}${String(min).padStart(2, '0')}`);
-                }
-            }
-        }
-
-        // Limit concurrent checks to avoid overwhelming the browser
-        const checkPromises = [];
-        for (const pattern of screenshotPatterns.slice(0, 50)) {
-            for (const ext of ['png', 'jpg']) {
-                const imgPath = `${basePath}/${pattern}.${ext}`;
-                checkPromises.push(
-                    checkImageExists(imgPath).then(exists => exists ? imgPath : null)
-                );
-            }
-        }
-
-        const results = await Promise.all(checkPromises);
-        for (const result of results) {
+        const commonChecks = commonNames.map(name => 
+            checkImageExists(`${basePath}/${name}.webp`).then(exists => 
+                exists ? `${basePath}/${name}.webp` : null
+            )
+        );
+        
+        const commonResults = await Promise.all(commonChecks);
+        for (const result of commonResults) {
             if (result && !foundImages.includes(result)) {
                 foundImages.push(result);
             }
@@ -399,8 +397,15 @@ async function loadScreenshots(screenshots) {
         return;
     }
 
-    // Sort images for consistent ordering
-    foundImages.sort();
+    // Sort images for consistent ordering (numeric sort for numbered files)
+    foundImages.sort((a, b) => {
+        const numA = parseInt(a.match(/\/(\d+)\.[^.]+$/)?.[1] || '0');
+        const numB = parseInt(b.match(/\/(\d+)\.[^.]+$/)?.[1] || '0');
+        return numA - numB;
+    });
+
+    // Preload all images for instant display
+    preloadImages(foundImages);
 
     // Track current image index for navigation
     let currentImageIndex = 0;
@@ -408,7 +413,13 @@ async function loadScreenshots(screenshots) {
     // Helper function to update lightbox display
     const updateLightboxImage = (index) => {
         currentImageIndex = index;
-        lightboxImage.src = foundImages[index];
+        // Use cached image if available for instant display
+        const cachedImg = imageCache.get(foundImages[index]);
+        if (cachedImg && cachedImg.complete) {
+            lightboxImage.src = cachedImg.src;
+        } else {
+            lightboxImage.src = foundImages[index];
+        }
         const counter = document.getElementById('lightbox-counter');
         if (counter) {
             counter.textContent = `${index + 1} / ${foundImages.length}`;
@@ -433,11 +444,14 @@ async function loadScreenshots(screenshots) {
         updateLightboxImage(newIndex);
     };
 
-    // Render gallery with lazy loading
+    // Render gallery with lazy loading and performance optimizations
     gallery.innerHTML = foundImages.map((img, index) => `
         <div class="aspect-video bg-surface-dark border border-border-dark overflow-hidden cursor-pointer group hover:border-primary/50 transition-all"
              data-screenshot-index="${index}">
-            <img src="${img}" alt="Screenshot ${index + 1}" loading="lazy"
+            <img src="${img}" alt="Screenshot ${index + 1}" 
+                 loading="${index < 3 ? 'eager' : 'lazy'}"
+                 decoding="async"
+                 fetchpriority="${index === 0 ? 'high' : 'low'}"
                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         </div>
     `).join('');
@@ -508,15 +522,32 @@ async function loadScreenshots(screenshots) {
 }
 
 /**
+ * Cache for image existence checks to avoid redundant requests
+ */
+const imageExistsCache = new Map();
+
+/**
  * Check if an image exists at the given path
+ * Uses caching to speed up repeated checks
  * @param {string} url - Image URL to check
  * @returns {Promise<boolean>}
  */
 function checkImageExists(url) {
+    // Return cached result if available
+    if (imageExistsCache.has(url)) {
+        return Promise.resolve(imageExistsCache.get(url));
+    }
+    
     return new Promise(resolve => {
         const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
+        img.onload = () => {
+            imageExistsCache.set(url, true);
+            resolve(true);
+        };
+        img.onerror = () => {
+            imageExistsCache.set(url, false);
+            resolve(false);
+        };
         img.src = url;
     });
 }
