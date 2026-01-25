@@ -1,70 +1,76 @@
 # Portfolio — Gabriel James
 
-Personal portfolio site: [gabrieljames.me](https://gabrieljames.me/)
+AI & ML developer. This is my portfolio — built it to showcase projects and keep things simple.
 
-Static site, no frameworks. Content driven by JSON files, rendered client-side with vanilla JS.
+**Live site:** [gabrieljames.me](https://gabrieljames.me/)
 
-## Structure
+Static site, no frameworks. All content lives in JSON files and gets rendered client-side with vanilla JS. Wanted something fast, easy to update, and with a terminal/dev aesthetic.
+
+## What's in here
 
 ```
 portfolio/
 ├── assets/
-│   ├── logos/          # Certificate issuer logos (WebP)
+│   ├── logos/          # Certificate issuer logos
 │   ├── projects/       # Project screenshots by folder
-│   ├── styles.css      # Custom styles, animations
-│   ├── favicon.webp
-│   └── profile-bg.webp
+│   ├── styles.css
+│   └── favicon.png
 ├── data/
 │   ├── profile.json    # Bio, stats, socials, certificates
 │   ├── projects.json   # Project details, architecture, metrics
 │   ├── experience.json # Timeline entries
-│   ├── skills.json     # Skill categories and items
+│   ├── skills.json     # Skill categories
 │   └── lab.json        # Lab experiment entries
 ├── js/
 │   ├── core.js         # Shared utilities, JSON loader
-│   ├── render-dashboard.js
-│   ├── render-projects.js
-│   ├── render-skills.js
-│   ├── render-experience.js
-│   ├── render-lab.js
+│   ├── render-*.js     # Page-specific renderers
 │   ├── admin-mode.js   # Dev tools overlay
 │   ├── stars.js        # Background animation
 │   └── tailwind-config.js
 ├── pages/
-│   ├── index.html      # Redirects to dashboard
+│   ├── index.html      # Boot screen
 │   ├── dashboard.html  # Main landing page
 │   ├── projects.html   # Project list + detail view
-│   ├── skills.html     # Skills grid
+│   ├── skills.html
 │   ├── experience.html # Timeline
 │   ├── certificates.html
-│   ├── lab.html        # Experiments section
+│   ├── lab.html
 │   ├── resume.html
 │   └── contact.html
 ├── lab-notes/          # Markdown files for lab entries
-└── resume/             # Resume PDF
+└── resume/
 ```
 
-## Local Development
+## Features
 
-Any static file server works. The site loads JSON via fetch, so file:// won't work.
+- Terminal-inspired dark UI with that dev aesthetic
+- Animated boot screen on first load
+- Interactive star field background (try moving your mouse)
+- Project pages with architecture breakdowns and metrics
+- Lightbox gallery with keyboard nav (arrows to browse, esc to close)
+- Timeline view for experience/achievements
+- Lab section for experiments and side projects
+- Fully responsive, hamburger nav on mobile
+
+## Running locally
+
+Any static server works. Uses fetch for JSON, so `file://` won't work.
 
 ```bash
 # Python
-cd portfolio
-python -m http.server 5500
+cd portfolio && python -m http.server 5500
 
 # Node
 npx serve portfolio -l 5500
 
-# VS Code
-# Install Live Server extension, open pages/index.html, click "Go Live"
+# Or just use VS Code Live Server
 ```
 
-Open `http://localhost:5500/pages/index.html`
+Then open `http://localhost:5500/pages/index.html`
 
 ## Build
 
-The build script flattens `pages/*.html` to root level and rewrites relative paths from `../` to `./`:
+Flattens pages to root and rewrites paths:
 
 ```bash
 mkdir -p dist && \
@@ -74,81 +80,56 @@ find dist -maxdepth 1 -name "*.html" -exec sed -i 's|="\.\./|="./|g' {} + && \
 find dist -maxdepth 1 -name "*.html" -exec sed -i "s|'\.\./|'./|g" {} +
 ```
 
-Output in `dist/` is ready for deployment to any static host (Netlify, Vercel, GitHub Pages, S3, etc).
+Deploy `dist/` to Netlify, Vercel, GitHub Pages, wherever.
 
-## Content
+## Editing content
 
-All site content lives in `data/*.json`. Edit these to update the site.
+Everything lives in `data/*.json`. Edit those to update the site.
 
-### profile.json
+**profile.json** — name, title, bio, stats, social links, certificates
 
-Personal info, status, stats, social links, and the full certificates array.
+**projects.json** — each project has id, title, status, summary, architecture steps, tech tags, metrics, screenshot folder, links
 
-```json
-{
-  "name": "...",
-  "title": "...",
-  "bio": "...",
-  "stats": { "projects": 10, "hackathonsWon": 4 },
-  "certificates": [...]
-}
-```
+**experience.json** — timeline entries (work, achievements, hackathons, open source)
 
-### projects.json
-
-Array of project objects. Each project has:
-
-- `id`, `title`, `status` (DEPLOYED, EXPERIMENT, ARCHIVED)
-- `summary`, `problem` — short and long descriptions
-- `architecture` — array of steps explaining the system
-- `tech` — technology tags
-- `metrics` — key results with labels and values
-- `screenshots` — folder path under `assets/` (e.g., `"projects/xenia"`)
-- `links` — `code` and `demo` URLs
-
-### experience.json
-
-Timeline entries with types: `work`, `achievement`, `certification`, `opensource`.
-
-### skills.json
-
-Skill categories with different display types: `list`, `tags`, `grid`, `inline`.
+**skills.json** — skill categories with different display types
 
 ## Screenshots
 
-Screenshots load automatically from `assets/projects/<folder>/`. Name files as `1.webp`, `2.webp`, etc.
+Put project screenshots in `assets/projects/<folder>/` named `1.webp`, `2.webp`, etc. The renderer checks 1-20 in parallel, gaps are fine. Add `logo.webp` for a project logo.
 
-The renderer checks for files 1-20 in parallel, so missing numbers are fine. It also looks for `logo.webp` if present.
-
-All images are WebP for faster loading (~87% smaller than PNG).
+WebP format keeps things fast.
 
 ## Pages
 
-| Page | Description |
-|------|-------------|
-| dashboard | Landing page with profile card, focus areas, terminal widget |
-| projects | Split view: project list sidebar + detail panel with screenshots |
-| skills | Grid of skill cards with different layouts per category |
-| experience | Vertical timeline with work, achievements, certifications |
-| certificates | Grid of certificate cards with issuer logos |
-| lab | Experiment entries with linked markdown notes |
-| resume | Embedded PDF viewer |
-| contact | Contact form and social links |
+| Page | What it does |
+|------|--------------|
+| dashboard | Landing page, profile card, terminal widget |
+| projects | Split view with sidebar and detail panel |
+| skills | Grid layout, different styles per category |
+| experience | Vertical timeline |
+| certificates | Grid of certs with issuer logos |
+| lab | Experiment entries with markdown notes |
+| resume | PDF viewer |
+| contact | Form and social links |
 
-## Styling
+## Tech
 
-- Tailwind CSS via CDN (no build needed)
-- Custom properties in `styles.css` for colors
-- Space Grotesk for headings, JetBrains Mono for code/labels
-- Material Symbols for icons
-- Dark theme with terminal aesthetic
+- Tailwind via CDN (no build step)
+- Space Grotesk + JetBrains Mono
+- Material Symbols icons
+- ES modules throughout
+- Dark theme, terminal aesthetic
+
+## Why no framework?
+
+Honestly, for a portfolio this size, React/Vue/whatever would be overkill. The JSON + vanilla JS approach means:
+- Zero build time
+- Easy to update content (just edit JSON)
+- Loads fast
+- No dependency hell
+- Anyone can fork and understand it
 
 ## Notes
 
-- No build tooling required for development
-- ES modules used throughout (`type="module"` in script tags)
-- Mobile responsive with hamburger nav
-- Project detail view uses lightbox for screenshot gallery
-- Keyboard navigation in lightbox (arrows, escape)
-
-
+No build tooling needed for dev. Mobile responsive with hamburger nav. Lightbox for screenshots with keyboard nav (arrows, esc). The ping button on the experience page is a fun little easter egg.

@@ -484,26 +484,52 @@ function showPingToast(btnRect) {
     // Calculate position based on existing toasts
     const offset = activeToasts.length * (toastHeight + gap);
     
-    toast.style.cssText = `
-        position: absolute;
-        top: calc(100% + 8px + ${offset}px);
-        right: 0;
-        padding: 4px 10px;
-        background: rgba(16, 185, 129, 0.15);
-        border: 1px solid rgba(16, 185, 129, 0.4);
-        color: #10b981;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 9px;
-        z-index: 9999;
-        opacity: 0;
-        transform: translateY(-4px);
-        transition: all 0.2s ease;
-    `;
-    toast.textContent = messages[Math.floor(Math.random() * messages.length)];
+    // Check if mobile (use fixed positioning to avoid footer overlap)
+    const isMobile = window.innerWidth < 768;
+    
+    if (isMobile) {
+        // Fixed positioning for mobile - appears at bottom of viewport
+        toast.style.cssText = `
+            position: fixed;
+            bottom: ${60 + offset}px;
+            right: 16px;
+            padding: 4px 10px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #10b981;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: all 0.2s ease;
+        `;
+        toast.textContent = messages[Math.floor(Math.random() * messages.length)];
+        document.body.appendChild(toast);
+    } else {
+        // Absolute positioning for desktop - below the container
+        toast.style.cssText = `
+            position: absolute;
+            top: calc(100% + 8px + ${offset}px);
+            right: 0;
+            padding: 4px 10px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #10b981;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: all 0.2s ease;
+        `;
+        toast.textContent = messages[Math.floor(Math.random() * messages.length)];
+        container.appendChild(toast);
+    }
     container.appendChild(toast);
     
     // Add to tracking array
-    activeToasts.push(toast);
+    activeToasts.push({ element: toast, isMobile });
 
     // Animate in
     requestAnimationFrame(() => {
@@ -514,11 +540,11 @@ function showPingToast(btnRect) {
     // Remove after delay
     setTimeout(() => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateY(-4px)';
+        toast.style.transform = isMobile ? 'translateY(4px)' : 'translateY(-4px)';
         
         setTimeout(() => {
             // Remove from tracking array
-            const index = activeToasts.indexOf(toast);
+            const index = activeToasts.findIndex(t => t.element === toast);
             if (index > -1) {
                 activeToasts.splice(index, 1);
             }
@@ -526,7 +552,11 @@ function showPingToast(btnRect) {
             
             // Reposition remaining toasts
             activeToasts.forEach((t, i) => {
-                t.style.top = `calc(100% + 8px + ${i * (toastHeight + gap)}px)`;
+                if (t.isMobile) {
+                    t.element.style.bottom = `${60 + i * (toastHeight + gap)}px`;
+                } else {
+                    t.element.style.top = `calc(100% + 8px + ${i * (toastHeight + gap)}px)`;
+                }
             });
         }, 200);
     }, 1500);
