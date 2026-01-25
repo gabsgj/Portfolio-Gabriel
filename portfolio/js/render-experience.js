@@ -319,35 +319,36 @@ async function renderSidebar() {
 }
 
 /**
- * Track ping to backend (once per session)
+ * Track ping to backend (once per session, non-blocking)
  */
-async function trackPing() {
+function trackPing() {
     // Only track once per session
     if (sessionStorage.getItem('ping_tracked')) return;
     
-    try {
-        const visitorInfo = {
-            browser: navigator.userAgent,
-            language: navigator.language,
-            platform: navigator.platform,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            screenSize: `${window.screen.width}x${window.screen.height}`,
-            referrer: document.referrer || 'Direct',
-        };
+    // Mark as tracked immediately (before the request)
+    sessionStorage.setItem('ping_tracked', 'true');
+    
+    const visitorInfo = {
+        browser: navigator.userAgent,
+        language: navigator.language,
+        platform: navigator.platform,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        screenSize: `${window.screen.width}x${window.screen.height}`,
+        referrer: document.referrer || 'Direct',
+    };
 
-        const response = await fetch('/api/ping', {
+    // Fire and forget - use sendBeacon for reliability, fallback to fetch
+    const data = JSON.stringify(visitorInfo);
+    
+    if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/ping', new Blob([data], { type: 'application/json' }));
+    } else {
+        fetch('/api/ping', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(visitorInfo)
-        });
-
-        if (response.ok) {
-            sessionStorage.setItem('ping_tracked', 'true');
-            console.log('🏓 Ping tracked!');
-        }
-    } catch (error) {
-        // Silently fail - it's just analytics
-        console.log('Ping tracking unavailable');
+            body: data,
+            keepalive: true  // Ensures request completes even if page closes
+        }).catch(() => {}); // Silently ignore errors
     }
 }
 
