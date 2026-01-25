@@ -319,6 +319,39 @@ async function renderSidebar() {
 }
 
 /**
+ * Track ping to backend (once per session)
+ */
+async function trackPing() {
+    // Only track once per session
+    if (sessionStorage.getItem('ping_tracked')) return;
+    
+    try {
+        const visitorInfo = {
+            browser: navigator.userAgent,
+            language: navigator.language,
+            platform: navigator.platform,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            screenSize: `${window.screen.width}x${window.screen.height}`,
+            referrer: document.referrer || 'Direct',
+        };
+
+        const response = await fetch('/api/ping', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(visitorInfo)
+        });
+
+        if (response.ok) {
+            sessionStorage.setItem('ping_tracked', 'true');
+            console.log('🏓 Ping tracked!');
+        }
+    } catch (error) {
+        // Silently fail - it's just analytics
+        console.log('Ping tracking unavailable');
+    }
+}
+
+/**
  * Ping easter egg - burst effect around button
  */
 function setupPingEasterEgg() {
@@ -330,6 +363,9 @@ function setupPingEasterEgg() {
         const rect = btn.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
+        
+        // Track the ping (once per session)
+        trackPing();
         
         // Create burst rays around button
         const rayCount = 12;
