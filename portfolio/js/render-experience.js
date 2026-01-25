@@ -6,6 +6,7 @@
 import { loadJSON } from './core.js';
 
 let experiences = [];
+let currentFilter = 'all';
 
 /**
  * Parse date string to a sortable value (higher = more recent)
@@ -57,6 +58,7 @@ export async function initExperience() {
 
     renderExperienceTimeline();
     renderSidebar();
+    setupFilters();
 
     console.log(`[EXPERIENCE] Loaded ${experiences.length} entries`);
 }
@@ -68,10 +70,51 @@ function renderExperienceTimeline() {
     const container = document.getElementById('experience-timeline');
     if (!container) return;
 
+    // Filter experiences based on current filter
+    const filteredExperiences = currentFilter === 'all' 
+        ? experiences 
+        : experiences.filter(exp => exp.type === currentFilter);
+
+    if (filteredExperiences.length === 0) {
+        container.innerHTML = `
+            <div class="text-center py-12 text-gray-500 font-mono text-sm">
+                <span class="material-symbols-outlined text-2xl mb-2 block">filter_list_off</span>
+                No entries found for this filter
+            </div>
+        `;
+        return;
+    }
+
     container.innerHTML = `
         <div class="absolute left-4 top-4 bottom-0 w-[1px] bg-border-dark lg:left-[17px]"></div>
-        ${experiences.map((exp, i) => renderExperienceEntry(exp, i)).join('')}
+        ${filteredExperiences.map((exp, i) => renderExperienceEntry(exp, i)).join('')}
     `;
+}
+
+/**
+ * Setup filter button handlers
+ */
+function setupFilters() {
+    const filterContainer = document.getElementById('experience-filters');
+    if (!filterContainer) return;
+
+    filterContainer.addEventListener('click', (e) => {
+        const link = e.target.closest('.filter-link');
+        if (!link) return;
+
+        const filter = link.dataset.filter;
+        if (filter === currentFilter) return;
+
+        // Update active state
+        filterContainer.querySelectorAll('.filter-link').forEach(l => {
+            l.classList.remove('text-primary');
+        });
+        link.classList.add('text-primary');
+
+        // Apply filter
+        currentFilter = filter;
+        renderExperienceTimeline();
+    });
 }
 
 /**
@@ -255,7 +298,7 @@ async function renderSidebar() {
                 </div>
             </div>
             
-            <div class="bg-surface-dark border border-border-dark p-5 rounded-sm flex items-center gap-4">
+            <div id="ping-container" class="bg-surface-dark border border-border-dark p-5 rounded-sm flex items-center gap-4 relative">
                 <div class="relative">
                     <div class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
                     <div class="absolute inset-0 bg-emerald-500 rounded-full blur-sm opacity-50 animate-pulse"></div>
@@ -264,12 +307,192 @@ async function renderSidebar() {
                     <span class="block text-xs font-mono text-white uppercase tracking-wider">Status: Online</span>
                     <span class="block text-[10px] font-mono text-gray-500">Open for new deployments</span>
                 </div>
-                <button class="ml-auto px-3 py-1.5 border border-primary/30 text-primary text-[10px] font-mono hover:bg-primary hover:text-white transition-colors uppercase">
+                <button id="ping-btn" class="ml-auto px-3 py-1.5 border border-primary/30 text-primary text-[10px] font-mono hover:bg-primary hover:text-white transition-colors uppercase">
                     Ping
                 </button>
             </div>
         </div>
     `;
+
+    // Setup ping easter egg
+    setupPingEasterEgg();
+}
+
+/**
+ * Ping easter egg - burst effect around button
+ */
+function setupPingEasterEgg() {
+    const pingBtn = document.getElementById('ping-btn');
+    if (!pingBtn) return;
+
+    pingBtn.addEventListener('click', (e) => {
+        const btn = e.currentTarget;
+        const rect = btn.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Create burst rays around button
+        const rayCount = 12;
+        for (let i = 0; i < rayCount; i++) {
+            const angle = (i / rayCount) * Math.PI * 2;
+            const ray = document.createElement('div');
+            
+            // Calculate start position on circle around button
+            const startRadius = 30;
+            const endRadius = 50;
+            
+            ray.style.cssText = `
+                position: fixed;
+                top: ${centerY - 1}px;
+                left: ${centerX - 1}px;
+                width: 2px;
+                height: 10px;
+                background: white;
+                z-index: 9999;
+                pointer-events: none;
+                opacity: 0.8;
+                transform-origin: center center;
+                transform: rotate(${angle + Math.PI/2}rad) translateY(-${startRadius}px);
+            `;
+            document.body.appendChild(ray);
+
+            // Animate outward and fade
+            ray.animate([
+                { transform: `rotate(${angle + Math.PI/2}rad) translateY(-${startRadius}px)`, opacity: 0.8 },
+                { transform: `rotate(${angle + Math.PI/2}rad) translateY(-${endRadius}px)`, opacity: 0 }
+            ], {
+                duration: 300,
+                easing: 'ease-out'
+            }).onfinish = () => ray.remove();
+        }
+        
+        // Show toast below button
+        showPingToast(rect);
+        
+        // Button feedback
+        btn.textContent = '...';
+        setTimeout(() => {
+            btn.textContent = 'PING';
+        }, 400);
+    });
+}
+
+// Track active toasts
+const activeToasts = [];
+
+/**
+ * Show toast message below ping button
+ */
+function showPingToast(btnRect) {
+    const messages = [
+        'PONG!',
+        'ACK 12ms',
+        'Connected',
+        'Online ✓',
+        'ttl=64',
+        '200 OK',
+        'Latency: 8ms',
+        'Packet received',
+        'Signal strong',
+        'Heartbeat ♥',
+        'Sync complete',
+        'No packet loss',
+        'RTT: 15ms',
+        'Host alive',
+        'Echo reply',
+        '64 bytes received',
+        'Uptime: 99.9%',
+        'Connection stable',
+        'TCP handshake ✓',
+        'DNS resolved',
+        'Port 443 open',
+        'SSL verified',
+        'Bandwidth: high',
+        'Jitter: 2ms',
+        'Hop count: 4',
+        'Traceroute done',
+        'Ping successful',
+        'Server awake',
+        'Keepalive sent',
+        'Buffer clear',
+        'Queue empty',
+        'Throughput OK',
+        'Zero errors',
+        'Checksum valid',
+        'Route optimal',
+        'Firewall passed',
+        'Proxy bypassed',
+        'CDN hit',
+        'Cache fresh',
+        'Load balanced',
+        'Health check ✓',
+        'Replica synced',
+        'Shard active',
+        'Node healthy',
+        'Cluster green',
+        'Pod running',
+        'Container up',
+        'Service mesh OK',
+        'API gateway ✓',
+        'Rate limit OK',
+    ];
+    
+    const container = document.getElementById('ping-container');
+    if (!container) return;
+    
+    const toast = document.createElement('div');
+    const toastHeight = 24;
+    const gap = 4;
+    
+    // Calculate position based on existing toasts
+    const offset = activeToasts.length * (toastHeight + gap);
+    
+    toast.style.cssText = `
+        position: absolute;
+        top: calc(100% + 8px + ${offset}px);
+        right: 0;
+        padding: 4px 10px;
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        color: #10b981;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        z-index: 9999;
+        opacity: 0;
+        transform: translateY(-4px);
+        transition: all 0.2s ease;
+    `;
+    toast.textContent = messages[Math.floor(Math.random() * messages.length)];
+    container.appendChild(toast);
+    
+    // Add to tracking array
+    activeToasts.push(toast);
+
+    // Animate in
+    requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+    });
+
+    // Remove after delay
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-4px)';
+        
+        setTimeout(() => {
+            // Remove from tracking array
+            const index = activeToasts.indexOf(toast);
+            if (index > -1) {
+                activeToasts.splice(index, 1);
+            }
+            toast.remove();
+            
+            // Reposition remaining toasts
+            activeToasts.forEach((t, i) => {
+                t.style.top = `calc(100% + 8px + ${i * (toastHeight + gap)}px)`;
+            });
+        }, 200);
+    }, 1500);
 }
 
 // Auto-initialize when DOM is ready

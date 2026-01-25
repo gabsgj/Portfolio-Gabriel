@@ -128,7 +128,7 @@
     <!-- Main Content -->
     <main class="flex-1 w-full max-w-6xl mx-auto p-6 md:p-12 relative z-10">
         <!-- Page Header -->
-        <div class="mb-16 animate-fade-in-up">
+        <div class="mb-9 animate-fade-in-up">
             <div class="flex items-center gap-3 mb-4">
                 <span class="material-symbols-outlined text-primary text-xl">history_edu</span>
                 <span class="text-xs font-mono text-primary uppercase tracking-[0.2em]">System History</span>
@@ -138,8 +138,12 @@
             </h1>
             <p class="text-gray-400 font-light max-w-2xl text-lg leading-relaxed">
                 Chronological record of deployments, system upgrades, and operational achievements.
-                <span class="block text-xs font-mono text-gray-600 mt-2">Filter: ALL | INTERNSHIPS | HACKATHONS |
-                    OPEN_SOURCE</span>
+                <span id="experience-filters" class="block text-xs font-mono text-gray-600 mt-2">Filter: 
+                    <span data-filter="all" class="filter-link cursor-pointer hover:text-primary transition-colors text-primary">ALL</span> | 
+                    <span data-filter="work" class="filter-link cursor-pointer hover:text-primary transition-colors">WORK</span> | 
+                    <span data-filter="achievement" class="filter-link cursor-pointer hover:text-primary transition-colors">HACKATHONS</span> | 
+                    <span data-filter="opensource" class="filter-link cursor-pointer hover:text-primary transition-colors">OPEN_SOURCE</span>
+                </span>
             </p>
         </div>
 
