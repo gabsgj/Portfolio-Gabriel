@@ -606,6 +606,7 @@
         "zone": "LOCAL",
         "pid": "83410"
     },
+
     {
         "id": "ID-4827",
         "title": "ValueFind",
@@ -775,6 +776,155 @@
             "track": "Social Impact",
             "year": 2025
         }
+    },
+    {
+        "id": "ID-9482",
+        "title": "Market Volatility Spike Detector",
+        "status": "DEPLOYED",
+        "summary": "Statistical anomaly detection platform for identifying market volatility spikes using Rolling Multivariate Gaussian models and Mahalanobis distance scoring, with real-time event correlation and interactive visualizations.",
+        "problem": "Traditional volatility indicators like VIX or rolling standard deviation treat each data point independently. But market stress rarely shows up in just one dimension—during COVID (March 2020), we saw simultaneous spikes in volatility, unusual volume patterns, and correlation breakdowns. Single-feature detectors miss these multivariate signals. We needed a probabilistic approach that models market behavior as a joint distribution, measuring how 'unlikely' each day's observation is under that learned distribution.",
+        "architecture": [
+            {
+                "step": "01",
+                "title": "Data Ingestion & Feature Engineering",
+                "description": "yfinance-powered pipeline fetching OHLCV data for SPY, NIFTY50, and NASDAQ. Transforms raw prices into 4-dimensional feature vectors: Log Returns, 14-day Rolling Volatility, Absolute Returns, and Volume Changes—capturing volatility clustering (Bollerslev 1986) and volume-price relationships."
+            },
+            {
+                "step": "02",
+                "title": "Rolling Multivariate Gaussian Estimation",
+                "description": "60-day trailing window MLE estimation of mean vector (μ) and covariance matrix (Σ) for each trading day. Regularization term (εI) ensures positive definiteness. Adapts automatically to changing market regimes—what's 'normal' in 2019 differs from mid-2020 COVID volatility."
+            },
+            {
+                "step": "03",
+                "title": "Mahalanobis Distance Scoring",
+                "description": "Computes D²(x) = (x-μ)ᵀΣ⁻¹(x-μ) for each observation. Unlike Euclidean distance, Mahalanobis accounts for feature correlations and different variances. Under H₀, D² follows χ²(4) distribution, providing principled threshold selection."
+            },
+            {
+                "step": "04",
+                "title": "Percentile-Based Anomaly Detection",
+                "description": "99.5th percentile threshold flags only the most extreme 0.5% of observations. Percentile-based approach is robust to fat tails in return distributions—no assumption of perfect Gaussianity required."
+            },
+            {
+                "step": "05",
+                "title": "Event Correlation Engine",
+                "description": "Matches detected anomalies against curated database of known market events (COVID crash, SVB collapse, Fed announcements) within ±5 day windows. Validates detector effectiveness and provides interpretability."
+            },
+            {
+                "step": "06",
+                "title": "Interactive Visualization Dashboard",
+                "description": "Flask-powered web interface with Chart.js visualizations: price series with anomaly overlays, Mahalanobis distance time series, summary statistics, and exportable results (CSV/JSON)."
+            }
+        ],
+        "tags": [
+            "FinTech",
+            "Statistical Learning",
+            "Anomaly Detection",
+            "Time Series",
+            "Full-Stack"
+        ],
+        "tech": [
+            "Python",
+            "Flask",
+            "NumPy",
+            "Pandas",
+            "SciPy",
+            "yfinance",
+            "Chart.js",
+            "Gunicorn",
+            "Docker",
+            "HTML5",
+            "CSS3",
+            "JavaScript"
+        ],
+        "metrics": {
+            "features": {
+                "value": "4",
+                "label": "FEATURE DIMENSIONS",
+                "note": "Log return, volatility, volume, |return|"
+            },
+            "rollingWindow": {
+                "value": "60",
+                "label": "ROLLING WINDOW (DAYS)",
+                "note": "Adaptive regime detection"
+            },
+            "threshold": {
+                "value": "99.5%",
+                "label": "DETECTION THRESHOLD",
+                "note": "Flags top 0.5% anomalies"
+            },
+            "indices": {
+                "value": "3",
+                "label": "MARKET INDICES",
+                "note": "SPY, NIFTY50, NASDAQ"
+            },
+            "eventMatching": {
+                "value": "±5 days",
+                "label": "EVENT CORRELATION WINDOW",
+                "note": "Known event matching"
+            }
+        },
+        "features": [
+            {
+                "icon": "TrendingUp",
+                "title": "Multivariate Gaussian Model",
+                "description": "Models market state as joint distribution over 4 features, capturing cross-feature correlations that single-indicator approaches miss."
+            },
+            {
+                "icon": "Activity",
+                "title": "Rolling Parameter Estimation",
+                "description": "60-day trailing window adapts μ and Σ to changing market regimes—no static assumptions about 'normal' behavior."
+            },
+            {
+                "icon": "Target",
+                "title": "Mahalanobis Distance",
+                "description": "Generalized distance metric accounting for feature correlations and heterogeneous variances (Mahalanobis, 1936)."
+            },
+            {
+                "icon": "Calendar",
+                "title": "Event Correlation",
+                "description": "Automatic matching of detected anomalies to known market events (COVID, SVB, Fed decisions) for validation and interpretability."
+            },
+            {
+                "icon": "Download",
+                "title": "Export Functionality",
+                "description": "Download detection results as CSV or JSON for further analysis in external tools."
+            },
+            {
+                "icon": "BarChart2",
+                "title": "Interactive Visualizations",
+                "description": "Chart.js-powered price overlays, distance time series, and summary statistics with tooltips explaining each metric."
+            }
+        ],
+        "algorithmDetails": {
+            "featureEngineering": "Log returns for additivity, rolling σ for volatility clustering, volume changes for institutional flow, |return| for magnitude",
+            "estimation": "Maximum Likelihood Estimation with εI regularization for numerical stability",
+            "distanceMetric": "Mahalanobis: D²(x) = (x-μ)ᵀΣ⁻¹(x-μ)",
+            "thresholdSelection": "Empirical 99.5th percentile (robust to non-Gaussianity)",
+            "validation": "Event correlation against known market stress dates"
+        },
+        "highlights": [
+            "Rolling MLE adapts to non-stationary market dynamics automatically",
+            "Mahalanobis distance captures multivariate anomalies that single features miss",
+            "Event correlation validates detector against COVID crash, SVB collapse, Fed decisions",
+            "99.5th percentile threshold balances sensitivity with false positive control",
+            "Docker-containerized for production deployment on any platform",
+            "Built on concepts from ML Specialization by Andrew Ng & DeepLearning.AI"
+        ],
+        "researchBasis": [
+            "Mahalanobis, P.C. (1936) - On the generalized distance in statistics",
+            "Bollerslev, T. (1986) - Generalized Autoregressive Conditional Heteroskedasticity",
+            "Cont, R. (2001) - Empirical properties of asset returns",
+            "Andersen, T. & Bollerslev, T. (1998) - Answering the Skeptics"
+        ],
+        "links": {
+            "code": "https://github.com/gabsgj/Market-Volatility-Spike-Detector",
+            "demo": "https://marketvolatilityanomaly.gabrieljames.me"
+        },
+        "screenshots": "projects/market-volatility-detector",
+        "lastUpdated": "2026-01-26",
+        "zone": "DOCKER",
+        "pid": "94821",
+        "course": "ML Specialization by Andrew Ng & DeepLearning.AI"
     },
     {
         "id": "ID-7292",
