@@ -14,7 +14,7 @@ portfolio/
 │   ├── logos/          # Certificate issuer logos
 │   ├── projects/       # Project screenshots by folder
 │   ├── styles.css
-│   └── favicon.png
+│   └── favicon.webp
 ├── data/
 │   ├── profile.json    # Bio, stats, socials, certificates
 │   ├── projects.json   # Project details, architecture, metrics
