@@ -309,6 +309,7 @@ function renderProjectDetail(project) {
  * Image cache for faster subsequent loads
  */
 const imageCache = new Map();
+const SUPPORTED_SCREENSHOT_EXTENSIONS = ['webp', 'gif'];
 
 /**
  * Preload images for faster display
@@ -326,7 +327,7 @@ function preloadImages(images) {
 
 /**
  * Load screenshots from the specified folder or array of paths
- * All images are WebP format for faster loading (70-90% smaller files)
+ * Supports optimized WebP assets and animated GIFs.
  * @param {string|string[]} screenshots - Either a folder path (e.g., "projects/neural-search") or an array of image paths
  */
 async function loadScreenshots(screenshots) {
@@ -341,51 +342,24 @@ async function loadScreenshots(screenshots) {
     // Handle array format (e.g., ["Media/planner.webp", "Media/quiz.webp"])
     if (Array.isArray(screenshots)) {
         for (const imgPath of screenshots) {
-            // Convert to WebP path if not already
-            const webpPath = imgPath.replace(/\.(png|jpg|jpeg|gif)$/i, '.webp');
-            const fullPath = `../assets/${webpPath}`;
-            const exists = await checkImageExists(fullPath);
-            if (exists) {
-                foundImages.push(fullPath);
+            const resolvedPath = await resolveFirstExistingImage(`../assets/${imgPath}`);
+            if (resolvedPath) {
+                foundImages.push(resolvedPath);
             }
         }
     } else {
         // Handle folder path format (e.g., "projects/neural-search")
         const basePath = `../assets/${screenshots}`;
 
-        // Check all WebP files in parallel for speed (1.webp to 20.webp)
-        const webpChecks = [];
-        for (let i = 1; i <= 20; i++) {
-            webpChecks.push(
-                checkImageExists(`${basePath}/${i}.webp`).then(exists => 
-                    exists ? { index: i, path: `${basePath}/${i}.webp` } : null
-                )
-            );
-        }
-        
-        const webpResults = await Promise.all(webpChecks);
-        
-        for (const result of webpResults) {
-            if (result) {
-                foundImages.push(result.path);
-            }
-        }
+        const numberedNames = Array.from({ length: 20 }, (_, index) => String(index + 1));
+        foundImages.push(...await collectFolderImages(basePath, numberedNames));
 
         // Also try common names
         const commonNames = ['screenshot', 'main', 'demo', 'preview', 'cover', 'hero', 'logo'];
-        const commonChecks = commonNames.map(name => 
-            checkImageExists(`${basePath}/${name}.webp`).then(exists => 
-                exists ? `${basePath}/${name}.webp` : null
-            )
-        );
-        
-        const commonResults = await Promise.all(commonChecks);
-        for (const result of commonResults) {
-            if (result && !foundImages.includes(result)) {
-                foundImages.push(result);
-            }
-        }
+        foundImages.push(...await collectFolderImages(basePath, commonNames));
     }
+
+    foundImages = [...new Set(foundImages)];
 
     if (foundImages.length === 0) {
         gallery.innerHTML = `
@@ -399,9 +373,22 @@ async function loadScreenshots(screenshots) {
 
     // Sort images for consistent ordering (numeric sort for numbered files)
     foundImages.sort((a, b) => {
-        const numA = parseInt(a.match(/\/(\d+)\.[^.]+$/)?.[1] || '0');
-        const numB = parseInt(b.match(/\/(\d+)\.[^.]+$/)?.[1] || '0');
-        return numA - numB;
+        const matchA = a.match(/\/(\d+)\.[^.]+$/);
+        const matchB = b.match(/\/(\d+)\.[^.]+$/);
+        const numA = matchA ? parseInt(matchA[1], 10) : Number.MAX_SAFE_INTEGER;
+        const numB = matchB ? parseInt(matchB[1], 10) : Number.MAX_SAFE_INTEGER;
+
+        if (numA !== numB) {
+            return numA - numB;
+        }
+
+        const extA = getExtensionPriority(a);
+        const extB = getExtensionPriority(b);
+        if (extA !== extB) {
+            return extA - extB;
+        }
+
+        return a.localeCompare(b);
     });
 
     // Preload all images for instant display
@@ -519,6 +506,54 @@ async function loadScreenshots(screenshots) {
     // Remove any existing keydown handler to avoid duplicates
     document.removeEventListener('keydown', handleKeydown);
     document.addEventListener('keydown', handleKeydown);
+}
+
+function buildImageCandidates(assetPath) {
+    const match = assetPath.match(/\.([^.\/]+)$/);
+    if (!match) {
+        return SUPPORTED_SCREENSHOT_EXTENSIONS.map(ext => `${assetPath}.${ext}`);
+    }
+
+    const explicitExt = match[1].toLowerCase();
+    const candidates = [assetPath];
+    if (!SUPPORTED_SCREENSHOT_EXTENSIONS.includes(explicitExt)) {
+        const basePath = assetPath.slice(0, -(explicitExt.length + 1));
+        for (const ext of SUPPORTED_SCREENSHOT_EXTENSIONS) {
+            candidates.push(`${basePath}.${ext}`);
+        }
+    }
+
+    return [...new Set(candidates)];
+}
+
+async function resolveFirstExistingImage(assetPath) {
+    for (const candidate of buildImageCandidates(assetPath)) {
+        if (await checkImageExists(candidate)) {
+            return candidate;
+        }
+    }
+
+    return null;
+}
+
+async function collectFolderImages(basePath, fileNames) {
+    const checks = [];
+
+    for (const fileName of fileNames) {
+        for (const ext of SUPPORTED_SCREENSHOT_EXTENSIONS) {
+            const assetPath = `${basePath}/${fileName}.${ext}`;
+            checks.push(checkImageExists(assetPath).then(exists => exists ? assetPath : null));
+        }
+    }
+
+    const results = await Promise.all(checks);
+    return results.filter(Boolean);
+}
+
+function getExtensionPriority(path) {
+    const extension = path.split('.').pop()?.toLowerCase() || '';
+    const priority = SUPPORTED_SCREENSHOT_EXTENSIONS.indexOf(extension);
+    return priority === -1 ? Number.MAX_SAFE_INTEGER : priority;
 }
 
 /**

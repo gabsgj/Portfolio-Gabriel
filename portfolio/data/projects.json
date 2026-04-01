@@ -224,6 +224,7 @@
                       "code":  "https://github.com/gabsgj/ChronoSpectra",
                       "demo":  "https://chronospectra.gabrieljames.me/"
                   },
+        "screenshots":  "projects/chronospectra",
         "lastUpdated":  "2026-03-29",
         "zone":  "GLOBAL",
         "pid":  "CHRONO-01",
@@ -562,6 +563,7 @@
                       "code":  "https://github.com/gabsgj/Baum-Welch-Algorithm",
                       "demo":  "https://bwa.gabrieljames.me/"
                   },
+        "screenshots":  "projects/baum-welch-algorithm",
         "lastUpdated":  "2026-02-22",
         "zone":  "GLOBAL",
         "pid":  "BWA-01",
@@ -641,6 +643,7 @@
         "links":  {
                       "code":  "https://github.com/gabsgj/State-Transition-Diagrams"
                   },
+        "screenshots":  "projects/state-transition-diagrams",
         "lastUpdated":  "2026-02-20",
         "zone":  "OPEN-SOURCE",
         "pid":  "STD-01",
@@ -720,6 +723,7 @@
         "links":  {
                       "code":  "https://github.com/gabsgj/Circuit-Analyzer"
                   },
+        "screenshots":  "projects/circuit-lens",
         "lastUpdated":  "2026-03-30",
         "zone":  "LAB",
         "pid":  "CLENS-01",
