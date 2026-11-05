@@ -1,6 +1,6 @@
 # gabsgj.github.io
 
-> Minimal, calm "coming soon" surface for Gabriel James — live at [gabrieljames.me](https://gabrieljames.me).
+> Minimal, calm "coming soon" surface for Gabriel James — live at [gabrieljames.dev](https://gabrieljames.dev).
 
 ## Overview
 
@@ -29,7 +29,7 @@ For live reload you can optionally run a tiny static server (for example `npx se
 
 ## Deployment
 
-- The site is published through GitHub Pages and pointed to **gabrieljames.me** via the `CNAME` file.
+- The site is published through GitHub Pages and pointed to **gabrieljames.dev** via the `CNAME` file.
 - Any push to `main` redeploys automatically. Keep assets lightweight for fast Time-To-First-Paint.
 
 Favicon and touch icon files are expected at the repo root as:

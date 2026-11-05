@@ -2,7 +2,7 @@
 
 AI & ML developer. This is my portfolio — built it to showcase projects and keep things simple.
 
-**Live site:** [gabrieljames.me](https://gabrieljames.me/)
+**Live site:** [gabrieljames.dev](https://gabrieljames.dev/)
 
 Static site, no frameworks. All content lives in JSON files and gets rendered client-side with vanilla JS. Wanted something fast, easy to update, and with a terminal/dev aesthetic.
 

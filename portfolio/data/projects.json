@@ -140,7 +140,7 @@
                           ],
         "links":  {
                       "code":  "https://github.com/gabsgj/Market-Volatility-Spike-Detector",
-                      "demo":  "https://marketvolatilityanomaly.gabrieljames.me"
+                      "demo":  "https://marketvolatilityanomaly.gabrieljames.dev"
                   },
         "screenshots":  "projects/market-volatility-detector",
         "lastUpdated":  "2026-01-26",
@@ -222,7 +222,7 @@
                     },
         "links":  {
                       "code":  "https://github.com/gabsgj/ChronoSpectra",
-                      "demo":  "https://chronospectra.gabrieljames.me/"
+                      "demo":  "https://chronospectra.gabrieljames.dev/"
                   },
         "screenshots":  "projects/chronospectra",
         "lastUpdated":  "2026-03-29",
@@ -317,7 +317,7 @@
                     },
         "links":  {
                       "code":  "https://github.com/gabsgj/Xenia",
-                      "demo":  "https://xenia.gabrieljames.me"
+                      "demo":  "https://xenia.gabrieljames.dev"
                   },
         "screenshots":  "projects/xenia",
         "lastUpdated":  "2025-12-24",
@@ -457,7 +457,7 @@
                      ],
         "links":  {
                       "code":  "https://github.com/gabsgj/athenis",
-                      "demo":  "https://athenis.gabrieljames.me",
+                      "demo":  "https://athenis.gabrieljames.dev",
                       "video":  "#"
                   },
         "screenshots":  "projects/athenis",
@@ -561,7 +561,7 @@
                     },
         "links":  {
                       "code":  "https://github.com/gabsgj/Baum-Welch-Algorithm",
-                      "demo":  "https://bwa.gabrieljames.me/"
+                      "demo":  "https://bwa.gabrieljames.dev/"
                   },
         "screenshots":  "projects/baum-welch-algorithm",
         "lastUpdated":  "2026-02-22",
@@ -961,7 +961,7 @@
                              },
         "links":  {
                       "code":  "https://github.com/gabsgj/K-Means-Image-Compressor",
-                      "demo":  "https://imagecompressor.gabrieljames.me"
+                      "demo":  "https://imagecompressor.gabrieljames.dev"
                   },
         "screenshots":  "projects/imagecompressorusingkmeans",
         "lastUpdated":  "2026-01-24",
@@ -1231,7 +1231,7 @@
                          },
         "links":  {
                       "code":  "https://github.com/gabrieljames/valuefind",
-                      "demo":  "https://valuefind.gabrieljames.me",
+                      "demo":  "https://valuefind.gabrieljames.dev",
                       "video":  "https://drive.google.com/file/d/1g66qXfDMcZwWRJsuXsbyAznd8S506FJd/view"
                   },
         "screenshots":  "projects/ValueFind",
@@ -1650,7 +1650,7 @@
                      },
         "links":  {
                       "code":  "https://github.com/gabsgj/online-bookstore/",
-                      "demo":  "https://bookstore.gabrieljames.me"
+                      "demo":  "https://bookstore.gabrieljames.dev"
                   },
         "screenshots":  "projects/online-bookstore",
         "lastUpdated":  "2025-12-28",
